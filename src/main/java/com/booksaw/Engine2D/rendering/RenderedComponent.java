@@ -4,16 +4,17 @@ import java.awt.Graphics;
 
 /**
  * This class is used for all objects which are drawn, this means that the
- * render code will be called within them
+ * render code will be called within them. Comparable is implemented to make
+ * sorting of the priority list, much simpler
  * 
  * @author booksaw
  *
  */
-public abstract class RenderedComponent {
+public abstract class RenderedComponent implements Comparable<RenderedComponent> {
 
 	/**
-	 * This is the priority at which the object is rendered. 1-INT_MAX, the lower
-	 * the priority the earlier it is rendered (higher priority brings items to the
+	 * This is the priority at which the object is rendered. 0-99, the lower the
+	 * priority the earlier it is rendered (higher priority brings items to the
 	 * front)
 	 */
 	private int priority = 1;
@@ -33,6 +34,14 @@ public abstract class RenderedComponent {
 	 */
 	public int getPriority() {
 		return priority;
+	}
+
+	/**
+	 * Used when ordering the priority of components
+	 */
+	@Override
+	public int compareTo(RenderedComponent o) {
+		return priority < o.getPriority() ? -1 : priority > o.getPriority() ? 1 : 0;
 	}
 
 }
