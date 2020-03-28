@@ -25,7 +25,7 @@ public abstract class RenderedComponent implements Comparable<RenderedComponent>
 	 * 
 	 * @param graphics the graphics component of the window
 	 */
-	public abstract void draw(Graphics graphics);
+	public abstract void paint(Graphics graphics);
 
 	/**
 	 * Simple getter method to get the priority of the rendered component
