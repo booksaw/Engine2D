@@ -1,7 +1,8 @@
-package main.java.com.booksaw.Engine2D;
+package main.java.com.booksaw.Engine2D.rendering;
 
 import javax.swing.JFrame;
 
+import main.java.com.booksaw.Engine2D.CONFIG;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 
@@ -52,6 +53,22 @@ public class Engine2DFrame {
 
 		// displaying the frame
 		gameFrame.setVisible(show);
+
+	}
+
+	public static void reRender() {
+		gameFrame.repaint();
+	}
+
+	/**
+	 * Used to set the render manager of the active game
+	 * 
+	 * @param manager the manager of the running game
+	 */
+	public static void setActiveRender(RenderManager manager) {
+
+		gameFrame.add(manager);
+		Logger.Log(LogType.INFO, "Setting the active RenderManager to " + manager);
 
 	}
 

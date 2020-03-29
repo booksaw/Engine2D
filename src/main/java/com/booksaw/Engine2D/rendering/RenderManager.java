@@ -1,4 +1,4 @@
-package main.java.com.booksaw.Engine2D;
+package main.java.com.booksaw.Engine2D.rendering;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
+import main.java.com.booksaw.Engine2D.GameManager;
 
 /**
  * This is the class which will control rendering for game windows
@@ -20,7 +20,7 @@ public class RenderManager extends JPanel {
 	private static final long serialVersionUID = 5739247288558689630L;
 
 	// TODO
-	public RenderManager() {
+	public RenderManager(GameManager manager) {
 
 	}
 
