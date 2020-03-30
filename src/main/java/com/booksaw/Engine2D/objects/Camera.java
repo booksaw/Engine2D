@@ -8,7 +8,7 @@ package main.java.com.booksaw.Engine2D.objects;
  */
 public class Camera {
 
-	public int x, y, width, height;
+	public int x, y, width, height, scale;
 
 	/**
 	 * This constructor takes basic location information to use during rendering.
@@ -25,6 +25,7 @@ public class Camera {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		scale = 1;
 	}
 
 }
