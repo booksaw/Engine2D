@@ -3,6 +3,7 @@ package main.java.com.booksaw.Engine2D.rendering;
 import javax.swing.JFrame;
 
 import main.java.com.booksaw.Engine2D.CONFIG;
+import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 
@@ -35,7 +36,7 @@ public class Engine2DFrame {
 		gameFrame.setName(CONFIG.NAME);
 		gameFrame.setSize(width, height);
 		gameFrame.setLocationRelativeTo(null);
-
+		gameFrame.addKeyListener(new KeyboardManager());
 	}
 
 	/**
