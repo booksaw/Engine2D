@@ -1,6 +1,8 @@
-package main.java.com.booksaw.Engine2D.rendering;
+package main.java.com.booksaw.Engine2D.rendering.models;
 
 import java.awt.Graphics;
+
+import main.java.com.booksaw.Engine2D.GameManager;
 
 /**
  * This class is used for all objects which are drawn, this means that the
@@ -25,7 +27,7 @@ public abstract class RenderedComponent implements Comparable<RenderedComponent>
 	 * 
 	 * @param graphics the graphics component of the window
 	 */
-	public abstract void paint(Graphics graphics);
+	public abstract void paint(Graphics graphics, GameManager manager);
 
 	/**
 	 * Simple getter method to get the priority of the rendered component

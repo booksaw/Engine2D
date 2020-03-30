@@ -1,5 +1,6 @@
 package main.java.com.booksaw.Engine2D;
 
+import main.java.com.booksaw.Engine2D.objects.Camera;
 import main.java.com.booksaw.Engine2D.rendering.Engine2DFrame;
 import main.java.com.booksaw.Engine2D.rendering.RenderClock;
 import main.java.com.booksaw.Engine2D.rendering.RenderManager;
@@ -26,6 +27,11 @@ public abstract class GameManager {
 	private RenderClock clock;
 
 	/**
+	 * The camera controlling the viewport
+	 */
+	public Camera camera;
+
+	/**
 	 * This stores the object which manages all information for the game
 	 */
 	protected RenderManager renderManager;
@@ -39,13 +45,15 @@ public abstract class GameManager {
 		rendering = false;
 		clock = new RenderClock(this);
 		renderManager = new RenderManager(this);
+		// TODO need to make more specific for different camera dimensions
+		camera = new Camera(0, 0, 700, 400);
 
 		// the specific game setup
 		initScreen();
 	}
 
 	/**
-	 * This method is run when the game manager is initally created, and should be
+	 * This method is run when the game manager is initially created, and should be
 	 * used to setup the level as seen appropriate
 	 */
 	public abstract void initScreen();
@@ -53,7 +61,7 @@ public abstract class GameManager {
 	/**
 	 * Checks if this game is rendering
 	 * 
-	 * @return true if the game is activly rendering
+	 * @return true if the game is actively rendering
 	 */
 	public boolean isRendering() {
 		return rendering;

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import main.java.com.booksaw.Engine2D.GameManager;
+import main.java.com.booksaw.Engine2D.rendering.models.RenderedComponent;
 
 /**
  * This is the class which will control rendering for game windows
@@ -19,9 +20,16 @@ public class RenderManager extends JPanel {
 
 	private static final long serialVersionUID = 5739247288558689630L;
 
-	// TODO
-	public RenderManager(GameManager manager) {
+	private GameManager manager;
 
+	/**
+	 * Used to store the game manager, so it can be accessed by all rendered
+	 * components
+	 * 
+	 * @param manager the game manager associated with this object
+	 */
+	public RenderManager(GameManager manager) {
+		this.manager = manager;
 	}
 
 	/**
@@ -70,7 +78,7 @@ public class RenderManager extends JPanel {
 
 		// rendering each component in turn
 		for (RenderedComponent component : components) {
-			component.paint(g);
+			component.paint(g, manager);
 		}
 
 	}
