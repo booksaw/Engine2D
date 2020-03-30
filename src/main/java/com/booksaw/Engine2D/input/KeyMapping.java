@@ -14,10 +14,10 @@ public class KeyMapping {
 	/**
 	 * The reference for the trigger
 	 */
-	public String reference;
+	public String reference, description = "placeholder";
 
 	/**
-	 * A hashmap of keys which trigger the reference to be activated along with if
+	 * A HashMap of keys which trigger the reference to be activated along with if
 	 * they are pressed or not
 	 */
 	public List<Integer> keys;
@@ -37,6 +37,20 @@ public class KeyMapping {
 		this.reference = reference;
 		this.keys = keys;
 
+	}
+
+	/**
+	 * Used to create a new key mapping with its trigger
+	 * 
+	 * @param reference   the reference which is updated when the trigger is
+	 *                    activated
+	 * @param keys        the list of key references which activate this trigger
+	 * @param description a description of what the key does, can be useful for
+	 *                    creating key mapping GUIs
+	 */
+	public KeyMapping(String reference, List<Integer> keys, String description) {
+		this(reference, keys);
+		this.description = description;
 	}
 
 	/**
@@ -92,6 +106,10 @@ public class KeyMapping {
 	 */
 	public void purge() {
 		pressed = 0;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 }

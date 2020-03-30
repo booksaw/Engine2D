@@ -53,6 +53,17 @@ public class KeyboardManager implements KeyListener {
 		keyMappings = new HashMap<>();
 	}
 
+	/**
+	 * Used to clear all pressed keys (every key will need removing and re-pressing
+	 * for it to be activated)
+	 */
+	public void purge() {
+		// purging all individual 
+		for (Entry<String, KeyMapping> temp : keyMappings.entrySet()) {
+			temp.getValue().purge();
+		}
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// unneeded, as pressed and released cover all needs required
@@ -61,16 +72,16 @@ public class KeyboardManager implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// updating the key mappings
-		for (Entry<String, KeyMapping> tempString : keyMappings.entrySet()) {
-			tempString.getValue().pressed(e.getKeyCode());
+		for (Entry<String, KeyMapping> temp : keyMappings.entrySet()) {
+			temp.getValue().pressed(e.getKeyCode());
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// updating the key mappings
-		for (Entry<String, KeyMapping> tempString : keyMappings.entrySet()) {
-			tempString.getValue().released(e.getKeyCode());
+		for (Entry<String, KeyMapping> temp : keyMappings.entrySet()) {
+			temp.getValue().released(e.getKeyCode());
 		}
 	}
 
