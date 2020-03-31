@@ -58,7 +58,7 @@ public class KeyboardManager implements KeyListener {
 	 * for it to be activated)
 	 */
 	public void purge() {
-		// purging all individual 
+		// purging all individual
 		for (Entry<String, KeyMapping> temp : keyMappings.entrySet()) {
 			temp.getValue().purge();
 		}
@@ -83,6 +83,16 @@ public class KeyboardManager implements KeyListener {
 		for (Entry<String, KeyMapping> temp : keyMappings.entrySet()) {
 			temp.getValue().released(e.getKeyCode());
 		}
+	}
+
+	/**
+	 * Used to check if a trigger has been activated
+	 * 
+	 * @param reference
+	 * @return
+	 */
+	public boolean isActive(String reference) {
+		return keyMappings.get(reference).isPressed();
 	}
 
 }
