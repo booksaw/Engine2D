@@ -38,11 +38,11 @@ public class Logger {
 	public static void Log(LogType type, String message) {
 		if (minimumToLog.getLevel() <= type.getLevel()) {
 			if (!locate)
-				System.out.printf("[%s] %s", type.toString(), message);
+				System.out.printf("[%s] %s\n", type.toString(), message);
 			else {
 				// used to trace where the call has come from
 				StackTraceElement ele = Thread.currentThread().getStackTrace()[2];
-				System.out.printf("[%s] %s (%s, %d)", type.toString(), message, ele.getClassName(),
+				System.out.printf("[%s] %s (%s, %d)\n", type.toString(), message, ele.getClassName(),
 						ele.getLineNumber());
 			}
 		}
