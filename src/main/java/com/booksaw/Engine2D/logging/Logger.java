@@ -26,7 +26,7 @@ public class Logger {
 	 * @param message
 	 */
 	public static void Log(String message) {
-
+		Log(LogType.INFO, message);
 	}
 
 	/**
