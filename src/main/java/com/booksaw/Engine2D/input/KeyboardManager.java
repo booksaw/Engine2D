@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import main.java.com.booksaw.Engine2D.logging.Logger;
+
 /**
  * this is used to track which keys are pressed at any given point
  * 

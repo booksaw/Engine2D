@@ -1,6 +1,8 @@
 package main.java.com.booksaw.Engine2D.input;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * This is used to add a key mapping within your game, this links each action
@@ -20,7 +22,7 @@ public class KeyMapping {
 	 * A HashMap of keys which trigger the reference to be activated along with if
 	 * they are pressed or not
 	 */
-	public List<Integer> keys;
+	public HashMap<Integer, Boolean> keys;
 
 	/**
 	 * Used to track if this mapping is active
@@ -35,7 +37,12 @@ public class KeyMapping {
 	 */
 	public KeyMapping(String reference, List<Integer> keys) {
 		this.reference = reference;
-		this.keys = keys;
+		this.keys = new HashMap<>();
+
+		// populating the hashmap
+		for (Integer temp : keys) {
+			this.keys.put(temp, false);
+		}
 
 	}
 
@@ -69,10 +76,14 @@ public class KeyMapping {
 	 */
 	public void pressed(Integer reference) {
 		// looping through all references
-		for (Integer temp : keys) {
+		for (Entry<Integer, Boolean> temp : keys.entrySet()) {
 			// increasing the trigger count
-			if (temp == reference) {
-				pressed++;
+			if (temp.getKey() == reference) {
+				// checking if it is not a repeat call
+				if (temp.getValue() == false) {
+					temp.setValue(true);
+					pressed++;
+				}
 				// returning as the same key should not be included twice
 				return;
 			}
@@ -87,11 +98,12 @@ public class KeyMapping {
 	 */
 	public void released(Integer reference) {
 		// looping through all references
-		for (Integer temp : keys) {
-			if (reference == temp) {
+		for (Entry<Integer, Boolean> temp : keys.entrySet()) {
+			if (reference == temp.getKey()) {
 				// reducing the trigger count
 				if (pressed > 0) {
 					pressed--;
+					temp.setValue(false);
 					// returning as the same key should not be included twice
 					return;
 				}
@@ -106,10 +118,52 @@ public class KeyMapping {
 	 */
 	public void purge() {
 		pressed = 0;
+		for (Entry<Integer, Boolean> temp : keys.entrySet()) {
+			temp.setValue(false);
+		}
 	}
 
+	/**
+	 * Used to get the description of the key trigger
+	 * 
+	 * @return the description of the key trigger
+	 */
 	public String getDescription() {
 		return description;
+	}
+
+	/**
+	 * Used to set the description of the key
+	 * 
+	 * @param description the new description of the key trigger
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * Used to add a key to listen for
+	 * 
+	 * @param key the key to listen for
+	 */
+	public void addKey(Integer key) {
+		keys.put(key, false);
+	}
+
+	/**
+	 * Used to remove a specific key
+	 * 
+	 * @param key the key to remove
+	 */
+	public void removeKey(Integer key) {
+		keys.remove(key);
+	}
+
+	/**
+	 * Used to clear all loaded keys
+	 */
+	public void clearKeys() {
+		keys = new HashMap<>();
 	}
 
 }
