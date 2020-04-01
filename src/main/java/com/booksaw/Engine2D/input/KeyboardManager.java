@@ -2,8 +2,15 @@ package main.java.com.booksaw.Engine2D.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map.Entry;
+
+import main.java.com.booksaw.Engine2D.logging.LogType;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 
 /**
  * this is used to track which keys are pressed at any given point
@@ -93,6 +100,69 @@ public class KeyboardManager implements KeyListener {
 	 */
 	public boolean isActive(String reference) {
 		return keyMappings.get(reference).isPressed();
+	}
+
+	/**
+	 * Used to save all current key mappings to the specified file
+	 * 
+	 * @param file the file to save the key mappings to (anything inside will be
+	 *             overwritten)
+	 */
+	public void save(File file) {
+
+		// checking if the file exists
+		if (!file.exists()) {
+			Logger.Log(LogType.ERROR, "Tried to save KeyMappings but the file provided did not exist");
+			return;
+		}
+
+		// making the print writer
+		try {
+			PrintWriter pw = new PrintWriter(file);
+
+			for (Entry<String, KeyMapping> temp : keyMappings.entrySet()) {
+				// toString returns the values in a string format
+				pw.println(temp.getValue().toString());
+			}
+
+			pw.close();
+		} catch (Exception e) {
+			Logger.Log(LogType.ERROR, "Tried to save KeyMappings but an error occurred");
+			return;
+		}
+
+	}
+
+	/**
+	 * Used to load a set of key mappings from the specified file
+	 * 
+	 * @param file the file in which the key mappings are stored in
+	 */
+	public void load(File file) {
+		// checking if the file exists
+		if (!file.exists()) {
+			Logger.Log(LogType.ERROR, "Tried to save KeyMappings but the file provided did not exist");
+			return;
+		}
+
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			String line = "";
+
+			// looping through every line
+			while ((line = reader.readLine()) != null) {
+				KeyMapping mapping = new KeyMapping(line);
+				keyMappings.put(mapping.getReference(), mapping);
+			}
+
+			reader.close();
+
+		} catch (Exception e) {
+			Logger.Log(LogType.ERROR, "Tried to save KeyMappings but an error occurred");
+			return;
+
+		}
+
 	}
 
 }

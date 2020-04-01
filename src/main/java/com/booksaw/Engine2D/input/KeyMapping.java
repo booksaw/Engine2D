@@ -61,6 +61,26 @@ public class KeyMapping {
 	}
 
 	/**
+	 * Used to load from the file version of the key mapping
+	 * 
+	 * @param info the line in the text file
+	 */
+	public KeyMapping(String info) {
+		String[] split = info.split(":");
+		this.reference = split[0];
+		this.description = split[2];
+
+		// loading the keys
+		this.keys = new HashMap<>();
+
+		String[] keys = split[1].split(",");
+		for (String temp : keys) {
+			this.keys.put(Integer.parseInt(temp), false);
+		}
+
+	}
+
+	/**
 	 * Returns if any of the provided keys are pressed
 	 * 
 	 * @return if this trigger is pressed
@@ -164,6 +184,27 @@ public class KeyMapping {
 	 */
 	public void clearKeys() {
 		keys = new HashMap<>();
+	}
+
+	@Override
+	public String toString() {
+		String keyOut = "";
+		for (Entry<Integer, Boolean> temp : keys.entrySet()) {
+			keyOut = keyOut + temp.getKey() + ",";
+		}
+		// removing the final ,
+		keyOut = keyOut.substring(0, keyOut.length() - 1);
+
+		return reference + ":" + keyOut + ":" + description;
+	}
+
+	/**
+	 * Used to get the reference for this set of keys
+	 * 
+	 * @return the reference for this set of keys
+	 */
+	public String getReference() {
+		return reference;
 	}
 
 }
