@@ -1,8 +1,13 @@
 package main.java.com.booksaw.Engine2D.rendering;
 
+import java.awt.Dimension;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+
 import javax.swing.JFrame;
 
 import main.java.com.booksaw.Engine2D.CONFIG;
+import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
@@ -13,7 +18,7 @@ import main.java.com.booksaw.Engine2D.logging.Logger;
  * @author booksaw
  *
  */
-public class Engine2DFrame {
+public class Engine2DFrame implements ComponentListener {
 
 	/**
 	 * The game is contained within this JFrame
@@ -37,6 +42,9 @@ public class Engine2DFrame {
 		gameFrame.setSize(width, height);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.addKeyListener(new KeyboardManager());
+
+		// used to detect when the frame is resized
+		gameFrame.addComponentListener(new Engine2DFrame());
 	}
 
 	/**
@@ -62,13 +70,27 @@ public class Engine2DFrame {
 	}
 
 	/**
+	 * Used to store the game manager, used to notify the game manager about
+	 * resizing and minimising
+	 */
+	private static GameManager gameManager;
+
+	/**
 	 * Used to set the render manager of the active game
 	 * 
 	 * @param manager the manager of the running game
 	 */
-	public static void setActiveRender(RenderManager manager) {
-		gameFrame.add(manager);
-		Logger.Log(LogType.INFO, "Setting the active RenderManager to " + manager);
+	public static void setActiveRender(GameManager manager) {
+
+		// TODO remove previous renderManagers
+
+		// adding the new game manager
+		gameFrame.add(manager.getRenderManager());
+
+		// storing the manager
+		gameManager = manager;
+
+		Logger.Log(LogType.INFO, "Setting the rendering GameManager to " + manager);
 
 	}
 
@@ -81,6 +103,31 @@ public class Engine2DFrame {
 	public static void setSize(int width, int height) {
 
 		gameFrame.setSize(width, height);
+
+	}
+
+	@Override
+	public void componentResized(ComponentEvent e) {
+
+		// checking if the camera is valid first
+		if (gameManager != null && gameManager.camera != null) {
+			Dimension dimension = e.getComponent().getSize();
+			gameManager.camera.resize(dimension.width, dimension.height);
+			Logger.Log(LogType.INFO, "Window has been resized");
+		}
+	}
+
+	@Override
+	public void componentMoved(ComponentEvent e) {
+	}
+
+	@Override
+	public void componentShown(ComponentEvent e) {
+	}
+
+	@Override
+	public void componentHidden(ComponentEvent e) {
+		// TODO Auto-pause game?
 
 	}
 

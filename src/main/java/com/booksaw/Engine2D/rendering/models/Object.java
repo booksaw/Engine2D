@@ -3,6 +3,7 @@ package main.java.com.booksaw.Engine2D.rendering.models;
 import java.awt.Graphics;
 
 import main.java.com.booksaw.Engine2D.GameManager;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 
 /**
  * This is used for any objects within the world, this means the rendering call
@@ -30,6 +31,7 @@ public abstract class Object extends RenderedComponent {
 		// TODO only render the object if it is on the camera
 
 		// calling the abstract method
+		Logger.Log("printing");
 		paint(graphics, manager, renderedX, renderedY, renderedWidth, renderedHeight);
 	}
 

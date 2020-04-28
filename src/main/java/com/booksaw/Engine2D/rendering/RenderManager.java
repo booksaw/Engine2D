@@ -78,7 +78,6 @@ public class RenderManager extends JPanel {
 	 */
 	@Override
 	public void paint(Graphics g) {
-
 		// rendering each component in turn
 		for (RenderedComponent component : components) {
 			component.paint(g, manager);

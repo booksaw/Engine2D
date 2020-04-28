@@ -79,7 +79,7 @@ public abstract class GameManager {
 
 		if (rendering) {
 			// setting the frame to display the correct content
-			Engine2DFrame.setActiveRender(renderManager);
+			Engine2DFrame.setActiveRender(this);
 		}
 
 	}
