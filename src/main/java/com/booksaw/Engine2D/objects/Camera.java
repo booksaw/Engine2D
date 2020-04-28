@@ -1,7 +1,5 @@
 package main.java.com.booksaw.Engine2D.objects;
 
-import main.java.com.booksaw.Engine2D.logging.Logger;
-
 /**
  * This is the class which tracks the location and graphics of the camera
  * 

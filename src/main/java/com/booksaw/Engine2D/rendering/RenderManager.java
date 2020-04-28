@@ -1,5 +1,6 @@
 package main.java.com.booksaw.Engine2D.rendering;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,5 +84,22 @@ public class RenderManager extends JPanel {
 			component.paint(g, manager);
 		}
 
+		// adding black bars to cover up the offset (adding 5 for any slight rounding
+		// error during calculations)
+		g.setColor(Color.BLACK);
+		if (manager.camera.offsetY != 0) {
+			// top bar
+			g.fillRect(0, 0, manager.camera.width + 5, manager.camera.offsetY);
+			// bottom bar
+			g.fillRect(0, manager.camera.height + manager.camera.offsetY, manager.camera.width + 5,
+					manager.camera.offsetY + 5);
+
+		} else if (manager.camera.offsetX != 0) {
+			// left bar
+			g.fillRect(0, 0, manager.camera.offsetX, manager.camera.height + 5);
+			// right bar
+			g.fillRect(manager.camera.width + manager.camera.offsetX, 0, manager.camera.offsetX + 5,
+					manager.camera.height + 5);
+		}
 	}
 }
