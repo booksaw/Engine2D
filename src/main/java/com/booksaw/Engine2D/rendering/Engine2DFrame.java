@@ -72,4 +72,16 @@ public class Engine2DFrame {
 
 	}
 
+	/**
+	 * Used to set the size of the JFrame
+	 * 
+	 * @param width  the new width of the jframe
+	 * @param height the new height of the jframe
+	 */
+	public static void setSize(int width, int height) {
+
+		gameFrame.setSize(width, height);
+
+	}
+
 }

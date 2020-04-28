@@ -19,12 +19,13 @@ public abstract class Object extends RenderedComponent {
 	@Override
 	public void paint(Graphics graphics, GameManager manager) {
 
-		int renderedX = (x - manager.camera.x) / manager.camera.scale;
+		int renderedX = (int) ((x - manager.camera.x) * manager.camera.scale) + manager.camera.offsetX;
 		// moving from y = 0 at the bottom of the screen to y = 0 being the top
-		int renderedY = manager.camera.height - ((y - manager.camera.y) / manager.camera.scale);
+		int renderedY = (int) (manager.camera.height - ((y - manager.camera.y) * manager.camera.scale))
+				+ manager.camera.offsetY;
 
-		int renderedWidth = width / manager.camera.scale;
-		int renderedHeight = height / manager.camera.scale;
+		int renderedWidth = (int) (width * manager.camera.scale);
+		int renderedHeight = (int) (height * manager.camera.scale);
 
 		// TODO only render the object if it is on the camera
 

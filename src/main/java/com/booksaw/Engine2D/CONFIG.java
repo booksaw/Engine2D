@@ -13,4 +13,5 @@ public class CONFIG {
 	 * This is the name of the project (used for the JFrame name and more)
 	 */
 	public static String NAME = "Example Name";
+
 }

@@ -46,7 +46,7 @@ public abstract class GameManager {
 		clock = new RenderClock(this);
 		renderManager = new RenderManager(this);
 		// TODO need to make more specific for different camera dimensions
-		camera = new Camera(0, 0, 700, 400);
+		camera = new Camera(0, 0, 700, 400, 700, 400);
 
 		// the specific game setup
 		initScreen();
