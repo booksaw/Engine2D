@@ -45,7 +45,6 @@ public class Camera {
 		// calculating the height using the aspect ratio
 		this.height = (int) (width * ((double) preferredHeight / preferredWidth));
 
-		Logger.Log(this.height + " = height");
 		// checking the height is not too great
 		if (this.height > height) {
 			// changing the dimensions so height is the leading dimension
@@ -56,17 +55,16 @@ public class Camera {
 			// calculating the scale
 			scale = (double) width / preferredWidth;
 			// calculating the offset
-			offsetX = 0;
-			offsetY = (height - this.height) / 2;
+			offsetY = 0;
+			offsetX = ((width - this.width) / 2);
 		} else {
 			// calculating the scale
 			scale = (double) height / preferredHeight;
 			// calculating the offset
-			offsetY = 0;
-			offsetX = (width - this.width) / 2;
+			offsetX = 0;
+			offsetY = (int) ((double) (height - this.height) / 2);
 
 		}
-
 	}
 
 }
