@@ -42,36 +42,30 @@ public class Camera {
 	 */
 	public void resize(int width, int height) {
 		this.width = width;
-
 		// calculating the height using the aspect ratio
-		this.height = Math.round(width * (preferredHeight / preferredWidth));
+		this.height = (int) (width * ((double) preferredHeight / preferredWidth));
 
+		Logger.Log(this.height + " = height");
 		// checking the height is not too great
 		if (this.height > height) {
 			// changing the dimensions so height is the leading dimension
 			this.height = height;
 			// calculating the width using the correct apsect ratio
-			this.width = Math.round(height * (preferredWidth / preferredWidth));
+			this.width = (int) (height * ((double) preferredWidth / preferredHeight));
 
 			// calculating the scale
-			scale = width / preferredWidth;
+			scale = (double) width / preferredWidth;
 			// calculating the offset
 			offsetX = 0;
 			offsetY = (height - this.height) / 2;
 		} else {
 			// calculating the scale
-			scale = height / preferredHeight;
+			scale = (double) height / preferredHeight;
 			// calculating the offset
 			offsetY = 0;
 			offsetX = (width - this.width) / 2;
 
 		}
-
-		Logger.Log("scale = " + scale);
-
-		Logger.Log("x = " + offsetX);
-
-		Logger.Log("y = " + offsetY);
 
 	}
 
