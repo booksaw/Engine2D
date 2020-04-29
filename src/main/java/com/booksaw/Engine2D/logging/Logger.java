@@ -18,7 +18,7 @@ public class Logger {
 	 * This can be used to locate logs which are no longer required (each log prints
 	 * its caller location)
 	 */
-	public static boolean locate = false;
+	public static boolean locate = true;
 
 	/**
 	 * Used to create non-permanent debug logs quickly
@@ -41,7 +41,7 @@ public class Logger {
 				System.out.printf("[%s] %s\n", type.toString(), message);
 			else {
 				// used to trace where the call has come from
-				StackTraceElement ele = Thread.currentThread().getStackTrace()[2];
+				StackTraceElement ele = Thread.currentThread().getStackTrace()[3];
 				System.out.printf("[%s] %s (%s, %d)\n", type.toString(), message, ele.getClassName(),
 						ele.getLineNumber());
 			}
