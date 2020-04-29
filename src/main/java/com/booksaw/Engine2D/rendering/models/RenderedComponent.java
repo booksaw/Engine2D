@@ -7,7 +7,10 @@ import main.java.com.booksaw.Engine2D.GameManager;
 /**
  * This class is used for all objects which are drawn, this means that the
  * render code will be called within them. Comparable is implemented to make
- * sorting of the priority list, much simpler
+ * sorting of the priority list, much simpler. NOTE: It is not recommended to
+ * ever use this class, but instead use a sub class, as this class does not take
+ * into account the offset of the camera. Anything outside of the camera offset
+ * will be hidden!!
  * 
  * @author booksaw
  *
