@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
+import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 
 /**
  * Less primitive class, used to display objects which have a location somewhere
@@ -14,9 +15,15 @@ import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
  */
 public class ImageObject extends Object implements Updateable {
 
+	protected AnimationManager animationManager;
+
+	public ImageObject(AnimationManager manager) {
+		this.animationManager = manager;
+	}
+
 	@Override
 	public void paint(Graphics graphics, GameManager manager, int x, int y, int width, int height) {
-		// TODO use animation class to render
+		animationManager.paint(graphics, x, y, width, height);
 	}
 
 	@Override

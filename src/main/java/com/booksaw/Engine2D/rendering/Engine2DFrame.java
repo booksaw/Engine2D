@@ -59,10 +59,8 @@ public class Engine2DFrame implements ComponentListener {
 			Logger.Log(LogType.ERROR, "Frame cannot be displayed before it has been initilized");
 			return;
 		}
-
 		// displaying the frame
 		gameFrame.setVisible(show);
-
 	}
 
 	public static void reRender() {
@@ -81,12 +79,9 @@ public class Engine2DFrame implements ComponentListener {
 	 * @param manager the manager of the running game
 	 */
 	public static void setActiveRender(GameManager manager) {
-
-		// TODO remove previous renderManagers
-
 		// adding the new game manager
-		gameFrame.add(manager.getRenderManager());
-
+		gameFrame.setContentPane(manager.getRenderManager());
+		gameFrame.validate();
 		// storing the manager
 		gameManager = manager;
 
@@ -112,6 +107,8 @@ public class Engine2DFrame implements ComponentListener {
 		// checking if the camera is valid first
 		if (gameManager != null && gameManager.camera != null) {
 			Dimension dimension = e.getComponent().getSize();
+			// TODO correct diemsion without just adding 5
+			dimension.setSize(dimension.getWidth() + 20, dimension.getHeight() + 20);
 			gameManager.camera.resize(dimension.width, dimension.height);
 			Logger.Log(LogType.INFO, "Window has been resized");
 		}

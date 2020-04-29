@@ -83,7 +83,6 @@ public class AnimationManager {
 		// not doing null checks as will slow down rendering process, and an error
 		// message has already been provided to the user if the selected animation is
 		// null
-
 		graphics.drawImage(animation.image, x, y - height, x + width, y, 0, (frameNumber * animation.frameHeight),
 				animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
 	}
