@@ -14,4 +14,9 @@ public class CONFIG {
 	 */
 	public static String NAME = "Example Name";
 
+	/**
+	 * This is the time of each game tick in milliseconds
+	 */
+	public static int tickLength = 50;
+
 }

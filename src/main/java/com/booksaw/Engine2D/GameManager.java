@@ -60,7 +60,7 @@ public abstract class GameManager {
 
 		rendering = false;
 		renderClock = new RenderClock(this);
-		updateClock = new UpdateClock(50, this);
+		updateClock = new UpdateClock(CONFIG.tickLength, this);
 
 		renderManager = new RenderManager(this);
 		// TODO need to make more specific for different camera dimensions
