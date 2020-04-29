@@ -52,6 +52,7 @@ public class Animation {
 		this.reference = reference;
 		this.frameCount = frameCount;
 		this.frameHeight = image.getHeight() / frameCount;
+		this.timeGap = timeGap;
 	}
 
 	/**

@@ -99,6 +99,7 @@ public class AnimationManager {
 	 * @param the number of ticks since last update
 	 */
 	public void update(int time) {
+
 		if (!updateSpecificAnimation) {
 			return;
 		}
@@ -114,7 +115,7 @@ public class AnimationManager {
 			ticksOnAnimation -= animation.timeGap;
 
 			// checking if it needs to loop
-			if (frameNumber > animation.frameCount) {
+			if (frameNumber == animation.frameCount) {
 				frameNumber = 0;
 			}
 
@@ -166,6 +167,9 @@ public class AnimationManager {
 		ticksOnAnimation = 0;
 		activeAnimation = reference;
 
+		// checking if update needs changing
+		updateSpecificAnimation = (animations.get(activeAnimation).frameCount == 1
+				|| animations.get(activeAnimation).timeGap < 1) ? false : updateAnimation;
 	}
 
 	/**

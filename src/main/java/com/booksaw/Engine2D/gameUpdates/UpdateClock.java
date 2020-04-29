@@ -41,7 +41,6 @@ public class UpdateClock extends Clock {
 		}
 
 		int difference = (int) (System.currentTimeMillis() - previousUpdate);
-
 		manager.update(difference / delay);
 
 		previousUpdate = System.currentTimeMillis();
