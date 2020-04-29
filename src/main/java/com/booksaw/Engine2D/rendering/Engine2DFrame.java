@@ -3,6 +3,8 @@ package main.java.com.booksaw.Engine2D.rendering;
 import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 
@@ -18,7 +20,7 @@ import main.java.com.booksaw.Engine2D.logging.Logger;
  * @author booksaw
  *
  */
-public class Engine2DFrame implements ComponentListener {
+public class Engine2DFrame implements ComponentListener, WindowListener {
 
 	/**
 	 * The game is contained within this JFrame
@@ -45,6 +47,7 @@ public class Engine2DFrame implements ComponentListener {
 
 		// used to detect when the frame is resized
 		gameFrame.addComponentListener(new Engine2DFrame());
+		gameFrame.addWindowListener(new Engine2DFrame());
 	}
 
 	/**
@@ -124,6 +127,36 @@ public class Engine2DFrame implements ComponentListener {
 	public void componentHidden(ComponentEvent e) {
 		// TODO Auto-pause game?
 
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		Logger.Log(LogType.INFO, "Program closing...");
+		Logger.close(); 
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
 	}
 
 }

@@ -1,0 +1,4 @@
+// This file is used to monitor the config settings, the layout (which setting is on which line is important) the order is: minimum log type, locate, write to file 
+INFO
+FALSE
+TRUE
