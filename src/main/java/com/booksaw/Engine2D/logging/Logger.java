@@ -18,7 +18,7 @@ public class Logger {
 	 * This can be used to locate logs which are no longer required (each log prints
 	 * its caller location)
 	 */
-	public static boolean locate = true;
+	public static boolean locate = false;
 
 	/**
 	 * Used to create non-permanent debug logs quickly

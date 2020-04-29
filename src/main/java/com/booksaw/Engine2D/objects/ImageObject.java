@@ -30,7 +30,7 @@ public class ImageObject extends Object implements Updateable {
 	public void update(int time) {
 		// IF YOU OVERRIDE THIS METHOD, DO NOT FORGET TO RUN THE SUPER VERSION AS IT IS
 		// USED TO UPDATE THE ANIMATIONS
-		// TODO update animations
+		animationManager.update(time);
 	}
 
 }

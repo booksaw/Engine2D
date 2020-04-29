@@ -1,10 +1,8 @@
 package main.java.com.booksaw.Engine2D.rendering;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.Timer;
-
+import main.java.com.booksaw.Engine2D.Clock;
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
@@ -16,11 +14,9 @@ import main.java.com.booksaw.Engine2D.logging.Logger;
  * @author booksaw
  *
  */
-public class RenderClock implements ActionListener {
+public class RenderClock extends Clock {
 
 	private GameManager manager;
-	private Timer timer;
-	private boolean active = false;
 
 	/**
 	 * Used to create a new rendering clock
@@ -28,30 +24,8 @@ public class RenderClock implements ActionListener {
 	 * @param manager the game manager which the render clock is associated with
 	 */
 	public RenderClock(GameManager manager) {
-		timer = new Timer(1, this);
+		super(1);
 		this.manager = manager;
-	}
-
-	/**
-	 * 
-	 * @return if the rendering time is active
-	 */
-	public boolean isActive() {
-		return active;
-	}
-
-	/**
-	 * Sets if the rendering timer is active or not
-	 * 
-	 * @param active if the timer should be active
-	 */
-	public void setActive(boolean active) {
-		this.active = active;
-		if (active) {
-			timer.start();
-		} else {
-			timer.stop();
-		}
 	}
 
 	/**
