@@ -1,0 +1,3 @@
+engine2d.logging.logtofile:false:If the program should log the info to file (true) or console (false)
+engine2d.logging.locate:true:If the program should include the location of the logging call in the output
+engine2d.logging.minimumlogging:INFO:The minimum level of logging, INFO WARNING or ERROR (only use for debugging, when distributing leave on INFO) 

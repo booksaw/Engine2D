@@ -1,9 +1,9 @@
 package main.java.com.booksaw.Engine2D.logging;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.PrintStream;
+
+import main.java.com.booksaw.Engine2D.modifiers.ModifierManager;
 
 /**
  * This class is used for logging information about the progress of the program
@@ -30,42 +30,32 @@ public class Logger {
 	 * block is used to load the default settings from file
 	 */
 	static {
-		File f = new File("Engine2D" + File.separator + "logconfig");
 
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(f));
+		String info = ModifierManager.getModifier("engine2d.logging.minimumlogging").value;
+		switch (info.toUpperCase()) {
+		case "INFO":
+			minimumToLog = LogType.INFO;
+			break;
+		case "WARNING":
+			minimumToLog = LogType.WARNING;
+			break;
+		default:
+			minimumToLog = LogType.ERROR;
+		}
 
-			// first line is explanation
-			reader.readLine();
-			// second line is log minimum
-			String info = reader.readLine();
-			switch (info) {
-			case "INFO":
-				minimumToLog = LogType.INFO;
-				break;
-			case "WARNING":
-				minimumToLog = LogType.WARNING;
-				break;
-			default:
-				minimumToLog = LogType.ERROR;
-			}
-
-			// second line is if locate is on
-			locate = Boolean.parseBoolean(reader.readLine());
-			// third line is if the logger should write to file
-
-			boolean writeToFile = Boolean.parseBoolean(reader.readLine());
-			if (writeToFile) {
-				File file = new File("Engine2D" + File.separator + "log.log");
-
+		locate = Boolean.parseBoolean(ModifierManager.getModifier("engine2d.logging.locate").value);
+		boolean writeToFile = Boolean.parseBoolean(ModifierManager.getModifier("engine2d.logging.logtofile").value);
+		if (writeToFile) {
+			File file = new File("Engine2D" + File.separator + "log.log");
+			try {
 				if (!file.exists()) {
-					f.createNewFile();
+					file.createNewFile();
 				}
 				stream = new PrintStream(file);
 				System.setOut(stream);
+			} catch (Exception e) {
+				Log(LogType.ERROR, "Could not configure file printing, will use console");
 			}
-			reader.close();
-		} catch (Exception e) {
 		}
 	}
 
