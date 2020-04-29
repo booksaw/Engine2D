@@ -21,7 +21,7 @@ public abstract class Object extends RenderedComponent {
 	public void paint(Graphics graphics, GameManager manager) {
 
 		int renderedX = (int) ((x - manager.camera.x) * manager.camera.scale) + manager.camera.offsetX;
-		// moving from y = 0 at the bottom of the screen to y = 0 being the top
+		// moving from y = 0 at the top of the screen to y = 0 being the bottom
 		int renderedY = (int) (manager.camera.height - ((y - manager.camera.y) * manager.camera.scale))
 				+ manager.camera.offsetY;
 
