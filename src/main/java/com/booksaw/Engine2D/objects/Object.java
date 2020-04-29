@@ -1,9 +1,10 @@
-package main.java.com.booksaw.Engine2D.rendering.models;
+package main.java.com.booksaw.Engine2D.objects;
 
 import java.awt.Graphics;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.logging.Logger;
+import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
  * This is used for any objects within the world, this means the rendering call

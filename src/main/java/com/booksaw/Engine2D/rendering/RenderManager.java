@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
-import main.java.com.booksaw.Engine2D.rendering.models.RenderedComponent;
 
 /**
  * This is the class which will control rendering for game windows

@@ -1,4 +1,4 @@
-package main.java.com.booksaw.Engine2D.rendering.models;
+package main.java.com.booksaw.Engine2D.rendering;
 
 import java.awt.Graphics;
 

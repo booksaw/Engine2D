@@ -1,8 +1,9 @@
-package main.java.com.booksaw.Engine2D.rendering.models;
+package main.java.com.booksaw.Engine2D.objects;
 
 import java.awt.Graphics;
 
 import main.java.com.booksaw.Engine2D.GameManager;
+import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
  * This class is used to display anything which is not placed within the level
