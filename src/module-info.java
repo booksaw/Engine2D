@@ -4,6 +4,7 @@ module Engine2D {
 	exports main.java.com.booksaw.Engine2D.rendering;
 	exports main.java.com.booksaw.Engine2D.logging;
 	exports main.java.com.booksaw.Engine2D.rendering.animation;
+	exports main.java.com.booksaw.Engine2D.gameUpdates; 
 
 	requires transitive java.desktop;
 }
