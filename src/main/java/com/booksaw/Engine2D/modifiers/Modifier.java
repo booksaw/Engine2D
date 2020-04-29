@@ -1,7 +1,7 @@
 package main.java.com.booksaw.Engine2D.modifiers;
 
 /**
- * This class is used to store all the requried details about a modifier
+ * This class is used to store all the required details about a modifier
  * 
  * @author booksaw
  *
@@ -20,6 +20,15 @@ public class Modifier {
 	@Override
 	public String toString() {
 		return reference + ":" + value + ":" + description;
+	}
+
+	/**
+	 * An easy way of getting the value in integer form
+	 * 
+	 * @return the integer of the value
+	 */
+	public int getIntValue() {
+		return Integer.parseInt(value);
 	}
 
 }

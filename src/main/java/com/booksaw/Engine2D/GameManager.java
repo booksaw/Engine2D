@@ -5,6 +5,7 @@ import java.util.List;
 
 import main.java.com.booksaw.Engine2D.gameUpdates.UpdateClock;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
+import main.java.com.booksaw.Engine2D.modifiers.ModifierManager;
 import main.java.com.booksaw.Engine2D.objects.Camera;
 import main.java.com.booksaw.Engine2D.rendering.Engine2DFrame;
 import main.java.com.booksaw.Engine2D.rendering.RenderClock;
@@ -64,7 +65,10 @@ public abstract class GameManager {
 
 		renderManager = new RenderManager(this);
 		// TODO need to make more specific for different camera dimensions
-		camera = new Camera(0, 0, 700, 400, 700, 400);
+		camera = new Camera(0, 0, ModifierManager.getModifier("engine2d.logging.frame.prefwidth").getIntValue(),
+				ModifierManager.getModifier("engine2d.logging.frame.prefheight").getIntValue(),
+				ModifierManager.getModifier("engine2d.logging.frame.width").getIntValue(),
+				ModifierManager.getModifier("engine2d.logging.frame.height").getIntValue());
 
 		// the specific game setup
 		initScreen();

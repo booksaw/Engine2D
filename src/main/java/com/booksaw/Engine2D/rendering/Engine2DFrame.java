@@ -13,6 +13,7 @@ import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
+import main.java.com.booksaw.Engine2D.modifiers.ModifierManager;
 
 /**
  * This is used to manage the
@@ -84,7 +85,14 @@ public class Engine2DFrame implements ComponentListener, WindowListener {
 	public static void setActiveRender(GameManager manager) {
 		// adding the new game manager
 		gameFrame.setContentPane(manager.getRenderManager());
+
+		// ensuring the frame is the correct size
+		gameFrame.getContentPane().setPreferredSize(
+				new Dimension(ModifierManager.getModifier("engine2d.logging.frame.width").getIntValue(),
+						ModifierManager.getModifier("engine2d.logging.frame.height").getIntValue()));
+		gameFrame.pack();
 		gameFrame.validate();
+
 		// storing the manager
 		gameManager = manager;
 
@@ -135,8 +143,15 @@ public class Engine2DFrame implements ComponentListener, WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
+		// storing the window size
+		Dimension d = gameFrame.getContentPane().getSize();
+		ModifierManager.getModifier("engine2d.logging.frame.height").value = d.height + "";
+		ModifierManager.getModifier("engine2d.logging.frame.width").value = d.width + "";
+		ModifierManager.saveModifiers();
+
+		// stopping the logger
 		Logger.Log(LogType.INFO, "Program closing...");
-		Logger.close(); 
+		Logger.close();
 	}
 
 	@Override
