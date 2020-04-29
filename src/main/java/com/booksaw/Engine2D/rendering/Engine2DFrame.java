@@ -106,9 +106,7 @@ public class Engine2DFrame implements ComponentListener {
 
 		// checking if the camera is valid first
 		if (gameManager != null && gameManager.camera != null) {
-			Dimension dimension = e.getComponent().getSize();
-			// TODO correct diemsion without just adding 5
-			dimension.setSize(dimension.getWidth() + 20, dimension.getHeight() + 20);
+			Dimension dimension = gameFrame.getContentPane().getSize();
 			gameManager.camera.resize(dimension.width, dimension.height);
 			Logger.Log(LogType.INFO, "Window has been resized");
 		}
