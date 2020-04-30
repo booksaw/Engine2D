@@ -58,10 +58,9 @@ public class Vector {
 		}
 
 		// calculating modulus
-		double mod = Math.sqrt((Math.pow(x, 2)) + Math.pow(y, 2));
-		if (terminalMod > 0 && mod > terminalMod) {
+		if (terminalMod > 0 && getMod() > terminalMod) {
 			// calculating the angle
-			double angle = Math.atan(y / x);
+			double angle = getAngle();
 			// using sin(angle) * terminalMod and cos(angle) * terminalMod, as that will
 			// give the correct mod in the correct direction
 			y = Math.sin(angle) * terminalMod;
@@ -69,6 +68,22 @@ public class Vector {
 			// mod will now be correct
 		}
 
+	}
+
+	/**
+	 * 
+	 * @return the modulus of the vector (using pythag c^2 = x^2 + y^2)
+	 */
+	public double getMod() {
+		return Math.sqrt((Math.pow(x, 2)) + Math.pow(y, 2));
+	}
+
+	/**
+	 * 
+	 * @return the angle from the horizontal the vector is travelling at
+	 */
+	public double getAngle() {
+		return Math.atan(y / x);
 	}
 
 }

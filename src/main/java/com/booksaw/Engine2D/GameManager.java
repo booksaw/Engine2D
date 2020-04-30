@@ -54,17 +54,24 @@ public abstract class GameManager {
 	public List<Updateable> updatables = new ArrayList<>();
 
 	/**
+	 * Used to store the level which is currently loaded
+	 */
+	public Level level;
+
+	/**
 	 * Used to setup the program, do not override in sub programs, but instead use
 	 * the initScreen method to carry out any set up
 	 */
 	public GameManager() {
+
+		// TODO fix
+		level = new Level();
 
 		rendering = false;
 		renderClock = new RenderClock(this);
 		updateClock = new UpdateClock(CONFIG.tickLength, this);
 
 		renderManager = new RenderManager(this);
-		// TODO need to make more specific for different camera dimensions
 		camera = new Camera(0, 0, ModifierManager.getModifier("engine2d.logging.frame.prefwidth").getIntValue(),
 				ModifierManager.getModifier("engine2d.logging.frame.prefheight").getIntValue(),
 				ModifierManager.getModifier("engine2d.logging.frame.width").getIntValue(),

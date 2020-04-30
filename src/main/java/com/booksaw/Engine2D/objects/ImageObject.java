@@ -18,6 +18,7 @@ public class ImageObject extends Object implements Updateable {
 	protected AnimationManager animationManager;
 
 	public ImageObject(AnimationManager manager, GameManager gameManager) {
+		super(gameManager);
 		this.animationManager = manager;
 		gameManager.addUpdatable(this);
 	}
