@@ -1,5 +1,7 @@
 package main.java.com.booksaw.Engine2D.objects;
 
+import java.awt.Rectangle;
+
 /**
  * This is the class which tracks the location and graphics of the camera
  * 
@@ -8,7 +10,8 @@ package main.java.com.booksaw.Engine2D.objects;
  */
 public class Camera {
 
-	public int x, y, width, height, preferredWidth, preferredHeight, offsetX, offsetY;
+	public double x, y, width, height, preferredWidth, preferredHeight;
+	public int offsetX, offsetY;
 	public double scale;
 
 	/**
@@ -54,15 +57,18 @@ public class Camera {
 			scale = (double) width / preferredWidth;
 			// calculating the offset
 			offsetY = 0;
-			offsetX = ((width - this.width) / 2);
+			offsetX = (int) ((width - this.width) / 2);
 		} else {
 			// calculating the scale
 			scale = (double) height / preferredHeight;
 			// calculating the offset
 			offsetX = 0;
-			offsetY = (int) ((double) (height - this.height) / 2);
+			offsetY = (int) ((height - this.height) / 2);
 
 		}
 	}
 
+	public Rectangle getRectangle() {
+		return new Rectangle((int) x, (int) y, (int) width, (int) height);
+	}
 }

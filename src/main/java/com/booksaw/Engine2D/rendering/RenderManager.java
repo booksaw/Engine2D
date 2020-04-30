@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import main.java.com.booksaw.Engine2D.GameManager;
+import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 
 /**
@@ -88,17 +89,17 @@ public class RenderManager extends JPanel {
 		g.setColor(Color.BLACK);
 		if (manager.camera.offsetY != 0) {
 			// top bar
-			g.fillRect(0, 0, manager.camera.width + 5, manager.camera.offsetY);
+			g.fillRect(0, 0, (int) (manager.camera.width + 5), (int) (manager.camera.offsetY));
 			// bottom bar
-			g.fillRect(0, manager.camera.height + manager.camera.offsetY, manager.camera.width + 5,
-					manager.camera.offsetY + 5);
+			g.fillRect(0, (int) manager.camera.height + manager.camera.offsetY, (int) manager.camera.width + 5,
+					(int) manager.camera.offsetY + 5);
 
 		} else if (manager.camera.offsetX != 0) {
 			// left bar
-			g.fillRect(0, 0, manager.camera.offsetX, manager.camera.height + 5);
+			g.fillRect(0, 0, manager.camera.offsetX, (int) manager.camera.height + 5);
 			// right bar
-			g.fillRect(manager.camera.width + manager.camera.offsetX, 0, manager.camera.offsetX + 5,
-					manager.camera.height + 5);
+			g.fillRect((int) manager.camera.width + manager.camera.offsetX, 0, manager.camera.offsetX + 5,
+					(int) manager.camera.height + 5);
 		}
 	}
 }

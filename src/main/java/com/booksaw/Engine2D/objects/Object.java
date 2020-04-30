@@ -6,6 +6,7 @@ import java.awt.Shape;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.Vector;
+import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
@@ -34,6 +35,11 @@ public abstract class Object extends RenderedComponent implements Hitbox {
 	// overriding method to call a more specific paint method
 	@Override
 	public void paint(Graphics graphics, GameManager manager) {
+		// checking if it is on the camera
+		if (!CollisionManager.isColliding(getShape(), manager.camera.getRectangle())) {
+			return;
+		}
+
 		int renderedX = (int) ((x - manager.camera.x) * manager.camera.scale) + manager.camera.offsetX;
 		// moving from y = 0 at the top of the screen to y = 0 being the bottom
 		int renderedY = (int) (manager.camera.height - ((y - manager.camera.y) * manager.camera.scale))
@@ -41,8 +47,6 @@ public abstract class Object extends RenderedComponent implements Hitbox {
 
 		int renderedWidth = (int) (width * manager.camera.scale);
 		int renderedHeight = (int) (height * manager.camera.scale);
-
-		// TODO only render the object if it is on the camera
 
 		// calling the abstract method
 		paint(graphics, manager, renderedX, renderedY, renderedWidth, renderedHeight);
