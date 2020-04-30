@@ -69,6 +69,6 @@ public class Camera {
 	}
 
 	public Rectangle getRectangle() {
-		return new Rectangle((int) x, (int) y, (int) width, (int) height);
+		return new Rectangle((int) x, (int) y, (int) preferredWidth, (int) preferredWidth);
 	}
 }

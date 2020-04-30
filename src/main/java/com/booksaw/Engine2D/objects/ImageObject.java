@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 
 /**

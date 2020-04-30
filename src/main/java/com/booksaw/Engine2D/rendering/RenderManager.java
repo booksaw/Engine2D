@@ -9,7 +9,6 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import main.java.com.booksaw.Engine2D.GameManager;
-import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 
 /**

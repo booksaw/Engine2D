@@ -28,7 +28,7 @@ public abstract class Object extends RenderedComponent implements Hitbox {
 
 	public Object(GameManager manager) {
 		// TODO improved initialisation
-		velocity = new Vector(1, 0);
+		velocity = new Vector(10, 0);
 		this.manager = manager;
 	}
 
