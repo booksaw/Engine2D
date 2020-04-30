@@ -13,7 +13,7 @@ import main.java.com.booksaw.Engine2D.logging.Logger;
 /**
  * This class is used to manage all modifiers so they are correctly handled
  * 
- * @author nfgg2
+ * @author booksaw
  *
  */
 public class ModifierManager {
