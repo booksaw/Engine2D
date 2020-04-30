@@ -8,6 +8,7 @@ import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
+import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
@@ -28,7 +29,7 @@ public abstract class Object extends RenderedComponent implements Hitbox {
 
 	public Object(GameManager manager) {
 		// TODO improved initialisation
-		velocity = new Vector(10, 0);
+		velocity = new Vector(0, 0);
 		this.manager = manager;
 	}
 
@@ -88,6 +89,11 @@ public abstract class Object extends RenderedComponent implements Hitbox {
 
 		// pre-calculations to save efficiently
 		double incX = Math.cos(angle), incY = Math.sin(angle);
+		// checking for negatives
+		if (velocity.x < 0) {
+			incX = -incX;
+		}
+
 		// used to move the object a small amount each time
 		// TODO collisions with objects / floor stop momentum
 		double tempx = 0, tempy = 0;
@@ -113,6 +119,25 @@ public abstract class Object extends RenderedComponent implements Hitbox {
 	@Override
 	public Shape getShape(Vector translation) {
 		return new Rectangle((int) (x + translation.x), (int) (y + translation.y), (int) width, (int) height);
+	}
+
+	/**
+	 * A simple movement script so players can control an object TODO MOVE SCRIPT TO
+	 * SPRITE
+	 */
+	public void move() {
+		double acceleration = 0.5, deceleration = 0.75;
+		double maxSpeed = 50;
+		if (KeyboardManager.keyboardManager.isActive("player.1.left")) {
+			velocity.applyVector(new Vector(-acceleration, 0), maxSpeed, -1, -1, false);
+		} else if (velocity.x < 0) {
+			velocity.applyVector(new Vector(deceleration, 0), -1, -1, -1, true);
+		}
+		if (KeyboardManager.keyboardManager.isActive("player.1.right")) {
+			velocity.applyVector(new Vector(acceleration, 0), maxSpeed, -1, -1, false);
+		} else if (velocity.x > 0) {
+			velocity.applyVector(new Vector(-deceleration, 0), -1, -1, -1, true);
+		}
 	}
 
 }

@@ -4,7 +4,6 @@ import java.awt.Graphics;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
-import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 
 /**
@@ -34,6 +33,7 @@ public class ImageObject extends Object implements Updateable {
 		// IF YOU OVERRIDE THIS METHOD, DO NOT FORGET TO RUN THE SUPER VERSION AS IT IS
 		// USED TO UPDATE THE ANIMATIONS
 		animationManager.update(time);
+		move();
 		updateLocation(time);
 	}
 

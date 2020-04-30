@@ -1,0 +1,4 @@
+player.1.up:87:Jump
+player.1.down:83:Crouch
+player.1.left:65:Left
+player.1.right:68:Right

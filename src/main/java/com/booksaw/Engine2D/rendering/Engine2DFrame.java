@@ -5,6 +5,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 
 import javax.swing.JFrame;
 
@@ -45,6 +46,7 @@ public class Engine2DFrame implements ComponentListener, WindowListener {
 		gameFrame.setSize(width, height);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.addKeyListener(new KeyboardManager());
+		KeyboardManager.keyboardManager.load(new File("platformer2D" + File.separator + "keymappings"));
 
 		// used to detect when the frame is resized
 		gameFrame.addComponentListener(new Engine2DFrame());

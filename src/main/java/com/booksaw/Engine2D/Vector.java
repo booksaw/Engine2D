@@ -36,14 +36,29 @@ public class Vector {
 	}
 
 	/**
+	 * Used to apply a vector to this vector
+	 * 
+	 * @param ax the x component of the vector
+	 * @param ay the y component of the vector
+	 */
+	public void applyVector(int ax, int ay) {
+		this.x += ax;
+		this.y += ay;
+	}
+
+	/**
 	 * Used to apply a vector with a maximum to this vector
 	 * 
 	 * @param v           the vector to apply
 	 * @param terminalX   the maximum value absolute of x (set to -1 to be infinite)
 	 * @param terminalY   the maximum value absolute of y (set to -1 to be infinite)
 	 * @param terminalMod the maximum speed of the vector (set to -1 to be infinite)
+	 * @param resistive   if the force causing the change in velocity is a resistive
+	 *                    force (if true, velocity will not cross 0 but instead stop
+	 *                    at it)
 	 */
-	public void applyVector(Vector v, double terminalX, double terminalY, double terminalMod) {
+	public void applyVector(Vector v, double terminalX, double terminalY, double terminalMod, boolean resistive) {
+		double tempx = x;
 		this.x += v.x;
 
 		// checking x vector
@@ -51,6 +66,7 @@ public class Vector {
 			x = (x > 0) ? terminalX : -terminalX;
 		}
 
+		double tempy = y;
 		this.y += v.y;
 		// checking y vector
 		if (terminalY >= 0 && terminalY < Math.abs(y)) {
@@ -66,6 +82,14 @@ public class Vector {
 			y = Math.sin(angle) * terminalMod;
 			x = Math.cos(angle) * terminalMod;
 			// mod will now be correct
+		}
+
+		if (resistive && ((tempx >= 0 && x <= 0) || (tempx <= 0 && x >= 0))) {
+			x = 0;
+		}
+
+		if (resistive && ((tempy >= 0 && y <= 0) || (tempy <= 0 && y >= 0))) {
+			y = 0;
 		}
 
 	}

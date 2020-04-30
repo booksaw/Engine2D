@@ -17,6 +17,6 @@ public class CONFIG {
 	/**
 	 * This is the time of each game tick in milliseconds
 	 */
-	public static int tickLength = 50;
+	public static int tickLength = 10;
 
 }
