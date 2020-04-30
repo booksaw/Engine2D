@@ -3,6 +3,8 @@ package main.java.com.booksaw.Engine2D.objects;
 import java.awt.Graphics;
 
 import main.java.com.booksaw.Engine2D.GameManager;
+import main.java.com.booksaw.Engine2D.Vector;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
@@ -15,6 +17,12 @@ import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 public abstract class Object extends RenderedComponent {
 
 	public int x, y, width, height;
+	private Vector velocity;
+
+	public Object() {
+		// TODO improved initialisation
+		velocity = new Vector(1, 0);
+	}
 
 	// overriding method to call a more specific paint method
 	@Override
@@ -45,5 +53,15 @@ public abstract class Object extends RenderedComponent {
 	 * @param height   the height of the object after scaling
 	 */
 	public abstract void paint(Graphics graphics, GameManager manager, int x, int y, int width, int height);
+
+	/**
+	 * Used to update the location of the object based on the velocity vector
+	 * 
+	 * @param time the time since last update
+	 */
+	public void updateLocation(int time) {
+		x += (velocity.x * time);
+		y += (velocity.y * time);
+	}
 
 }

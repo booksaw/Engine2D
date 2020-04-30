@@ -32,6 +32,7 @@ public class ImageObject extends Object implements Updateable {
 		// IF YOU OVERRIDE THIS METHOD, DO NOT FORGET TO RUN THE SUPER VERSION AS IT IS
 		// USED TO UPDATE THE ANIMATIONS
 		animationManager.update(time);
+		updateLocation(time);
 	}
 
 }
