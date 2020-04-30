@@ -19,7 +19,7 @@ public class PlatformGameManager extends GameManager {
 			Animation animation = new Animation(ImageIO.read(new File("animationTest.png")),
 					"platformer2D.testAnimation", 3, 100);
 
-			animation.saveAnimation(new File("platformer2D"));
+			animation.saveAnimation(new File("platformer2D" + File.separator + "animation"));
 
 			AnimationManager manager = new AnimationManager(animation);
 			ImageObject object = new ImageObject(manager, this);
