@@ -136,7 +136,12 @@ public class Animation {
 	 * @param folder the folder to save the image to
 	 */
 	public void saveAnimation(File folder) {
-		if (!folder.isDirectory()) {
+		if (!folder.exists()) {
+			try {
+				folder.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			Logger.Log(LogType.ERROR,
 					"Tried saving animation, but provided folder was not a directory: " + folder.getPath());
 			return;

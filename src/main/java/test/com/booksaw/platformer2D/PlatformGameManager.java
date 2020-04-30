@@ -16,9 +16,12 @@ public class PlatformGameManager extends GameManager {
 	public void initScreen() {
 //		renderManager.addComponent(new RenderTest(), true);
 		try {
+			Animation animation = new Animation(ImageIO.read(new File("animationTest.png")),
+					"platformer2D.testAnimation", 3, 100);
 
-			AnimationManager manager = new AnimationManager(
-					new Animation(ImageIO.read(new File("animationTest.png")), "platformer2D.testAnimation", 3, 100));
+			animation.saveAnimation(new File("platformer2D"));
+
+			AnimationManager manager = new AnimationManager(animation);
 			ImageObject object = new ImageObject(manager, this);
 			object.x = 10;
 			object.y = 10;
