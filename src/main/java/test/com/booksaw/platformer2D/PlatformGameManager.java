@@ -3,7 +3,7 @@ package main.java.test.com.booksaw.platformer2D;
 import java.io.File;
 
 import main.java.com.booksaw.Engine2D.GameManager;
-import main.java.com.booksaw.Engine2D.objects.ImageObject;
+import main.java.com.booksaw.Engine2D.objects.Sprite;
 import main.java.com.booksaw.Engine2D.rendering.animation.Animation;
 import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 
@@ -17,7 +17,7 @@ public class PlatformGameManager extends GameManager {
 				"platformer2D.testAnimation");
 
 		AnimationManager manager = new AnimationManager(animation);
-		ImageObject object = new ImageObject(manager, this);
+		Sprite object = new Sprite(manager, this, 1);
 		object.x = 10;
 		object.y = 10;
 		object.width = 100;

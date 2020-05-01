@@ -99,7 +99,12 @@ public class KeyboardManager implements KeyListener {
 	 * @return
 	 */
 	public boolean isActive(String reference) {
-		return keyMappings.get(reference).isPressed();
+		try {
+			return keyMappings.get(reference).isPressed();
+		} catch (Exception e) {
+			Logger.Log(LogType.ERROR, "key mapping with reference " + reference + " does not exist");
+			return false;
+		}
 	}
 
 	/**
