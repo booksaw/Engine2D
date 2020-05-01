@@ -13,7 +13,7 @@ import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
  * @author booksaw
  *
  */
-public class ImageObject extends Object implements Updateable {
+public class ImageObject extends GameObject implements Updateable {
 
 	protected AnimationManager animationManager;
 

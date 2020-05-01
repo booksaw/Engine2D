@@ -65,7 +65,7 @@ public abstract class GameManager {
 	public GameManager() {
 
 		// TODO fix
-		level = new Level();
+		level = new Level(this);
 
 		rendering = false;
 		renderClock = new RenderClock(this);

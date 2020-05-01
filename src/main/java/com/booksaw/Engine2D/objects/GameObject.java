@@ -17,7 +17,7 @@ import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
  * @author nfgg2
  *
  */
-public abstract class Object extends RenderedComponent implements Hitbox {
+public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	public double x, y;
 	public double width, height;
@@ -26,7 +26,7 @@ public abstract class Object extends RenderedComponent implements Hitbox {
 	protected Vector velocity;
 	protected GameManager manager;
 
-	public Object(GameManager manager) {
+	public GameObject(GameManager manager) {
 		// TODO improved initialisation
 		velocity = new Vector(0, 0);
 		this.manager = manager;

@@ -67,6 +67,15 @@ public class RenderManager extends JPanel {
 	}
 
 	/**
+	 * Used to remove a rendered component
+	 * 
+	 * @param component the component to stop rendering
+	 */
+	public void removeComponent(RenderedComponent component) {
+		components.remove(component);
+	}
+
+	/**
 	 * Sorts the list of components by their priorities
 	 */
 	public void sortComponents() {
