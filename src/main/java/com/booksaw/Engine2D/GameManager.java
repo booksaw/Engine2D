@@ -72,10 +72,10 @@ public abstract class GameManager {
 		updateClock = new UpdateClock(CONFIG.tickLength, this);
 
 		renderManager = new RenderManager(this);
-		camera = new Camera(0, 0, ModifierManager.getModifier("engine2d.logging.frame.prefwidth").getIntValue(),
-				ModifierManager.getModifier("engine2d.logging.frame.prefheight").getIntValue(),
-				ModifierManager.getModifier("engine2d.logging.frame.width").getIntValue(),
-				ModifierManager.getModifier("engine2d.logging.frame.height").getIntValue());
+		camera = new Camera(0, 0, ModifierManager.getModifier("engine2d.frame.prefwidth").getIntValue(),
+				ModifierManager.getModifier("engine2d.frame.prefheight").getIntValue(),
+				ModifierManager.getModifier("engine2d.frame.width").getIntValue(),
+				ModifierManager.getModifier("engine2d.frame.height").getIntValue());
 
 		// the specific game setup
 		initScreen();

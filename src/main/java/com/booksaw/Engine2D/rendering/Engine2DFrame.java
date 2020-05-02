@@ -89,9 +89,9 @@ public class Engine2DFrame implements ComponentListener, WindowListener {
 		gameFrame.setContentPane(manager.getRenderManager());
 
 		// ensuring the frame is the correct size
-		gameFrame.getContentPane().setPreferredSize(
-				new Dimension(ModifierManager.getModifier("engine2d.logging.frame.width").getIntValue(),
-						ModifierManager.getModifier("engine2d.logging.frame.height").getIntValue()));
+		gameFrame.getContentPane()
+				.setPreferredSize(new Dimension(ModifierManager.getModifier("engine2d.frame.width").getIntValue(),
+						ModifierManager.getModifier("engine2d.frame.height").getIntValue()));
 		gameFrame.pack();
 		gameFrame.validate();
 
@@ -146,13 +146,14 @@ public class Engine2DFrame implements ComponentListener, WindowListener {
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// storing the window size
+
+		Logger.Log(LogType.INFO, "Program closing...");
 		Dimension d = gameFrame.getContentPane().getSize();
-		ModifierManager.getModifier("engine2d.logging.frame.height").value = d.height + "";
-		ModifierManager.getModifier("engine2d.logging.frame.width").value = d.width + "";
+		ModifierManager.getModifier("engine2d.frame.height").value = d.height + "";
+		ModifierManager.getModifier("engine2d.frame.width").value = d.width + "";
 		ModifierManager.saveModifiers();
 
 		// stopping the logger
-		Logger.Log(LogType.INFO, "Program closing...");
 		Logger.close();
 	}
 

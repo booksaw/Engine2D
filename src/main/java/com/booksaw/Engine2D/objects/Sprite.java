@@ -98,7 +98,6 @@ public class Sprite extends ImageObject {
 	 * Used to apply the velocities if the player is still pressing the jump key
 	 */
 	public void jumpCheck() {
-		Logger.Log("checking");
 		if (ticksJumping > maxJumpTicks) {
 			// player can no longer hold jump key, but cannot jump
 			ticksJumping = -2;

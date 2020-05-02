@@ -2,6 +2,8 @@ package main.java.com.booksaw.Engine2D.objects;
 
 import java.awt.Rectangle;
 
+import main.java.com.booksaw.Engine2D.logging.Logger;
+
 /**
  * This is the class which tracks the location and graphics of the camera
  * 
@@ -28,8 +30,8 @@ public class Camera {
 	public Camera(int x, int y, int preferredWidth, int preferredHeight, int width, int height) {
 		this.x = x;
 		this.y = y;
-		this.preferredWidth = width;
-		this.preferredHeight = height;
+		this.preferredWidth = preferredWidth;
+		this.preferredHeight = preferredHeight;
 		resize(width, height);
 
 	}
@@ -54,18 +56,20 @@ public class Camera {
 			this.width = (int) (height * ((double) preferredWidth / preferredHeight));
 
 			// calculating the scale
-			scale = (double) width / preferredWidth;
+			scale = (double) height / preferredHeight;
 			// calculating the offset
 			offsetY = 0;
 			offsetX = (int) ((width - this.width) / 2);
 		} else {
 			// calculating the scale
-			scale = (double) height / preferredHeight;
+			scale = (double) width / preferredWidth;
 			// calculating the offset
 			offsetX = 0;
 			offsetY = (int) ((height - this.height) / 2);
 
 		}
+
+		Logger.Log("scale = " + scale);
 	}
 
 	public Rectangle getRectangle() {
