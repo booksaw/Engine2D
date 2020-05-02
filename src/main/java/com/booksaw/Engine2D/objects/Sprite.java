@@ -37,7 +37,6 @@ public class Sprite extends ImageObject {
 	public void move(int time) {
 		// running each tick individually
 		for (int i = 0; i < time; i++) {
-
 			for (Movement m : moveSet) {
 				m.update(velocity);
 			}

@@ -97,11 +97,16 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		// TODO collisions with objects / floor stop momentum
 		double tempx = 0, tempy = 0;
 		for (int i = 0; i < mod; i++) {
-			if (!manager.level.isColliding(getShape(new Vector(tempx + incX, tempy)), this)) {
+
+			if (!manager.level.isColliding(getShape(new Vector(tempx + incX, tempy)), this) && velocity.x != 0) {
 				tempx += incX;
+			} else {
+				velocity.x = 0;
 			}
-			if (!manager.level.isColliding(getShape(new Vector(tempx, tempy + incY)), this)) {
+			if (!manager.level.isColliding(getShape(new Vector(tempx, tempy + incY)), this) && velocity.y != 0) {
 				tempy += incY;
+			} else {
+				velocity.y = 0;
 			}
 
 		}
