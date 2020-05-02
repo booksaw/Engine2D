@@ -69,7 +69,6 @@ public class Camera {
 
 		}
 
-		Logger.Log("scale = " + scale);
 	}
 
 	public Rectangle getRectangle() {

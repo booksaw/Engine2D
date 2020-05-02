@@ -4,6 +4,9 @@ import java.io.File;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.objects.Sprite;
+import main.java.com.booksaw.Engine2D.objects.movement.GravityMovement;
+import main.java.com.booksaw.Engine2D.objects.movement.HorizontalMovement;
+import main.java.com.booksaw.Engine2D.objects.movement.JumpMovement;
 import main.java.com.booksaw.Engine2D.rendering.animation.Animation;
 import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 
@@ -18,6 +21,9 @@ public class PlatformGameManager extends GameManager {
 
 		AnimationManager manager = new AnimationManager(animation);
 		Sprite object = new Sprite(manager, this, 1);
+		object.addMovement(new HorizontalMovement(object, "1,2"));
+		object.addMovement(new JumpMovement(object, "20,3"));
+		object.addMovement(new GravityMovement(object, ""));
 		object.x = 10;
 		object.y = 10;
 		object.width = 100;

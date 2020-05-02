@@ -58,6 +58,8 @@ public abstract class GameManager {
 	 */
 	public Level level;
 
+	public double accelerationGravity;
+
 	/**
 	 * Used to setup the program, do not override in sub programs, but instead use
 	 * the initScreen method to carry out any set up
@@ -78,6 +80,7 @@ public abstract class GameManager {
 				ModifierManager.getModifier("engine2d.frame.height").getIntValue());
 
 		// the specific game setup
+		accelerationGravity = -0.5;
 		initScreen();
 	}
 

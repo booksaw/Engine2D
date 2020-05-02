@@ -120,4 +120,8 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		return new Rectangle((int) (x + translation.x), (int) (y + translation.y), (int) width, (int) height);
 	}
 
+	public GameManager getManager() {
+		return manager;
+	}
+
 }
