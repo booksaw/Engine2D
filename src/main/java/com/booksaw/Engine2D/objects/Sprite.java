@@ -14,7 +14,6 @@ import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 public class Sprite extends ImageObject {
 
 	public int player;
-	private double accelerationJump = 3, maxJumpTicks = 20;
 	public double maxSpeedX = 2.5, maxSpeedY = -1, maxSpeed = -1;
 	private List<Movement> moveSet;
 
