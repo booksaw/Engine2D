@@ -1,8 +1,8 @@
 package main.java.com.booksaw.Engine2D.objects;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.Vector;
@@ -24,7 +24,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	public boolean movable = true;
 	public double mass = 10;
 	/**
-	 * The angle that the object has been rotated, keep between -pi and pi
+	 * The angle that the object has been rotated, keep between 0 and 2 pi
 	 */
 	public double angle = 0;
 	protected Vector velocity;
@@ -80,8 +80,8 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	 */
 	public void updateLocation(int time) {
 		angle += 0.01;
-		if (angle > Math.PI) {
-			angle = -Math.PI;
+		if (angle > 2 * Math.PI) {
+			angle = angle % (Math.PI * 2);
 		}
 		double angle = velocity.getAngle();
 		// rounding to the nearest whole number
@@ -128,16 +128,24 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	@Override
 	public Shape getShape() {
-		return new Rectangle((int) x, (int) y, (int) width, (int) height);
+		AffineTransform tx = new AffineTransform();
+		tx.rotate(angle, x + width / 2, y + height / 2);
+		return tx.createTransformedShape(getCollisionBox());
 	}
 
 	@Override
 	public Shape getShape(Vector translation) {
-		return new Rectangle((int) (x + translation.x), (int) (y + translation.y), (int) width, (int) height);
+		AffineTransform tx = new AffineTransform();
+		tx.rotate(angle, x + width / 2, y + height / 2);
+		return tx.createTransformedShape(getCollisionBox(translation));
 	}
 
 	public GameManager getManager() {
 		return manager;
 	}
+
+	public abstract Shape getCollisionBox();
+
+	public abstract Shape getCollisionBox(Vector translation);
 
 }

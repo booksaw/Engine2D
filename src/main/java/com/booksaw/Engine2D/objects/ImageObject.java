@@ -1,8 +1,11 @@
 package main.java.com.booksaw.Engine2D.objects;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.Shape;
 
 import main.java.com.booksaw.Engine2D.GameManager;
+import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
 import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 
@@ -34,6 +37,16 @@ public class ImageObject extends GameObject implements Updateable {
 		// USED TO UPDATE THE ANIMATIONS
 		animationManager.update(time);
 		updateLocation(time);
+	}
+
+	@Override
+	public Shape getCollisionBox() {
+		return new Rectangle((int) x, (int) y, (int) width, (int) height);
+	}
+
+	@Override
+	public Shape getCollisionBox(Vector translation) {
+		return new Rectangle((int) (x + translation.x), (int) (y + translation.y), (int) width, (int) height);
 	}
 
 }
