@@ -51,9 +51,13 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 		int renderedWidth = (int) (width * manager.camera.scale);
 		int renderedHeight = (int) (height * manager.camera.scale);
+		final double sin = Math.abs(Math.sin(angle));
+		final double cos = Math.abs(Math.cos(angle));
+		final int w = (int) Math.floor(renderedWidth * cos + renderedHeight * sin);
+		final int h = (int) Math.floor(renderedHeight * cos + renderedWidth * sin);
 
 		// calling the abstract method
-		paint(graphics, manager, renderedX, renderedY, renderedWidth, renderedHeight);
+		paint(graphics, manager, renderedX, renderedY, w, h);
 	}
 
 	/**
@@ -75,7 +79,10 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	 * @param time the time since last update
 	 */
 	public void updateLocation(int time) {
-
+		angle += 0.01;
+		if (angle > Math.PI) {
+			angle = -Math.PI;
+		}
 		double angle = velocity.getAngle();
 		// rounding to the nearest whole number
 		int mod = (int) (velocity.getMod() + 0.5);

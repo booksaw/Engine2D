@@ -1,9 +1,13 @@
 package main.java.com.booksaw.Engine2D.rendering.animation;
 
 import java.awt.Graphics;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
 
+import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.objects.GameObject;
@@ -95,6 +99,36 @@ public class AnimationManager {
 		} else if (object.angle == -Math.PI || object.angle == Math.PI) {
 			graphics.drawImage(animation.image, x + width, y, x, y - height, 0, (frameNumber * animation.frameHeight),
 					animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
+		} else {
+			// it is not a round value of rotation
+			BufferedImage result = animation.image.getSubimage(0, (frameNumber * animation.frameHeight),
+					animation.image.getWidth(), animation.frameHeight);
+
+			// rescaling image if detail will be lost as it is too pixelated
+			if (result.getWidth() < width) {
+				int scale = height / result.getHeight();
+				if (scale > 1)
+					result = Utils.scaleImage(result, scale);
+			}
+			if (result.getHeight() < height) {
+				int scale = height / result.getHeight();
+				if (scale > 1)
+					result = Utils.scaleImage(result, scale);
+			}
+
+			final double sin = Math.abs(Math.sin(object.angle));
+			final double cos = Math.abs(Math.cos(object.angle));
+			final int w = (int) Math.floor(result.getWidth() * cos + result.getHeight() * sin);
+			final int h = (int) Math.floor(result.getHeight() * cos + result.getWidth() * sin);
+			BufferedImage rotatedImage = new BufferedImage(w, h, 6);
+			final AffineTransform at = new AffineTransform();
+			at.translate(w / 2, h / 2);
+			at.rotate(object.angle, 0, 0);
+			at.translate(-result.getWidth() / 2, -result.getHeight() / 2);
+			final AffineTransformOp rotateOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+			rotatedImage = rotateOp.filter(result, rotatedImage);
+			// drawing result
+			graphics.drawImage(rotatedImage, x, y - height, width, height, null);
 		}
 	}
 

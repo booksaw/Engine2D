@@ -88,10 +88,13 @@ public class RenderManager extends JPanel {
 	@Override
 	public void paint(Graphics g) {
 		// rendering each component in turn
+
+		g.setColor(Color.CYAN);
+		g.fillRect(0, 0, (int) manager.camera.width, (int) manager.camera.height);
+
 		for (RenderedComponent component : components) {
 			component.paint(g, manager);
 		}
-
 		// adding black bars to cover up the offset (adding 5 for any slight rounding
 		// error during calculations)
 		g.setColor(Color.BLACK);

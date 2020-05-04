@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 
+import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 
@@ -45,14 +46,7 @@ public class Animation {
 			return null;
 		}
 
-		BufferedImage image;
-		try {
-			image = ImageIO.read(imageFile);
-		} catch (IOException e) {
-			Logger.Log(LogType.ERROR,
-					"Tried loading animation, but provided file could not load: " + imageFile.getPath());
-			return null;
-		}
+		BufferedImage image = Utils.loadTransparentImage(imageFile);
 
 		// loading the animation file
 		File animationFile = new File(folder.getPath() + File.separator + reference + ".animation");

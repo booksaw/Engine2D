@@ -26,10 +26,13 @@ public class Utils {
 	 * @param file the file to load
 	 * @return a buffered image version of the image
 	 */
-	public BufferedImage loadImage(File file) {
+	public static BufferedImage loadTransparentImage(File file) {
 
 		try {
-			return ImageIO.read(file);
+			BufferedImage bufImg = ImageIO.read(file);
+			BufferedImage convertedImg = new BufferedImage(bufImg.getWidth(), bufImg.getHeight(), 6);
+			convertedImg.getGraphics().drawImage(bufImg, 0, 0, null);
+			return convertedImg;
 		} catch (IOException e) {
 			// if there is an error while loading
 			Logger.Log(LogType.ERROR, "Could not load image file (" + file.getPath() + ")");
@@ -38,4 +41,26 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Used to scale an image without causing blurring ie 1 pixel becomes 5
+	 * 
+	 * @param image the image to scale
+	 * @param scale the scale to increase the size by
+	 */
+	public static BufferedImage scaleImage(BufferedImage image, int scale) {
+
+		BufferedImage scaledImage = new BufferedImage(scale * image.getWidth(), scale * image.getHeight(), 6);
+
+		for (int i = 0; i < image.getWidth(); i++) {
+			for (int j = 0; j < image.getHeight(); j++) {
+				int rgb = image.getRGB(i, j);
+				for (int k = 0; k < scale; k++) {
+					for (int l = 0; l < scale; l++) {
+						scaledImage.setRGB(k + scale * i, l + scale * j, rgb);
+					}
+				}
+			}
+		}
+		return scaledImage;
+	}
 }
