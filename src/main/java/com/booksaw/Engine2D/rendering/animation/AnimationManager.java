@@ -6,6 +6,7 @@ import java.util.List;
 
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
+import main.java.com.booksaw.Engine2D.objects.GameObject;
 
 /**
  * This class is used to store all animations for an image (can just be a single
@@ -78,13 +79,23 @@ public class AnimationManager {
 	 * @param width    the width of the resultant image
 	 * @param height   the height of the resultant image
 	 */
-	public void paint(Graphics graphics, int x, int y, int width, int height) {
+	public void paint(GameObject object, Graphics graphics, int x, int y, int width, int height) {
 		Animation animation = getActiveAnimation();
-		// not doing null checks as will slow down rendering process, and an error
-		// message has already been provided to the user if the selected animation is
-		// null
-		graphics.drawImage(animation.image, x, y - height, x + width, y, 0, (frameNumber * animation.frameHeight),
-				animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
+
+		// checking 90 degree increments as faster than rotating
+		if (object.angle == 0) {
+			graphics.drawImage(animation.image, x, y - height, x + width, y, 0, (frameNumber * animation.frameHeight),
+					animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
+		} else if (object.angle == Math.PI / 2) {
+			graphics.drawImage(animation.image, x + width, y - height, x, y, 0, (frameNumber * animation.frameHeight),
+					animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
+		} else if (object.angle == -Math.PI / 2) {
+			graphics.drawImage(animation.image, x, y, x + width, y - height, 0, (frameNumber * animation.frameHeight),
+					animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
+		} else if (object.angle == -Math.PI || object.angle == Math.PI) {
+			graphics.drawImage(animation.image, x + width, y, x, y - height, 0, (frameNumber * animation.frameHeight),
+					animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
+		}
 	}
 
 	/**

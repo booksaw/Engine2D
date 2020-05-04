@@ -25,7 +25,7 @@ public class ImageObject extends GameObject implements Updateable {
 
 	@Override
 	public void paint(Graphics graphics, GameManager manager, int x, int y, int width, int height) {
-		animationManager.paint(graphics, x, y, width, height);
+		animationManager.paint(this, graphics, x, y, width, height);
 	}
 
 	@Override

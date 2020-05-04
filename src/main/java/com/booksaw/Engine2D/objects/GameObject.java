@@ -23,6 +23,10 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	public double width, height;
 	public boolean movable = true;
 	public double mass = 10;
+	/**
+	 * The angle that the object has been rotated, keep between -pi and pi
+	 */
+	public double angle = 0;
 	protected Vector velocity;
 	protected GameManager manager;
 

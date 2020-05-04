@@ -23,7 +23,7 @@ public class PlatformGameManager extends GameManager {
 		Sprite object = new Sprite(manager, this, 1);
 		object.addMovement(new HorizontalMovement(object, "1,2"));
 		object.addMovement(new JumpMovement(object, "20,3"));
-		object.addMovement(new GravityMovement(object, ""));
+//		object.addMovement(new GravityMovement(object, ""));
 		object.x = 10;
 		object.y = 10;
 		object.width = 100;
