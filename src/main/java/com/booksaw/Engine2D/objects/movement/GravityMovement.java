@@ -7,7 +7,7 @@ public class GravityMovement extends Movement {
 
 	protected static String reference = "gravity";
 
-	public static String getReference() {
+	public static String getStaticReference() {
 		return reference;
 	}
 
@@ -28,7 +28,12 @@ public class GravityMovement extends Movement {
 
 	@Override
 	public String getOutput() {
-		return "";
+		return "0";
+	}
+
+	@Override
+	public String getReference() {
+		return reference;
 	}
 
 }

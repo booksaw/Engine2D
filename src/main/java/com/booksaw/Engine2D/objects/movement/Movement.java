@@ -28,9 +28,9 @@ public abstract class Movement {
 	 */
 	static {
 		movementTypes = new HashMap<>();
-		movementTypes.put(GravityMovement.getReference(), GravityMovement.class);
-		movementTypes.put(HorizontalMovement.getReference(), HorizontalMovement.class);
-		movementTypes.put(JumpMovement.getReference(), JumpMovement.class);
+		movementTypes.put(GravityMovement.getStaticReference(), GravityMovement.class);
+		movementTypes.put(HorizontalMovement.getStaticReference(), HorizontalMovement.class);
+		movementTypes.put(JumpMovement.getStaticReference(), JumpMovement.class);
 
 	}
 
@@ -79,4 +79,5 @@ public abstract class Movement {
 	 */
 	public abstract String getOutput();
 
+	public abstract String getReference();
 }

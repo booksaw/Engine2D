@@ -63,7 +63,7 @@ public class Sprite extends ImageObject {
 		// looping through every animation
 		int i = 0;
 		for (Movement movement : moveSet) {
-			Utils.saveValue("movement_" + i, document, element, movement.getOutput());
+			Utils.saveValue("movement_" + i, document, element, movement.getReference() + ";" + movement.getOutput());
 			i++;
 		}
 	}

@@ -121,7 +121,7 @@ public class Level {
 		Class<?> theClass = gameObjectTypes.get(Utils.getTagString("type", (Element) node));
 
 		// an error has occured
-		Logger.Log(theClass + "");
+		Logger.Log("Creating Object: " + theClass);
 		if (gameObjectTypes == null) {
 			return;
 		}

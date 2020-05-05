@@ -14,7 +14,7 @@ public class HorizontalMovement extends Movement {
 
 	protected static String reference = "horizontal";
 
-	public static String getReference() {
+	public static String getStaticReference() {
 		return reference;
 	}
 
@@ -24,8 +24,8 @@ public class HorizontalMovement extends Movement {
 	public HorizontalMovement(Sprite sprite, String information) {
 		super(sprite, information);
 		String[] split = information.split(",");
-		accelerationX = Integer.parseInt(split[0]);
-		decelerationX = Integer.parseInt(split[1]);
+		accelerationX = Double.parseDouble(split[0]);
+		decelerationX = Double.parseDouble(split[1]);
 		this.sprite = sprite;
 	}
 
@@ -46,6 +46,11 @@ public class HorizontalMovement extends Movement {
 	@Override
 	public String getOutput() {
 		return accelerationX + "," + decelerationX;
+	}
+
+	@Override
+	public String getReference() {
+		return reference;
 	}
 
 }

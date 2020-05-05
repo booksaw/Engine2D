@@ -103,10 +103,6 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	 * @param time the time since last update
 	 */
 	public void updateLocation(int time) {
-		angle += 0.01;
-		if (angle > 2 * Math.PI) {
-			angle = angle % (Math.PI * 2);
-		}
 		double angle = velocity.getAngle();
 		// rounding to the nearest whole number
 		int mod = (int) (velocity.getMod() + 0.5);
@@ -152,6 +148,9 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	@Override
 	public Shape getShape() {
+		if (angle == 0) {
+			return getCollisionBox();
+		}
 		AffineTransform tx = new AffineTransform();
 		tx.rotate(angle, x + width / 2, y + height / 2);
 		return tx.createTransformedShape(getCollisionBox());
@@ -159,6 +158,9 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	@Override
 	public Shape getShape(Vector translation) {
+		if (angle == 0) {
+			return getCollisionBox(translation);
+		}
 		AffineTransform tx = new AffineTransform();
 		tx.rotate(angle, x + width / 2, y + height / 2);
 		return tx.createTransformedShape(getCollisionBox(translation));

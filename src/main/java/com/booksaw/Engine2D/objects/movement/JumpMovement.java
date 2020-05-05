@@ -8,7 +8,7 @@ public class JumpMovement extends Movement {
 
 	protected static String reference = "jump";
 
-	public static String getReference() {
+	public static String getStaticReference() {
 		return reference;
 	}
 
@@ -30,7 +30,7 @@ public class JumpMovement extends Movement {
 		String[] split = information.split(",");
 
 		maxJumpTicks = Integer.parseInt(split[0]);
-		accelerationJump = Integer.parseInt(split[1]);
+		accelerationJump = Double.parseDouble(split[1]);
 
 	}
 
@@ -48,6 +48,9 @@ public class JumpMovement extends Movement {
 			// checks for if up removed on jump tick
 			ticksJumping = -2;
 
+		}
+		if (sprite.getManager().level.isColliding(sprite.getCollisionBox(new Vector(0, -1)), sprite)) {
+			ticksJumping = -1;
 		}
 	}
 
@@ -85,6 +88,11 @@ public class JumpMovement extends Movement {
 		velocity.applyVector(new Vector(0, -sprite.getManager().accelerationGravity));
 		ticksJumping++;
 
+	}
+
+	@Override
+	public String getReference() {
+		return reference;
 	}
 
 }
