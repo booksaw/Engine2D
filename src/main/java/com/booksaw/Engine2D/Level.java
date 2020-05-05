@@ -146,6 +146,7 @@ public class Level {
 	 * @return
 	 */
 	public boolean isColliding(Shape shape, GameObject ignore) {
+
 		for (GameObject object : objects) {
 			if (object != ignore && CollisionManager.isColliding(shape, object.getShape())) {
 				return true;
@@ -153,6 +154,23 @@ public class Level {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Used to get the object that is being collided with
+	 * 
+	 * @param shape
+	 * @param ignore
+	 * @return
+	 */
+	public GameObject getColliding(Shape shape, GameObject ignore) {
+		for (GameObject object : objects) {
+			if (object != ignore && CollisionManager.isColliding(shape, object.getShape())) {
+				return object;
+			}
+		}
+
+		return null;
 	}
 
 	/**

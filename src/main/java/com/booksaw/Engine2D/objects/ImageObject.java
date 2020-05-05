@@ -64,6 +64,7 @@ public class ImageObject extends GameObject implements Updateable {
 
 	@Override
 	public Shape getCollisionBox(Vector translation) {
+
 		return new Rectangle((int) (x + translation.x), (int) (y + translation.y), (int) width, (int) height);
 	}
 

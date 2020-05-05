@@ -12,6 +12,7 @@ import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
@@ -28,6 +29,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	public double width, height, startWidth, startHeight;
 	public boolean movable = true;
 	public double mass = 10;
+	private GameObject collisionBottom, collisionLeft;
 	/**
 	 * The angle that the object has been rotated, keep between 0 and 2 pi
 	 */
@@ -72,6 +74,19 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		// moving from y = 0 at the top of the screen to y = 0 being the bottom
 		int renderedY = (int) (manager.camera.height - ((y - manager.camera.y) * manager.camera.scale))
 				+ manager.camera.offsetY;
+		// the wrong place
+		if (collisionBottom != null) {
+			int collisionY = (int) (manager.camera.height
+					- (((collisionBottom.y) - manager.camera.y) + collisionBottom.height) * manager.camera.scale)
+					+ manager.camera.offsetY;
+			renderedY = collisionY + 1;
+		}
+
+		if (collisionLeft != null) {
+			int collisionX = (int) ((collisionLeft.x - manager.camera.x) * manager.camera.scale)
+					+ manager.camera.offsetX;
+			renderedX = collisionX + 1;
+		}
 
 		int renderedWidth = (int) (width * manager.camera.scale);
 		int renderedHeight = (int) (height * manager.camera.scale);
@@ -123,18 +138,20 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		if (velocity.x < 0) {
 			incX = -incX;
 		}
+//		if (velocity.y < 0) {
+//			incY = -incY;
+//		}
 
 		// used to move the object a small amount each time
-		// TODO collisions with objects / floor stop momentum
 		double tempx = 0, tempy = 0;
 		for (int i = 0; i < mod; i++) {
 
-			if (!manager.level.isColliding(getShape(new Vector(tempx + incX, tempy)), this) && velocity.x != 0) {
+			if (velocity.x != 0 && !manager.level.isColliding(getShape(new Vector(tempx + incX, tempy)), this)) {
 				tempx += incX;
 			} else {
 				velocity.x = 0;
 			}
-			if (!manager.level.isColliding(getShape(new Vector(tempx, tempy + incY)), this) && velocity.y != 0) {
+			if (velocity.y != 0 && !manager.level.isColliding(getShape(new Vector(tempx, tempy + incY)), this)) {
 				tempy += incY;
 			} else {
 				velocity.y = 0;
@@ -144,10 +161,16 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		// committing movements
 		x += tempx;
 		y += tempy;
+
+		collisionBottom = manager.level.getColliding(getShape(new Vector(0, -1)), this);
+		collisionLeft = manager.level.getColliding(getShape(new Vector(-1, 0)), this);
 	}
 
 	@Override
 	public Shape getShape() {
+		if (getCollisionBox().getBounds().getHeight() == 1) {
+			Logger.Log("also1");
+		}
 		if (angle == 0) {
 			return getCollisionBox();
 		}

@@ -3,8 +3,6 @@ package main.java.com.booksaw.Engine2D.collision;
 import java.awt.Shape;
 import java.awt.geom.Area;
 
-import main.java.com.booksaw.Engine2D.logging.Logger;
-
 /**
  * Used to carry out all processes relating to collisions
  * 
@@ -23,8 +21,7 @@ public class CollisionManager {
 		Area a1 = new Area(s1);
 		Area a2 = new Area(s2);
 		a1.intersect(a2);
-		Logger.Log("a1 = " + a1);
-		Logger.Log("a2 = " + a2);
+
 		if (a1.isEmpty()) {
 			return false;
 		}

@@ -49,7 +49,7 @@ public class JumpMovement extends Movement {
 			ticksJumping = -2;
 
 		}
-		if (sprite.getManager().level.isColliding(sprite.getCollisionBox(new Vector(0, -1)), sprite)) {
+		if (sprite.getManager().level.isColliding(sprite.getShape(new Vector(0, -1)), sprite)) {
 			ticksJumping = -1;
 		}
 	}
