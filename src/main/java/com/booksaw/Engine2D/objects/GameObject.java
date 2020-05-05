@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import main.java.com.booksaw.Engine2D.GameManager;
@@ -18,7 +19,7 @@ import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
  * (x and y) will be specific to the camera location. NOTE: do not forget to set
  * the unique saving reference
  * 
- * @author nfgg2
+ * @author booksaw
  *
  */
 public abstract class GameObject extends RenderedComponent implements Hitbox {
@@ -170,5 +171,26 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	public abstract Shape getCollisionBox();
 
 	public abstract Shape getCollisionBox(Vector translation);
+
+	/**
+	 * This method is used to save all details about an object to file, when using,
+	 * ensure you use super() to ensure all required data is saved
+	 * 
+	 * @param element
+	 * @param document
+	 */
+	public void save(Element element, Document document) {
+		Utils.saveValue("x", document, element, startX + "");
+		Utils.saveValue("y", document, element, startY + "");
+		Utils.saveValue("width", document, element, width + "");
+		Utils.saveValue("height", document, element, height + "");
+		Utils.saveValue("movable", document, element, movable + "");
+		Utils.saveValue("angle", document, element, angle + "");
+		Utils.saveValue("mass", document, element, mass + "");
+		Utils.saveValue("type", document, element, getReference());
+
+	}
+
+	public abstract String getReference();
 
 }

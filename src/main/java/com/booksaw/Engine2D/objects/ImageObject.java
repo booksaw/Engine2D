@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import main.java.com.booksaw.Engine2D.GameManager;
@@ -22,7 +23,7 @@ public class ImageObject extends GameObject implements Updateable {
 
 	protected static String reference = "imageObject";
 
-	public static String getReference() {
+	public static String getStaticReference() {
 		return reference;
 	}
 
@@ -66,4 +67,16 @@ public class ImageObject extends GameObject implements Updateable {
 		return new Rectangle((int) (x + translation.x), (int) (y + translation.y), (int) width, (int) height);
 	}
 
+	@Override
+	public void save(Element element, Document document) {
+		super.save(element, document);
+
+		animationManager.save(element, document);
+
+	}
+
+	@Override
+	public String getReference() {
+		return reference;
+	}
 }

@@ -12,6 +12,12 @@ import main.java.com.booksaw.Engine2D.objects.Sprite;
  */
 public class HorizontalMovement extends Movement {
 
+	protected static String reference = "horizontal";
+
+	public static String getReference() {
+		return reference;
+	}
+
 	private double accelerationX, decelerationX;
 	Sprite sprite;
 

@@ -6,6 +6,12 @@ import main.java.com.booksaw.Engine2D.objects.Sprite;
 
 public class JumpMovement extends Movement {
 
+	protected static String reference = "jump";
+
+	public static String getReference() {
+		return reference;
+	}
+
 	private Sprite sprite;
 
 	/**

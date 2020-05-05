@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -76,9 +77,14 @@ public class Utils {
 	 * @return the value of the node
 	 */
 	public static String getTagString(String tag, Element element) {
-		NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
-		Node node = (Node) nodeList.item(0);
-		return node.getNodeValue();
+		try {
+			NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
+			Node node = (Node) nodeList.item(0);
+			return node.getNodeValue();
+		} catch (NullPointerException e) {
+			Logger.Log(LogType.ERROR, "Could not find tag " + tag + " in element " + element);
+			return "";
+		}
 	}
 
 	public static boolean getTagBoolean(String tag, Element element) {
@@ -103,5 +109,11 @@ public class Utils {
 		} catch (Exception e) {
 			return 0;
 		}
+	}
+
+	public static void saveValue(String reference, Document document, Element element, String value) {
+		Element ele = document.createElement(reference);
+		ele.appendChild(document.createTextNode(value));
+		element.appendChild(ele);
 	}
 }

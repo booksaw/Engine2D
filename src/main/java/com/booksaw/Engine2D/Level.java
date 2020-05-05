@@ -12,6 +12,11 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -42,9 +47,9 @@ public class Level {
 	 */
 	static {
 		gameObjectTypes = new HashMap<>();
-		gameObjectTypes.put(ImageObject.getReference(), ImageObject.class);
-		gameObjectTypes.put(Sprite.getReference(), Sprite.class);
-		gameObjectTypes.put(ColorObject.getReference(), ColorObject.class);
+		gameObjectTypes.put(ImageObject.getStaticReference(), ImageObject.class);
+		gameObjectTypes.put(Sprite.getStaticReference(), Sprite.class);
+		gameObjectTypes.put(ColorObject.getStaticReference(), ColorObject.class);
 
 	}
 
@@ -73,6 +78,7 @@ public class Level {
 
 	private List<GameObject> objects;
 	private boolean active = false;
+	private File data;
 
 	/**
 	 * Used to load a level
@@ -81,6 +87,7 @@ public class Level {
 	 * @param data    the data associated with the level
 	 */
 	public Level(GameManager manager, File data) {
+		this.data = data;
 		this.manager = manager;
 		objects = new ArrayList<>();
 		Logger.Log(LogType.INFO, "Loading Level");
@@ -102,7 +109,7 @@ public class Level {
 		} catch (SAXException | ParserConfigurationException | IOException e1) {
 			Logger.Log(LogType.ERROR, "Could not load level file " + data);
 		}
-
+		saveLevel();
 	}
 
 	/**
@@ -112,6 +119,12 @@ public class Level {
 	 */
 	private void createObjectFromData(Node node) {
 		Class<?> theClass = gameObjectTypes.get(Utils.getTagString("type", (Element) node));
+
+		// an error has occured
+		Logger.Log(theClass + "");
+		if (gameObjectTypes == null) {
+			return;
+		}
 
 		try {
 			Constructor<?> construct = theClass
@@ -185,8 +198,54 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Used to check if the level is currently rendering / updating
+	 * 
+	 * @return if the level is currently rendering /updating
+	 */
 	public boolean isActive() {
 		return active;
+	}
+
+	/**
+	 * Used to save level details to file
+	 * 
+	 */
+	public void saveLevel() {
+		try {
+			DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+
+			DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
+
+			Document document = documentBuilder.newDocument();
+			// making the main branch
+			Element level = document.createElement("level");
+			document.appendChild(level);
+
+			for (GameObject object : objects) {
+				Element objectEle = document.createElement("object");
+				object.save(objectEle, document);
+				level.appendChild(objectEle);
+
+			}
+			// create the xml file
+			// transform the DOM Object to an XML File
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource domSource = new DOMSource(document);
+			StreamResult streamResult = new StreamResult(data);
+
+			// If you use
+			// StreamResult result = new StreamResult(System.out);
+			// the output will be pushed to the standard output ...
+			// You can use that for debugging
+
+			transformer.transform(domSource, streamResult);
+
+		} catch (ParserConfigurationException | TransformerException pce) {
+			Logger.Log(LogType.ERROR, "Could not save level data to file " + data);
+			Logger.Log(LogType.ERROR, pce.toString());
+		}
 	}
 
 }

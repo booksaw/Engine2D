@@ -3,19 +3,25 @@ package main.java.com.booksaw.Engine2D.objects;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import main.java.com.booksaw.Engine2D.GameManager;
+import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.objects.movement.Movement;
 import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 
 /**
- * @author nfgg2
+ * Class for moving objects
+ * 
+ * @author booksaw
  *
  */
 public class Sprite extends ImageObject {
 
 	protected static String reference = "sprite";
 
-	public static String getReference() {
+	public static String getStaticReference() {
 		return reference;
 	}
 
@@ -27,6 +33,39 @@ public class Sprite extends ImageObject {
 		super(manager, gameManager);
 		this.player = player;
 		moveSet = new ArrayList<>();
+	}
+
+	public Sprite(GameManager manager, Element details) {
+		super(manager, details);
+
+		player = Utils.getTagInteger("player", details);
+		maxSpeedX = Utils.getTagDouble("maxSpeedX", details);
+		maxSpeedY = Utils.getTagDouble("maxSpeedY", details);
+		maxSpeed = Utils.getTagDouble("maxSpeed", details);
+
+		moveSet = new ArrayList<>();
+		// looping through every animation
+		for (int i = 0; i < (Utils.getTagInteger("maxMovement", details)); i++) {
+			moveSet.add(Movement.createObjectFromData(this, Utils.getTagString("movement_" + i, details)));
+		}
+
+	}
+
+	@Override
+	public void save(Element element, Document document) {
+		super.save(element, document);
+		Utils.saveValue("player", document, element, player + "");
+		Utils.saveValue("maxSpeedX", document, element, maxSpeedX + "");
+		Utils.saveValue("maxSpeedY", document, element, maxSpeedY + "");
+		Utils.saveValue("maxSpeed", document, element, maxSpeed + "");
+
+		Utils.saveValue("maxMovement", document, element, moveSet.size() + "");
+		// looping through every animation
+		int i = 0;
+		for (Movement movement : moveSet) {
+			Utils.saveValue("movement_" + i, document, element, movement.getOutput());
+			i++;
+		}
 	}
 
 	@Override
@@ -76,6 +115,11 @@ public class Sprite extends ImageObject {
 	 */
 	public List<Movement> getMoveSet() {
 		return moveSet;
+	}
+
+	@Override
+	public String getReference() {
+		return reference;
 	}
 
 }

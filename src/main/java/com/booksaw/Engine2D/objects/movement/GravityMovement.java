@@ -5,6 +5,12 @@ import main.java.com.booksaw.Engine2D.objects.Sprite;
 
 public class GravityMovement extends Movement {
 
+	protected static String reference = "gravity";
+
+	public static String getReference() {
+		return reference;
+	}
+
 	Sprite sprite;
 
 	public GravityMovement(Sprite sprite, String information) {

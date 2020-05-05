@@ -1,11 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<level>
-	<object>
-		<type>imageObject</type>
-		<x>0</x>
-		<y>10</y>
-		<width>100</width>
-		<height>100</height>
-		<maxAnimation>1</maxAnimation>
-		<animation_0>platformer2D.testAnimation</animation_0></object>
-</level>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><level><object><x>0.0</x><y>10.0</y><width>100.0</width><height>100.0</height><movable>false</movable><angle>0.0</angle><mass>0.0</mass><type>imageObject</type><maxAnimation>1</maxAnimation><animation_0>platformer2D.testAnimation</animation_0></object></level>

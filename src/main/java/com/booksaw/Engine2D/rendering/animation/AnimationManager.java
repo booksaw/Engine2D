@@ -7,7 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import main.java.com.booksaw.Engine2D.CONFIG;
@@ -315,6 +317,22 @@ public class AnimationManager {
 
 	public int getFrameNumber() {
 		return frameNumber;
+	}
+
+	/**
+	 * This is used to save the values of the animation manager to the xml file
+	 * 
+	 * @param element
+	 * @param document
+	 */
+	public void save(Element element, Document document) {
+		// looping through every animation
+		int i = 0;
+		Utils.saveValue("maxAnimation", document, element, animations.size() + "");
+		for (Entry<String, Animation> animation : animations.entrySet()) {
+			Utils.saveValue("animation_" + i, document, element, animation.getKey());
+			i++;
+		}
 	}
 
 }
