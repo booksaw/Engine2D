@@ -75,9 +75,33 @@ public class Utils {
 	 * @param element the element which includes the tag
 	 * @return the value of the node
 	 */
-	public static String getTagValue(String tag, Element element) {
+	public static String getTagString(String tag, Element element) {
 		NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
 		Node node = (Node) nodeList.item(0);
 		return node.getNodeValue();
+	}
+
+	public static boolean getTagBoolean(String tag, Element element) {
+		try {
+			return Boolean.parseBoolean(getTagString(tag, element));
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public static double getTagDouble(String tag, Element element) {
+		try {
+			return Double.parseDouble(getTagString(tag, element));
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public static int getTagInteger(String tag, Element element) {
+		try {
+			return Integer.parseInt(getTagString(tag, element));
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 }

@@ -67,9 +67,9 @@ public class AnimationManager {
 	public AnimationManager(Element details) {
 		animations = new HashMap<>();
 		// looping through every animation
-		for (int i = 0; i < Integer.parseInt(Utils.getTagValue("maxAnimation", details)); i++) {
+		for (int i = 0; i < (Utils.getTagInteger("maxAnimation", details)); i++) {
 			addAnimation(Animation.loadAnimation(new File(CONFIG.assetPath + "animation"),
-					Utils.getTagValue("animation_" + i, details)));
+					Utils.getTagString("animation_" + i, details)));
 		}
 
 	}

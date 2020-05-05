@@ -74,6 +74,12 @@ public class Level {
 	private List<GameObject> objects;
 	private boolean active = false;
 
+	/**
+	 * Used to load a level
+	 * 
+	 * @param manager the game manager which is running the level
+	 * @param data    the data associated with the level
+	 */
 	public Level(GameManager manager, File data) {
 		this.manager = manager;
 		objects = new ArrayList<>();
@@ -99,8 +105,13 @@ public class Level {
 
 	}
 
+	/**
+	 * Used to create an object from the provided node
+	 * 
+	 * @param node the details about that object
+	 */
 	private void createObjectFromData(Node node) {
-		Class<?> theClass = gameObjectTypes.get(Utils.getTagValue("type", (Element) node));
+		Class<?> theClass = gameObjectTypes.get(Utils.getTagString("type", (Element) node));
 
 		try {
 			Constructor<?> construct = theClass

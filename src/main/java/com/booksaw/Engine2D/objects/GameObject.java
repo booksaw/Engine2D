@@ -43,15 +43,20 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	public GameObject(GameManager manager, Element details) {
 		this.manager = manager;
 		velocity = new Vector(0, 0);
-		startX = Double.parseDouble(Utils.getTagValue("x", details));
-		startY = Double.parseDouble(Utils.getTagValue("y", details));
+		startX = (Utils.getTagDouble("x", details));
+		startY = (Utils.getTagDouble("y", details));
 		x = startX;
 		y = startY;
 
-		width = Double.parseDouble(Utils.getTagValue("width", details));
-		height = Double.parseDouble(Utils.getTagValue("height", details));
+		width = (Utils.getTagDouble("width", details));
+		height = (Utils.getTagDouble("height", details));
 		startWidth = width;
 		startHeight = height;
+
+		movable = (Utils.getTagBoolean("movable", details));
+		mass = (Utils.getTagDouble("mass", details));
+		angle = (Utils.getTagDouble("angle", details));
+
 	}
 
 	// overriding method to call a more specific paint method

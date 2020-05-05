@@ -29,7 +29,8 @@ public class ColorObject extends GameObject {
 
 	public ColorObject(GameManager manager, Element details) {
 		super(manager, details);
-		color = new Color(Integer.parseInt(Utils.getTagValue("rgb", details)));
+		movable = false;
+		color = new Color(Utils.getTagInteger("rgb", details));
 	}
 
 	@Override
