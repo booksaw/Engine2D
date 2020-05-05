@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
+import org.w3c.dom.Element;
+
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
@@ -18,7 +20,18 @@ import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
  */
 public class ImageObject extends GameObject implements Updateable {
 
+	protected static String reference = "imageObject";
+
+	public static String getReference() {
+		return reference;
+	}
+
 	protected AnimationManager animationManager;
+
+	public ImageObject(GameManager gameManager, Element details) {
+		super(gameManager, details);
+
+	}
 
 	public ImageObject(AnimationManager manager, GameManager gameManager) {
 		super(gameManager);

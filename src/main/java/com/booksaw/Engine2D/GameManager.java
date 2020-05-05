@@ -1,5 +1,6 @@
 package main.java.com.booksaw.Engine2D;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public abstract class GameManager {
 	public GameManager() {
 
 		// TODO fix
-		level = new Level(this);
+		level = new Level(this, new File("level1.xml"));
 
 		rendering = false;
 		renderClock = new RenderClock(this);

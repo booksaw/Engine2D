@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<level>
+	<object>
+		<type>imageObject</type>
+		<x>0</x>
+		<y>10</y>
+		<width>100</width>
+		<height>100</height></object>
+</level>

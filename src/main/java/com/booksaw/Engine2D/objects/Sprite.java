@@ -13,6 +13,12 @@ import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
  */
 public class Sprite extends ImageObject {
 
+	protected static String reference = "sprite";
+
+	public static String getReference() {
+		return reference;
+	}
+
 	public int player;
 	public double maxSpeedX = 2.5, maxSpeedY = -1, maxSpeed = -1;
 	private List<Movement> moveSet;

@@ -26,4 +26,5 @@ public interface Hitbox {
 	 * @return the shape of the object
 	 */
 	public Shape getShape(Vector translation);
+
 }

@@ -4,10 +4,14 @@ import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 
+import org.w3c.dom.Element;
+
 import main.java.com.booksaw.Engine2D.GameManager;
+import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
@@ -19,8 +23,8 @@ import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
  */
 public abstract class GameObject extends RenderedComponent implements Hitbox {
 
-	public double x, y;
-	public double width, height;
+	public double x, y, startX, startY;
+	public double width, height, startWidth, startHeight;
 	public boolean movable = true;
 	public double mass = 10;
 	/**
@@ -34,6 +38,21 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		// TODO improved initialisation
 		velocity = new Vector(0, 0);
 		this.manager = manager;
+	}
+
+	public GameObject(GameManager manager, Element details) {
+		this.manager = manager;
+		velocity = new Vector(0, 0);
+		startX = Double.parseDouble(Utils.getTagValue("x", details));
+		startY = Double.parseDouble(Utils.getTagValue("y", details));
+		x = startX;
+		y = startY;
+
+		width = Double.parseDouble(Utils.getTagValue("width", details));
+		height = Double.parseDouble(Utils.getTagValue("height", details));
+		startWidth = width;
+		startHeight = height;
+		Logger.Log("height = " + height);
 	}
 
 	// overriding method to call a more specific paint method
