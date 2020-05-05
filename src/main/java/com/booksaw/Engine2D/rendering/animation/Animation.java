@@ -47,7 +47,6 @@ public class Animation {
 		}
 
 		BufferedImage image = Utils.loadTransparentImage(imageFile);
-
 		// loading the animation file
 		File animationFile = new File(folder.getPath() + File.separator + reference + ".animation");
 		// checking the provided animation has a file

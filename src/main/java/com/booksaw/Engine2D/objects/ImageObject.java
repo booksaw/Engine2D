@@ -31,6 +31,10 @@ public class ImageObject extends GameObject implements Updateable {
 	public ImageObject(GameManager gameManager, Element details) {
 		super(gameManager, details);
 
+		// loading the animation details from xml
+		animationManager = new AnimationManager(details);
+		gameManager.addUpdatable(this);
+
 	}
 
 	public ImageObject(AnimationManager manager, GameManager gameManager) {

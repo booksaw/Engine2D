@@ -4,9 +4,13 @@ import java.awt.Graphics;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import org.w3c.dom.Element;
+
+import main.java.com.booksaw.Engine2D.CONFIG;
 import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
@@ -53,6 +57,21 @@ public class AnimationManager {
 		animations = new HashMap<>();
 		animations.put(animation.reference, animation);
 		setActiveAnimation(animation.reference);
+	}
+
+	/**
+	 * Animation details are contained within this node
+	 * 
+	 * @param details the element of the node which contains the details
+	 */
+	public AnimationManager(Element details) {
+		animations = new HashMap<>();
+		// looping through every animation
+		for (int i = 0; i < Integer.parseInt(Utils.getTagValue("maxAnimation", details)); i++) {
+			addAnimation(Animation.loadAnimation(new File(CONFIG.assetPath + "animation"),
+					Utils.getTagValue("animation_" + i, details)));
+		}
+
 	}
 
 	/**
@@ -237,6 +256,10 @@ public class AnimationManager {
 	 */
 	public void addAnimation(Animation animation) {
 		animations.put(animation.reference, animation);
+		// checking if this animation manager needs an active animation
+		if (activeAnimation == null) {
+			activeAnimation = animation.reference;
+		}
 	}
 
 	/**

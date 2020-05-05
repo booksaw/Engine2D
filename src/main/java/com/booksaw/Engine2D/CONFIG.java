@@ -1,5 +1,7 @@
 package main.java.com.booksaw.Engine2D;
 
+import java.io.File;
+
 /**
  * This class is used to store default values which can be used across the
  * program, for example game name these values should be initialized when the
@@ -19,4 +21,8 @@ public class CONFIG {
 	 */
 	public static int tickLength = 10;
 
+	/**
+	 * A path to all assets of the program
+	 */
+	public static String assetPath = "platformer2D" + File.separator;
 }

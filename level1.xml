@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level>
 	<object>
-		<type>colorObject</type>
+		<type>imageObject</type>
 		<x>0</x>
 		<y>10</y>
 		<width>100</width>
 		<height>100</height>
-		<rgb>0</rgb></object>
+		<maxAnimation>1</maxAnimation>
+		<animation_0>platformer2D.testAnimation</animation_0></object>
 </level>
