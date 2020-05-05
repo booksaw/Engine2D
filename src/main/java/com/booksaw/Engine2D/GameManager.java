@@ -128,6 +128,10 @@ public abstract class GameManager {
 	 * Used to resume the game
 	 */
 	public void resume() {
+		if (!level.isActive()) {
+			level.activateLevel();
+		}
+
 		updateClock.setActive(true);
 	}
 

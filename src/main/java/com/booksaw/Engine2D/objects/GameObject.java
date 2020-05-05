@@ -11,12 +11,12 @@ import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
-import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
  * This is used for any objects within the world, this means the rendering call
- * (x and y) will be specific to the camera location.
+ * (x and y) will be specific to the camera location. NOTE: do not forget to set
+ * the unique saving reference
  * 
  * @author nfgg2
  *
@@ -52,7 +52,6 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		height = Double.parseDouble(Utils.getTagValue("height", details));
 		startWidth = width;
 		startHeight = height;
-		Logger.Log("height = " + height);
 	}
 
 	// overriding method to call a more specific paint method

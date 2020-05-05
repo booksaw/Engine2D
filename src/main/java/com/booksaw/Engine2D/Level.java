@@ -24,6 +24,7 @@ import main.java.com.booksaw.Engine2D.exception.ClassTypeMismatchException;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
+import main.java.com.booksaw.Engine2D.objects.ColorObject;
 import main.java.com.booksaw.Engine2D.objects.GameObject;
 import main.java.com.booksaw.Engine2D.objects.ImageObject;
 import main.java.com.booksaw.Engine2D.objects.Sprite;
@@ -43,6 +44,7 @@ public class Level {
 		gameObjectTypes = new HashMap<>();
 		gameObjectTypes.put(ImageObject.getReference(), ImageObject.class);
 		gameObjectTypes.put(Sprite.getReference(), Sprite.class);
+		gameObjectTypes.put(ColorObject.getReference(), ColorObject.class);
 
 	}
 
@@ -69,7 +71,8 @@ public class Level {
 	 */
 	private GameManager manager;
 
-	List<GameObject> objects;
+	private List<GameObject> objects;
+	private boolean active = false;
 
 	public Level(GameManager manager, File data) {
 		this.manager = manager;
@@ -102,7 +105,8 @@ public class Level {
 		try {
 			Constructor<?> construct = theClass
 					.getDeclaredConstructor(new Class[] { GameManager.class, Element.class });
-			construct.newInstance(manager, (Element) node);
+			GameObject object = (GameObject) construct.newInstance(manager, (Element) node);
+			addObject(object);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
 			Logger.Log(LogType.ERROR, "Could not create an instance of the class: " + theClass);
@@ -141,7 +145,7 @@ public class Level {
 		}
 		// sorting the list
 		manager.renderManager.sortComponents();
-
+		active = true;
 	}
 
 	/**
@@ -157,6 +161,21 @@ public class Level {
 		}
 		// sorting the list
 		manager.renderManager.sortComponents();
+		active = false;
+	}
+
+	/**
+	 * Used to add an object to the game
+	 */
+	public void addObject(GameObject object) {
+		objects.add(object);
+		if (active) {
+			manager.addUpdatable((Updateable) object);
+		}
+	}
+
+	public boolean isActive() {
+		return active;
 	}
 
 }
