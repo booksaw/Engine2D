@@ -79,7 +79,6 @@ public class GamePanel extends Panel implements ComponentListener {
 	@Override
 	public void componentResized(ComponentEvent e) {
 		manager.camera.resize(panel.getWidth(), panel.getHeight());
-		Logger.Log(panel.getHeight() + "");
 	}
 
 	@Override
