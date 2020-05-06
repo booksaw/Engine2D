@@ -24,7 +24,8 @@ public class MainPanel implements Window {
 		JPanel panel = new JPanel(new GridLayout());
 		panel.setBackground(Constants.mainBackground);
 		GamePanel gamePanel = new GamePanel(new PlatformGameManager());
-		panel.add(new Subdivision(gamePanel, new BlankPanel(), false).getPanel());
+		panel.add(new Subdivision(new Subdivision(gamePanel, new BlankPanel(), false), new BlankPanel(), true)
+				.getPanel());
 		panel.validate();
 		return panel;
 	}

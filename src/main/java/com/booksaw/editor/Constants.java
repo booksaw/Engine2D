@@ -12,7 +12,6 @@ import java.awt.Color;
 public class Constants {
 
 	public static final Color mainBackground = new Color(48, 48, 48);
-//	public static final Color border = new Color(70, 70, 70);
-	public static final Color border = Color.orange;
+	public static final Color border = new Color(70, 70, 70);
 
 }
