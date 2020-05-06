@@ -12,7 +12,6 @@ import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
-import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
@@ -131,7 +130,6 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 			// no need to move the object
 			return;
 		}
-
 
 		// pre-calculations to save efficiently
 		double incX = Math.cos(angle), incY = Math.sin(angle);

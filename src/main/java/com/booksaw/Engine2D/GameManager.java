@@ -148,9 +148,6 @@ public abstract class GameManager {
 	 * Used to update all components which need updating
 	 */
 	public void update(int time) {
-		if (time > 1) {
-			Logger.Log("time is greater than 5 " + time);
-		}
 		for (Updateable update : updatables) {
 			update.update(time);
 		}
