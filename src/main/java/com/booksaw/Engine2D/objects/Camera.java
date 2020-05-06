@@ -57,7 +57,7 @@ public class Camera {
 			scale = (double) height / preferredHeight;
 			// calculating the offset
 			offsetY = 0;
-			offsetX = (int) ((width - this.width) / 4);
+			offsetX = (int) ((width - this.width) / 2);
 		} else {
 			// calculating the scale
 			scale = (double) width / preferredWidth;

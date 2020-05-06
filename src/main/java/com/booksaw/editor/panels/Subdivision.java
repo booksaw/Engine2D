@@ -49,7 +49,8 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 			p2.getPanel().setBounds(0, (int) (panel.getHeight() * percentage), panel.getWidth(),
 					(int) (panel.getHeight() * (1 - percentage)));
 		}
-
+		p1.panel.validate();
+		p2.panel.validate();
 	}
 
 	@Override

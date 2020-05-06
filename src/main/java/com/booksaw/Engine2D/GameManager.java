@@ -11,6 +11,7 @@ import main.java.com.booksaw.Engine2D.objects.Camera;
 import main.java.com.booksaw.Engine2D.rendering.Engine2DFrame;
 import main.java.com.booksaw.Engine2D.rendering.RenderClock;
 import main.java.com.booksaw.Engine2D.rendering.RenderManager;
+import main.java.com.booksaw.editor.panels.GamePanel;
 
 /**
  * The class to manage a game screen, this will manage everything from the
@@ -112,7 +113,11 @@ public abstract class GameManager {
 
 		if (rendering) {
 			// setting the frame to display the correct content
+			if(Engine2DFrame.isInit()) {
 			Engine2DFrame.setActiveRender(this);
+			} else if(GamePanel.isInit()){
+				GamePanel.setActiveRender(this);
+			}
 		}
 
 	}

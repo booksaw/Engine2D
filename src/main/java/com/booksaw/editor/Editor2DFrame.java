@@ -4,9 +4,11 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 
 import javax.swing.JFrame;
 
+import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.editor.window.Window;
@@ -30,8 +32,8 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 		editorFrame.setTitle("Engine2D");
 		editorFrame.setSize(1280, 720);
 		editorFrame.setLocationRelativeTo(null);
-//		frame.addKeyListener(new KeyboardManager());
-//		KeyboardManager.keyboardManager.load(new File("platformer2D" + File.separator + "keymappings"));
+		editorFrame.addKeyListener(new KeyboardManager());
+		KeyboardManager.keyboardManager.load(new File("platformer2D" + File.separator + "keymappings"));
 
 		// used to detect when the frame is resized
 		editorFrame.addComponentListener(new Editor2DFrame());
@@ -57,6 +59,7 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 
 	public static void setWindow(Window window) {
 		editorFrame.setContentPane(window.getPanel());
+		editorFrame.validate();
 	}
 
 	@Override

@@ -37,10 +37,9 @@ public class Engine2DFrame implements ComponentListener, WindowListener {
 	 * @param height the starting height of the panel
 	 */
 	public static void initFrame(int width, int height) {
-
+		Logger.Log(LogType.INFO, "Starting Engine2D Game frame");
 		gameFrame = new JFrame();
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		// setting the name of the frame to the determined one
 		gameFrame.setName(CONFIG.NAME);
 		gameFrame.setSize(width, height);
@@ -54,12 +53,20 @@ public class Engine2DFrame implements ComponentListener, WindowListener {
 	}
 
 	/**
+	 * Used to check if the frame is null
+	 * 
+	 * @return if the frame is ready
+	 */
+	public static boolean isInit() {
+		return gameFrame != null;
+	}
+
+	/**
 	 * Used to display the frame (used after all configuration has occurred)
 	 * 
 	 * @param show if the window should be displayed or hidden
 	 */
 	public static void setVisible(boolean show) {
-
 		// if initFrame() has not been run
 		if (gameFrame == null) {
 			Logger.Log(LogType.ERROR, "Frame cannot be displayed before it has been initilized");
