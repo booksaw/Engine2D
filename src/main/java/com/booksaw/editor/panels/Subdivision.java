@@ -17,13 +17,14 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 
 	private Panel p1, p2;
 	private double percentage = 0.5;
-	private boolean horizontal = true;
+	private boolean horizontal = true, movable;
 	private Cursor defaultCursor;
 
-	public Subdivision(Panel p1, Panel p2, boolean hoizontal) {
+	public Subdivision(Panel p1, Panel p2, boolean hoizontal, boolean movable) {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.horizontal = hoizontal;
+		this.movable = movable;
 	}
 
 	@Override
@@ -74,7 +75,8 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if (over) {
+
+		if (over && movable) {
 			if (horizontal) {
 				percentage = (double) e.getX() / panel.getWidth();
 			} else {
@@ -85,9 +87,16 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 		}
 	}
 
+	public void setPercentage(double percentage) {
+		this.percentage = percentage;
+	}
+
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		Rectangle rectangle;
+		if (!movable) {
+			return;
+		}
 		if (horizontal) {
 			rectangle = new Rectangle((int) (panel.getWidth() * percentage) - 2, 0, 4, panel.getHeight());
 

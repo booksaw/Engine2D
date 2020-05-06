@@ -266,4 +266,13 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Moves each object back to the starting position
+	 */
+	public void reset() {
+		for(GameObject object : objects) {
+			object.reset(); 
+		}
+	}
+
 }

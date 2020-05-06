@@ -33,18 +33,22 @@ public class GamePanel extends Panel implements ComponentListener {
 	}
 
 	public static void setActiveRender(GameManager manager) {
+		GamePanel.manager = manager;
+
 		for (GamePanel panel : panels) {
-			panel.setGameManager(manager);
+			panel.setGameManager();
 		}
+		manager.pause(false);
 	}
 
 	private static List<GamePanel> panels = new ArrayList<>();;
 
-	GameManager manager;
+	public static GameManager manager;
 
 	public GamePanel(GameManager manager) {
-		this.manager = manager;
+		GamePanel.manager = manager;
 		panels.add(this);
+		manager.pause(false);
 	}
 
 	@Override
@@ -70,8 +74,7 @@ public class GamePanel extends Panel implements ComponentListener {
 		panel.getComponents()[0].repaint();
 	}
 
-	public void setGameManager(GameManager manager) {
-		this.manager = manager;
+	public void setGameManager() {
 		panel.removeAll();
 		panel.add(manager.getRenderManager());
 	}

@@ -213,4 +213,10 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	public abstract String getReference();
 
+	public void reset() {
+		x = startX;
+		y = startY;
+		velocity = new Vector(0, 0);
+	}
+
 }

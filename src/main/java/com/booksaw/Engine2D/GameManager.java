@@ -113,9 +113,9 @@ public abstract class GameManager {
 
 		if (rendering) {
 			// setting the frame to display the correct content
-			if(Engine2DFrame.isInit()) {
-			Engine2DFrame.setActiveRender(this);
-			} else if(GamePanel.isInit()){
+			if (Engine2DFrame.isInit()) {
+				Engine2DFrame.setActiveRender(this);
+			} else if (GamePanel.isInit()) {
 				GamePanel.setActiveRender(this);
 			}
 		}
@@ -126,7 +126,7 @@ public abstract class GameManager {
 	 * Used to pause the game
 	 */
 	public void pause() {
-		updateClock.setActive(false);
+		pause(true);
 	}
 
 	/**
@@ -138,6 +138,13 @@ public abstract class GameManager {
 		}
 
 		updateClock.setActive(true);
+	}
+
+	/**
+	 * Used to pause the game
+	 */
+	public void pause(boolean pauseScreen) {
+		updateClock.setActive(false);
 	}
 
 	/**
