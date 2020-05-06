@@ -6,7 +6,6 @@ import java.util.List;
 
 import main.java.com.booksaw.Engine2D.gameUpdates.UpdateClock;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
-import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.modifiers.ModifierManager;
 import main.java.com.booksaw.Engine2D.objects.Camera;
 import main.java.com.booksaw.Engine2D.rendering.Engine2DFrame;

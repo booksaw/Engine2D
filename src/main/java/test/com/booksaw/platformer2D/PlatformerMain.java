@@ -1,6 +1,10 @@
 package main.java.test.com.booksaw.platformer2D;
 
+import javax.swing.JOptionPane;
+
 import main.java.com.booksaw.Engine2D.rendering.Engine2DFrame;
+import main.java.com.booksaw.editor.Editor2DFrame;
+import main.java.com.booksaw.editor.window.MainPanel;
 
 public class PlatformerMain {
 
@@ -10,6 +14,14 @@ public class PlatformerMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		// simple selection for testing purposes
+		int result = JOptionPane.showConfirmDialog(null, "Show editor");
+		if (result == JOptionPane.YES_OPTION) {
+			Editor2DFrame.initFrame();
+			Editor2DFrame.setWindow(new MainPanel());
+			Editor2DFrame.setVisible(true);
+			return;
+		}
 		Engine2DFrame.initFrame(700, 400);
 		Engine2DFrame.setVisible(true);
 		// setting the rendering manager
