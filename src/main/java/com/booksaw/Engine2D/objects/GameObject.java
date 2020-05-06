@@ -132,16 +132,16 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 			return;
 		}
 
+
 		// pre-calculations to save efficiently
 		double incX = Math.cos(angle), incY = Math.sin(angle);
 		// checking for negatives
-		if (velocity.x < 0) {
+		if ((velocity.x < 0 && incX > 0) || (velocity.x > 0 && incX < 0)) {
 			incX = -incX;
 		}
-//		if (velocity.y < 0) {
-//			incY = -incY;
-//		}
-
+		if ((velocity.y < 0 && incY > 0) || (velocity.y > 0 && incY < 0)) {
+			incY = -incY;
+		}
 		// used to move the object a small amount each time
 		double tempx = 0, tempy = 0;
 		for (int i = 0; i < mod; i++) {
@@ -168,9 +168,6 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	@Override
 	public Shape getShape() {
-		if (getCollisionBox().getBounds().getHeight() == 1) {
-			Logger.Log("also1");
-		}
 		if (angle == 0) {
 			return getCollisionBox();
 		}

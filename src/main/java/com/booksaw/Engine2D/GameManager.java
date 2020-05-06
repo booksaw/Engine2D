@@ -6,6 +6,7 @@ import java.util.List;
 
 import main.java.com.booksaw.Engine2D.gameUpdates.UpdateClock;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.modifiers.ModifierManager;
 import main.java.com.booksaw.Engine2D.objects.Camera;
 import main.java.com.booksaw.Engine2D.rendering.Engine2DFrame;
@@ -147,6 +148,9 @@ public abstract class GameManager {
 	 * Used to update all components which need updating
 	 */
 	public void update(int time) {
+		if (time > 1) {
+			Logger.Log("time is greater than 5 " + time);
+		}
 		for (Updateable update : updatables) {
 			update.update(time);
 		}
