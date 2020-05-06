@@ -41,7 +41,7 @@ public class Engine2DFrame implements ComponentListener, WindowListener {
 		gameFrame = new JFrame();
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// setting the name of the frame to the determined one
-		gameFrame.setName(CONFIG.NAME);
+		gameFrame.setTitle(CONFIG.NAME);
 		gameFrame.setSize(width, height);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.addKeyListener(new KeyboardManager());
