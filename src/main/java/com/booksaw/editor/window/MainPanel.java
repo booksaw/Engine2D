@@ -21,7 +21,8 @@ public class MainPanel implements Window {
 	public JPanel getPanel() {
 		JPanel panel = new JPanel(new GridLayout());
 		panel.setBackground(Constants.mainBackground);
-		panel.add(new Subdivision(new BlankPanel(), new BlankPanel()).getPanel());
+		panel.add(new Subdivision(new Subdivision(new BlankPanel(), new BlankPanel(), true), new BlankPanel(), false)
+				.getPanel());
 
 		return panel;
 	}

@@ -9,8 +9,6 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
-import main.java.com.booksaw.Engine2D.logging.Logger;
-
 /**
  * A subdivision panel used to contain 2 sub panels, useful for managing the
  * layout
@@ -22,9 +20,10 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 	private boolean horizontal = true;
 	private Cursor defaultCursor;
 
-	public Subdivision(Panel p1, Panel p2) {
+	public Subdivision(Panel p1, Panel p2, boolean hoizontal) {
 		this.p1 = p1;
 		this.p2 = p2;
+		this.horizontal = hoizontal;
 	}
 
 	@Override
@@ -46,7 +45,9 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 			p2.getPanel().setBounds((int) (panel.getWidth() * percentage), 0,
 					(int) (panel.getWidth() * (1 - percentage)), panel.getHeight());
 		} else {
-			// TODO
+			p1.getPanel().setBounds(0, 0, panel.getWidth(), (int) (panel.getHeight() * percentage));
+			p2.getPanel().setBounds(0, (int) (panel.getHeight() * percentage), panel.getWidth(),
+					(int) (panel.getHeight() * (1 - percentage)));
 		}
 
 	}
@@ -73,8 +74,13 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (over) {
-			percentage = (double) e.getX() / panel.getWidth();
+			if (horizontal) {
+				percentage = (double) e.getX() / panel.getWidth();
+			} else {
+				percentage = (double) e.getY() / panel.getHeight();
+			}
 			setBounds();
+
 		}
 	}
 
@@ -92,8 +98,15 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 				over = false;
 			}
 		} else {
-			// TODO
+			rectangle = new Rectangle(0, (int) (panel.getHeight() * percentage) - 2, panel.getWidth(), 4);
 
+			if (rectangle.contains(e.getPoint())) {
+				panel.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
+				over = true;
+			} else {
+				panel.setCursor(defaultCursor);
+				over = false;
+			}
 		}
 	}
 
