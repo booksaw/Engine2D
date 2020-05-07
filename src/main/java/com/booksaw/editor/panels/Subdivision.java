@@ -82,6 +82,12 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 			} else {
 				percentage = (double) e.getY() / panel.getHeight();
 			}
+
+			if (percentage < 0.05) {
+				percentage = 0.05;
+			} else if (percentage > 0.95) {
+				percentage = 0.95;
+			}
 			setBounds();
 
 		}
