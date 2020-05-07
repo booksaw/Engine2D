@@ -48,7 +48,8 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		manager.pause(false);
 	}
 
-	public static List<GamePanel> panels = new ArrayList<>();;
+	public static List<GamePanel> panels = new ArrayList<>();
+	public static Object selectedObject = null;
 
 	public static GameManager manager;
 
@@ -121,6 +122,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 				MouseFunction.activeFunction = MouseFunction.GENERAL;
 			} else {
 				Logger.Log(LogType.INFO, "Object selected: " + o);
+				selectedObject = o;
 			}
 		}
 	}
