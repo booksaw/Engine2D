@@ -11,6 +11,12 @@ import java.awt.event.MouseMotionListener;
  */
 public class MouseListener implements MouseMotionListener, java.awt.event.MouseListener {
 
+	public static MouseListener listener;
+
+	public MouseListener() {
+		listener = this;
+	}
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		MouseFunction.activeFunction.function.run(e, MouseEventType.DRAGGED);

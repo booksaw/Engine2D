@@ -275,4 +275,8 @@ public class Level {
 		}
 	}
 
+	public List<GameObject> getGameObjects() {
+		return objects;
+	}
+
 }

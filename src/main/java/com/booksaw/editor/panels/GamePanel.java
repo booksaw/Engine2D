@@ -52,7 +52,8 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 
 	public static GameManager manager;
 
-	public GamePanel(GameManager manager) {
+	public GamePanel(GameManager manager, Panel parent) {
+		super(parent);
 		GamePanel.manager = manager;
 		panels.add(this);
 		manager.pause(false);

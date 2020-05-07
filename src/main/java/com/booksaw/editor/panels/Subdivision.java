@@ -1,6 +1,7 @@
 package main.java.com.booksaw.editor.panels;
 
 import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -22,9 +23,12 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 	private boolean horizontal = true, movable;
 	private Cursor defaultCursor;
 
-	public Subdivision(Panel p1, Panel p2, boolean hoizontal, boolean movable) {
+	public Subdivision(Panel p1, Panel p2, boolean hoizontal, boolean movable, Panel parent) {
+		super(parent);
 		this.p1 = p1;
 		this.p2 = p2;
+		p1.setParent(this);
+		p2.setParent(this);
 		this.horizontal = hoizontal;
 		this.movable = movable;
 	}
@@ -77,12 +81,26 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		Point p = e.getPoint();
+		if (e.getComponent() != panel) {
+			Point locOn = e.getLocationOnScreen();
+			Point panelP = panel.getLocationOnScreen();
+			p.x = locOn.x - panelP.x;
+			if (p.x < 0 || p.x > panel.getWidth()) {
+				return;
+			}
+
+			p.y = locOn.y - panelP.y;
+			if (p.y < 0 || p.y > panel.getHeight()) {
+				return;
+			}
+		}
 
 		if (over && movable) {
 			if (horizontal) {
-				percentage = (double) e.getX() / panel.getWidth();
+				percentage = (double) p.x / panel.getWidth();
 			} else {
-				percentage = (double) e.getY() / panel.getHeight();
+				percentage = (double) p.y / panel.getHeight();
 			}
 
 			if (percentage < 0.05) {
@@ -102,13 +120,29 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		Rectangle rectangle;
+		Point p = e.getPoint();
+		// if it has been called by a different component
+		if (e.getComponent() != panel) {
+			Point locOn = e.getLocationOnScreen();
+			Point panelP = panel.getLocationOnScreen();
+			p.x = locOn.x - panelP.x;
+			if (p.x < 0 || p.x > panel.getWidth()) {
+				return;
+			}
+
+			p.y = locOn.y - panelP.y;
+			if (p.y < 0 || p.y > panel.getHeight()) {
+				return;
+			}
+		}
+
 		if (!movable || MouseFunction.activeFunction != MouseFunction.GENERAL) {
 			return;
 		}
 		if (horizontal) {
 			rectangle = new Rectangle((int) (panel.getWidth() * percentage) - 2, 0, 4, panel.getHeight());
 
-			if (rectangle.contains(e.getPoint())) {
+			if (rectangle.contains(p)) {
 				panel.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
 				over = true;
 			} else {
@@ -118,7 +152,7 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 		} else {
 			rectangle = new Rectangle(0, (int) (panel.getHeight() * percentage) - 2, panel.getWidth(), 4);
 
-			if (rectangle.contains(e.getPoint())) {
+			if (rectangle.contains(p)) {
 				panel.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
 				over = true;
 			} else {
@@ -126,6 +160,14 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 				over = false;
 			}
 		}
+	}
+
+	@Override
+	public void setParent(Panel parent) {
+		super.setParent(parent);
+		// used to ensure all listeners required are added
+		p1.setParent(this);
+		p2.setParent(this);
 	}
 
 }

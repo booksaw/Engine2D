@@ -19,6 +19,10 @@ import main.java.com.booksaw.editor.mouse.MouseFunction;
 
 public class Topbar extends Panel implements ActionListener {
 
+	public Topbar(Panel parent) {
+		super(parent);
+	}
+
 	JButton play, pause, stop;
 
 	@Override
@@ -100,9 +104,10 @@ public class Topbar extends Panel implements ActionListener {
 			if (stop.isEnabled()) {
 				pause.setEnabled(false);
 				play.setEnabled(true);
-				GamePanel.manager.pause();
+
 				GamePanel.manager.level.reset();
 				GamePanel.manager.pause();
+				GamePanel.manager.level.reset();
 			}
 			break;
 		default:
