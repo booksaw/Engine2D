@@ -279,4 +279,34 @@ public class Level {
 		return objects;
 	}
 
+	/**
+	 * Used to get the object with the specified ID
+	 * 
+	 * @param ID the id
+	 * @return the object
+	 */
+	public GameObject getObject(String ID) {
+		return getObject(ID, null);
+	}
+
+	/**
+	 * Used to get the object with the specified ID. this version of the method is
+	 * mainly used when generating IDs
+	 * 
+	 * @param ID     the ID
+	 * @param ignore the object to ignore
+	 * @return the object
+	 */
+	public GameObject getObject(String ID, GameObject ignore) {
+		for (GameObject object : objects) {
+			if (object == ignore) {
+				continue;
+			}
+			if (object != ignore && object.toString().equals("ID")) {
+				return object;
+			}
+		}
+		return null;
+	}
+
 }

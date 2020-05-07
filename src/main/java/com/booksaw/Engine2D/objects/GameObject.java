@@ -24,6 +24,7 @@ import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
  */
 public abstract class GameObject extends RenderedComponent implements Hitbox {
 
+	private String ID;
 	public double x, y, startX, startY;
 	public double width, height, startWidth, startHeight;
 	public boolean movable = true;
@@ -58,6 +59,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		movable = (Utils.getTagBoolean("movable", details));
 		mass = (Utils.getTagDouble("mass", details));
 		angle = (Utils.getTagDouble("angle", details));
+		ID = Utils.getTagString("id", details);
 
 	}
 
@@ -208,6 +210,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		Utils.saveValue("angle", document, element, angle + "");
 		Utils.saveValue("mass", document, element, mass + "");
 		Utils.saveValue("type", document, element, getReference());
+		Utils.saveValue("id", document, element, ID);
 
 	}
 
@@ -219,4 +222,25 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		velocity = new Vector(0, 0);
 	}
 
+	/**
+	 * Only use when initally making the ID
+	 */
+	private void generateID() {
+
+		int i = 0;
+		do {
+			if (manager.level.getObject(getReference() + i, this) == null)
+				ID = getReference() + i;
+			i++;
+		} while (ID == null);
+
+	}
+
+	@Override
+	public String toString() {
+		if (ID == null || ID.equals("")) {
+			generateID();
+		}
+		return ID;
+	}
 }
