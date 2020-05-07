@@ -15,6 +15,7 @@ import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.editor.Constants;
+import main.java.com.booksaw.editor.mouse.MouseFunction;
 
 public class Topbar extends Panel implements ActionListener {
 
@@ -67,7 +68,6 @@ public class Topbar extends Panel implements ActionListener {
 		stop.setForeground(Constants.mainBackground);
 		stop.setActionCommand("stop");
 		stop.addActionListener(this);
-		stop.setEnabled(false);
 
 		panel.add(play);
 		panel.add(pause);
@@ -76,12 +76,16 @@ public class Topbar extends Panel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
+		if (MouseFunction.activeFunction != MouseFunction.GENERAL) {
+			return;
+		}
+
 		switch (e.getActionCommand()) {
 		case "play":
 			if (play.isEnabled()) {
 				play.setEnabled(false);
 				pause.setEnabled(true);
-				stop.setEnabled(true);
 				GamePanel.manager.resume();
 			}
 			break;
@@ -89,15 +93,14 @@ public class Topbar extends Panel implements ActionListener {
 			if (pause.isEnabled()) {
 				play.setEnabled(true);
 				pause.setEnabled(false);
-				stop.setEnabled(false);
 				GamePanel.manager.pause();
 			}
 			break;
 		case "stop":
 			if (stop.isEnabled()) {
-				stop.setEnabled(false);
 				pause.setEnabled(false);
 				play.setEnabled(true);
+				GamePanel.manager.pause();
 				GamePanel.manager.level.reset();
 				GamePanel.manager.pause();
 			}

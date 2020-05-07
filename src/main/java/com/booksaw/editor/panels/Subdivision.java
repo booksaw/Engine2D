@@ -9,6 +9,8 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
+import main.java.com.booksaw.editor.mouse.MouseFunction;
+
 /**
  * A subdivision panel used to contain 2 sub panels, useful for managing the
  * layout
@@ -100,7 +102,7 @@ public class Subdivision extends Panel implements ComponentListener, MouseMotion
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		Rectangle rectangle;
-		if (!movable) {
+		if (!movable || MouseFunction.activeFunction != MouseFunction.GENERAL) {
 			return;
 		}
 		if (horizontal) {

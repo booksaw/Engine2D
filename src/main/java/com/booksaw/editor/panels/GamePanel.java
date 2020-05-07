@@ -1,8 +1,14 @@
 package main.java.com.booksaw.editor.panels;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +17,9 @@ import javax.swing.JPanel;
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
+import main.java.com.booksaw.editor.mouse.MouseFunction;
 
-public class GamePanel extends Panel implements ComponentListener {
+public class GamePanel extends Panel implements ComponentListener, MouseListener, MouseMotionListener {
 
 	/**
 	 * Used to check if the panels are ready
@@ -41,7 +48,7 @@ public class GamePanel extends Panel implements ComponentListener {
 		manager.pause(false);
 	}
 
-	private static List<GamePanel> panels = new ArrayList<>();;
+	public static List<GamePanel> panels = new ArrayList<>();;
 
 	public static GameManager manager;
 
@@ -60,7 +67,8 @@ public class GamePanel extends Panel implements ComponentListener {
 		manager.setRendering(true);
 		manager.camera.resize(panel.getWidth(), panel.getHeight());
 		manager.resume();
-
+		panel.addMouseListener(this);
+		panel.addMouseMotionListener(this);
 		// ensuring the frame is the correct size
 		panel.validate();
 
@@ -94,6 +102,62 @@ public class GamePanel extends Panel implements ComponentListener {
 
 	@Override
 	public void componentHidden(ComponentEvent e) {
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+		panel.getParent().dispatchEvent(e);
+
+		if (MouseFunction.OBJECTSELECT == MouseFunction.activeFunction) {
+			Point p = e.getPoint();
+			p.x = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
+			p.y = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
+					+ manager.camera.x);
+			Object o = manager.level.getColliding(new Rectangle(p, new Dimension(1, 1)), null);
+			if (o == null) {
+				// resetting the mouse function
+				MouseFunction.activeFunction = MouseFunction.GENERAL;
+			} else {
+				Logger.Log(LogType.INFO, "Object selected: " + o);
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+
+		panel.getParent().dispatchEvent(e);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+		panel.getParent().dispatchEvent(e);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+		panel.getParent().dispatchEvent(e);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+		panel.getParent().dispatchEvent(e);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+		panel.getParent().dispatchEvent(e);
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+
+		panel.getParent().dispatchEvent(e);
 	}
 
 }

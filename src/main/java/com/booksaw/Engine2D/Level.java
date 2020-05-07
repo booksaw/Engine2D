@@ -120,7 +120,7 @@ public class Level {
 	private void createObjectFromData(Node node) {
 		Class<?> theClass = gameObjectTypes.get(Utils.getTagString("type", (Element) node));
 
-		// an error has occured
+		// an error has occurred
 		Logger.Log("Creating Object: " + theClass);
 		if (gameObjectTypes == null) {
 			return;
@@ -270,8 +270,8 @@ public class Level {
 	 * Moves each object back to the starting position
 	 */
 	public void reset() {
-		for(GameObject object : objects) {
-			object.reset(); 
+		for (GameObject object : objects) {
+			object.reset();
 		}
 	}
 

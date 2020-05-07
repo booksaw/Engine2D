@@ -23,7 +23,6 @@ public abstract class Panel {
 		panel = new JPanel();
 		createPanel(panel);
 		panel.setBorder(new LineBorder(Constants.border, 2));
-
 		return panel;
 
 	}

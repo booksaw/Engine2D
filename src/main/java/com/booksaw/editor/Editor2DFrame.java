@@ -1,5 +1,6 @@
 package main.java.com.booksaw.editor;
 
+import java.awt.Dimension;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
@@ -11,6 +12,7 @@ import javax.swing.JFrame;
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
+import main.java.com.booksaw.editor.mouse.MouseListener;
 import main.java.com.booksaw.editor.window.Window;
 
 /**
@@ -33,7 +35,13 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 		editorFrame.setSize(1280, 720);
 		editorFrame.setLocationRelativeTo(null);
 		editorFrame.addKeyListener(new KeyboardManager());
+		editorFrame.setMinimumSize(new Dimension(300, 300));
 		KeyboardManager.keyboardManager.load(new File("platformer2D" + File.separator + "keymappings"));
+
+		// adding listeners
+		MouseListener listener = new MouseListener();
+		editorFrame.addMouseListener(listener);
+		editorFrame.addMouseMotionListener(listener);
 
 		// used to detect when the frame is resized
 		editorFrame.addComponentListener(new Editor2DFrame());
