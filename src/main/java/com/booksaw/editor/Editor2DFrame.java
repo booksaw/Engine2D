@@ -8,7 +8,6 @@ import java.awt.event.WindowListener;
 import java.io.File;
 
 import javax.swing.JFrame;
-import javax.swing.UIManager;
 
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;

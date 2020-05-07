@@ -1,7 +1,9 @@
 package main.java.com.booksaw.editor.panels;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.metal.MetalTabbedPaneUI;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
-import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.editor.Constants;
 
 /**
@@ -33,18 +34,25 @@ public class TabbedPane extends Panel {
 	protected void createPanel(JPanel panel) {
 		panel.setLayout(new GridLayout());
 
+		UIManager.put("TabbedPane.foreground", Color.white);
+		UIManager.put("TabbedPane.selected", Color.black);
+		UIManager.put("TabbedPane.darkShadow", Constants.mainBackground);
+		UIManager.put("TabbedPane.highlight", Constants.componentBackground);
+		UIManager.put("TabbedPane.shadow", Constants.componentBackground);
+
+		pane = new JTabbedPane();
+		pane.setUI(new customTabbedPaneUI());
 		pane.setOpaque(true);
 		panel.setOpaque(true);
 
 		panel.setBackground(Color.orange);
+		panel.setFocusable(false);
 		pane.setBackground(Constants.mainBackground);
 		pane.setUI(new customTabbedPaneUI());
-		pane.updateUI();
-		Logger.Log(pane.getUI() + "");
 		panel.setBorder(new LineBorder(Color.red, 5));
 		panel.setForeground(Color.white);
-//		pane.setForeground(Color.WHITE);
 		addListeners(pane);
+
 		panel.add(pane);
 	}
 
@@ -87,8 +95,28 @@ public class TabbedPane extends Panel {
 		}
 	}
 
-	public class customTabbedPaneUI extends MetalTabbedPaneUI {
+	/**
+	 * This is used to disable some unwanted UI elements
+	 * 
+	 * @author booksaw
+	 *
+	 */
+	public class customTabbedPaneUI extends BasicTabbedPaneUI {
 
+		/**
+		 * Used to disable the gray border around the main panel
+		 */
+		@Override
+		protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex) {
+		}
+
+		/**
+		 * Used to disable the blue focus indicator
+		 */
+		@Override
+		protected void paintFocusIndicator(Graphics g, int tabPlacement, Rectangle[] rects, int tabIndex,
+				Rectangle iconRect, Rectangle textRect, boolean isSelected) {
+		}
 	}
 
 }

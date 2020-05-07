@@ -34,7 +34,7 @@ public class GameObjectList extends Panel {
 		for (GameObject object : GamePanel.manager.level.getGameObjects()) {
 			objects.add(new DefaultMutableTreeNode(object));
 		}
-		panel.setBackground(Constants.mainBackground);
+		panel.setBackground(Constants.componentBackground);
 		tree = new JTree(objects);
 		tree.setCellRenderer(new CellRenderer());
 		tree.setBackground(Constants.componentBackground);
