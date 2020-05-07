@@ -13,7 +13,7 @@ For details of usage of this project, please view the [WIKI](https://github.com/
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
+For more details about contribution, view [Contribution.md](https://github.com/booksaw/Engine2D/blob/master/CONTRIBUTING.md)
 Please make sure to update tests as appropriate.
 
 ## License
