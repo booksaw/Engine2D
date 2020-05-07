@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import main.java.com.booksaw.Engine2D.Vector;
+import main.java.com.booksaw.Engine2D.exception.ClassTypeMismatchException;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.objects.Sprite;
@@ -32,6 +33,23 @@ public abstract class Movement {
 		movementTypes.put(HorizontalMovement.getStaticReference(), HorizontalMovement.class);
 		movementTypes.put(JumpMovement.getStaticReference(), JumpMovement.class);
 
+	}
+
+	/**
+	 * Used to add a custom movement into the list of possible movements
+	 * 
+	 * @param movementClass the game object class to add
+	 * @param reference     the reference of the movement (use gameObject.reference
+	 *                      to fetch)
+	 * @throws ClassTypeMismatchException this is thrown if the class is does not
+	 *                                    extend the superclass Movement
+	 */
+	public static void addMovement(String reference, Class<?> movementClass) throws ClassTypeMismatchException {
+
+		if (Movement.class.isAssignableFrom(movementClass)) {
+			movementTypes.put(reference, movementClass);
+		}
+		throw new ClassTypeMismatchException(Movement.class);
 	}
 
 	/**
