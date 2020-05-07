@@ -29,11 +29,11 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 	public static void initFrame() {
 		Logger.Log(LogType.INFO, "Loading editor frame");
 		// ui manager
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-			Logger.Log(LogType.WARNING, "Could not load system UI, using Java inbuilt");
-		}
+//		try {
+//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//		} catch (Exception e) {
+//			Logger.Log(LogType.WARNING, "Could not load system UI, using Java inbuilt");
+//		}
 		editorFrame = new JFrame();
 		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

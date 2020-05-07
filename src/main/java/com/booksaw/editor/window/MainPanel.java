@@ -8,6 +8,7 @@ import main.java.com.booksaw.editor.Constants;
 import main.java.com.booksaw.editor.panels.BlankPanel;
 import main.java.com.booksaw.editor.panels.GameObjectList;
 import main.java.com.booksaw.editor.panels.GamePanel;
+import main.java.com.booksaw.editor.panels.ObjectModifierPanel;
 import main.java.com.booksaw.editor.panels.TabbedPane;
 import main.java.com.booksaw.editor.panels.Subdivision;
 import main.java.com.booksaw.editor.panels.Topbar;
@@ -31,6 +32,7 @@ public class MainPanel implements Window {
 		// setting up the tabbed pane
 		TabbedPane tabbedPane = new TabbedPane(null);
 		tabbedPane.addPanel(new GameObjectList(null), "Objects");
+		tabbedPane.addPanel(new ObjectModifierPanel(null), "Modifiers");
 
 		Subdivision gamePanelDivision = new Subdivision(gamePanel, new BlankPanel(null), false, true, null);
 

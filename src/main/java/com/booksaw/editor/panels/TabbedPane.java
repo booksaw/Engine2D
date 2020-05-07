@@ -1,11 +1,18 @@
 package main.java.com.booksaw.editor.panels;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.metal.MetalTabbedPaneUI;
+
+import main.java.com.booksaw.Engine2D.logging.Logger;
+import main.java.com.booksaw.editor.Constants;
 
 /**
  * This class is used when multiple tabs are needed in the same region
@@ -26,10 +33,19 @@ public class TabbedPane extends Panel {
 	protected void createPanel(JPanel panel) {
 		panel.setLayout(new GridLayout());
 
-		pane = new JTabbedPane();
+		pane.setOpaque(true);
+		panel.setOpaque(true);
+
+		panel.setBackground(Color.orange);
+		pane.setBackground(Constants.mainBackground);
+		pane.setUI(new customTabbedPaneUI());
+		pane.updateUI();
+		Logger.Log(pane.getUI() + "");
+		panel.setBorder(new LineBorder(Color.red, 5));
+		panel.setForeground(Color.white);
+//		pane.setForeground(Color.WHITE);
 		addListeners(pane);
 		panel.add(pane);
-
 	}
 
 	/**
@@ -44,7 +60,7 @@ public class TabbedPane extends Panel {
 		if (pane == null) {
 			getPanel();
 		}
-		pane.add(panel.getPanel());
+		pane.addTab(panel.getPanel().getName(), panel.getPanel());
 	}
 
 	/**
@@ -69,6 +85,10 @@ public class TabbedPane extends Panel {
 		if (pane != null) {
 			addListeners(pane);
 		}
+	}
+
+	public class customTabbedPaneUI extends MetalTabbedPaneUI {
+
 	}
 
 }
