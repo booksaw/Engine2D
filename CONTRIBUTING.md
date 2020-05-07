@@ -5,7 +5,7 @@ I'm really glad you're reading this, because we need volunteer developers to hel
 Here are some important resources:
 
   * [Roadmap](https://github.com/booksaw/Engine2D/projects/3),  we use the GitHub projets tab to manage the roadmap of the project. 
-  * Found a bug? [Issues](https://github.com/booksaw/Engine2D/issues/new) use the issue tracker to report any bugs.
+  * Found a bug? [Issues](https://github.com/booksaw/Engine2D/issues/new/choose) use the issue tracker to report any bugs.
 
 ## Testing
 
