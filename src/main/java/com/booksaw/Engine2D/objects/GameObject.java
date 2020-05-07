@@ -232,7 +232,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 			if (manager.level.getObject(getReference() + i, this) == null)
 				ID = getReference() + i;
 			i++;
-		} while (ID == null);
+		} while (ID == null || ID.equals(""));
 
 	}
 
