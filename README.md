@@ -1,6 +1,7 @@
 # Engine2D
 
 A project to create a 2D Game Engine. This project includes a game creation screen along with a level editor, to allow you to create 2D games without much of a need for code.
+While making use of this project, please keep to the [code of conduct](https://github.com/booksaw/Engine2D/blob/master/CODE_OF_CONDUCT.md)
 
 ## Installation
 
