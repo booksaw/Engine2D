@@ -1,5 +1,6 @@
 package main.java.com.booksaw.Engine2D.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -63,6 +64,8 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	}
 
+	public boolean isSelected = true;
+
 	// overriding method to call a more specific paint method
 	@Override
 	public void paint(Graphics graphics, GameManager manager) {
@@ -98,6 +101,9 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 		// calling the abstract method
 		paint(graphics, manager, renderedX, renderedY, w, h);
+		if (isSelected) {
+			paintSelection(graphics, manager, renderedX, renderedY, w, h);
+		}
 	}
 
 	/**
@@ -250,5 +256,19 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 			generateID();
 		}
 		return ID;
+	}
+
+	public void paintSelection(Graphics g, GameManager manager, int x, int y, int width, int height) {
+
+		final int circleR = 5;
+
+		g.setColor(Color.WHITE);
+		g.drawRect(x, y - height, width, height);
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillOval(x - circleR, (y - circleR), circleR * 2, circleR * 2);
+		g.fillOval((x + width) - circleR, (y - circleR), circleR * 2, circleR * 2);
+		g.fillOval(x - circleR, y - circleR - height, circleR * 2, circleR * 2);
+		g.fillOval(x + width - circleR, y - circleR - height, circleR * 2, circleR * 2);
+
 	}
 }

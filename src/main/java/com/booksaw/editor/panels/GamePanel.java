@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
+import main.java.com.booksaw.Engine2D.objects.GameObject;
 import main.java.com.booksaw.editor.mouse.MouseFunction;
 
 public class GamePanel extends Panel implements ComponentListener, MouseListener, MouseMotionListener {
@@ -49,7 +50,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 	}
 
 	public static List<GamePanel> panels = new ArrayList<>();
-	public static Object selectedObject = null;
+	public static GameObject selectedObject = null;
 
 	public static GameManager manager;
 
@@ -81,7 +82,6 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 
 	public void repaint() {
 		panel.repaint();
-		panel.getComponents()[0].repaint();
 	}
 
 	public void setGameManager() {
@@ -116,14 +116,21 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			p.x = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
 			p.y = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
 					+ manager.camera.x);
-			Object o = manager.level.getColliding(new Rectangle(p, new Dimension(1, 1)), null);
+			GameObject o = manager.level.getColliding(new Rectangle(p, new Dimension(1, 1)), null);
 			if (o == null) {
 				// resetting the mouse function
 				MouseFunction.activeFunction = MouseFunction.GENERAL;
 			} else {
+				if (selectedObject != null) {
+
+					selectedObject.isSelected = false;
+				}
 				Logger.Log(LogType.INFO, "Object selected: " + o);
+
 				selectedObject = o;
+				selectedObject.isSelected = true;
 			}
+
 		}
 	}
 
