@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,6 +15,7 @@ import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
+import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
@@ -25,12 +28,11 @@ import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
  */
 public abstract class GameObject extends RenderedComponent implements Hitbox {
 
-	private String ID;
-	public double x, y, startX, startY;
-	public double width, height, startWidth, startHeight;
-	public boolean movable = true;
-	public double mass = 10;
-	private GameObject collisionBottom, collisionLeft;
+	private HashMap<String, Modifier> modifiers = new HashMap<>();
+
+	public transient double x, y;
+	public transient double width, height;
+	private transient GameObject collisionBottom, collisionLeft;
 	/**
 	 * The angle that the object has been rotated, keep between 0 and 2 pi
 	 */
@@ -44,23 +46,33 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		this.manager = manager;
 	}
 
+	public Modifier addModifier(Element details, String reference, String description) {
+		Modifier modifier = new Modifier(reference, description, details);
+		modifiers.put(reference, modifier);
+		return modifier;
+	}
+
+	public Modifier getModifier(String reference) {
+		return modifiers.get(reference);
+	}
+
 	public GameObject(GameManager manager, Element details) {
 		this.manager = manager;
 		velocity = new Vector(0, 0);
-		startX = (Utils.getTagDouble("x", details));
-		startY = (Utils.getTagDouble("y", details));
-		x = startX;
-		y = startY;
+		x = addModifier(details, "x", "X location").getDoubleValue();
+		y = addModifier(details, "y", "Y location").getDoubleValue();
 
-		width = (Utils.getTagDouble("width", details));
-		height = (Utils.getTagDouble("height", details));
-		startWidth = width;
-		startHeight = height;
+		addModifier(details, "width", "Width");
+		addModifier(details, "height", "Height");
 
-		movable = (Utils.getTagBoolean("movable", details));
-		mass = (Utils.getTagDouble("mass", details));
-		angle = (Utils.getTagDouble("angle", details));
-		ID = Utils.getTagString("id", details);
+		height = getModifier("height").getDoubleValue();
+		width = getModifier("width").getDoubleValue();
+
+		addModifier(details, "movable", "Movable");
+		addModifier(details, "mass", "Mass");
+		addModifier(details, "angle", "Angle");
+
+		addModifier(details, "id", "Name");
 
 	}
 
@@ -208,23 +220,18 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	 * @param document
 	 */
 	public void save(Element element, Document document) {
-		Utils.saveValue("x", document, element, startX + "");
-		Utils.saveValue("y", document, element, startY + "");
-		Utils.saveValue("width", document, element, width + "");
-		Utils.saveValue("height", document, element, height + "");
-		Utils.saveValue("movable", document, element, movable + "");
-		Utils.saveValue("angle", document, element, angle + "");
-		Utils.saveValue("mass", document, element, mass + "");
+		for (Entry<String, Modifier> modifier : modifiers.entrySet()) {
+			modifier.getValue().Save(element, document);
+		}
 		Utils.saveValue("type", document, element, getReference());
-		Utils.saveValue("id", document, element, ID);
 
 	}
 
 	public abstract String getReference();
 
 	public void reset() {
-		x = startX;
-		y = startY;
+		x = getModifier("x").getDoubleValue();
+		y = getModifier("y").getDoubleValue();
 		velocity = new Vector(0, 0);
 	}
 
@@ -240,7 +247,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	 * Only use when initally making the ID
 	 */
 	private void generateID() {
-
+		String ID = "";
 		int i = 0;
 		do {
 			if (manager.level.getObject(getReference() + i, this) == null)
@@ -248,10 +255,13 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 			i++;
 		} while (ID == null || ID.equals(""));
 
+		getModifier("id").setValue(ID);
+
 	}
 
 	@Override
 	public String toString() {
+		String ID = getID();
 		if (ID == null || ID.equals("")) {
 			generateID();
 		}
@@ -270,5 +280,9 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		g.fillOval(x - circleR, y - circleR - height, circleR * 2, circleR * 2);
 		g.fillOval(x + width - circleR, y - circleR - height, circleR * 2, circleR * 2);
 
+	}
+
+	public String getID() {
+		return getModifier("id").getStringValue();
 	}
 }
