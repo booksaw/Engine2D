@@ -56,6 +56,15 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		return modifiers.get(reference);
 	}
 
+	/**
+	 * Used to get all modifiers for this object
+	 * 
+	 * @return a list of all modifiers
+	 */
+	public HashMap<String, Modifier> getModifiers() {
+		return modifiers;
+	}
+
 	public GameObject(GameManager manager, Element details) {
 		this.manager = manager;
 		velocity = new Vector(0, 0);
