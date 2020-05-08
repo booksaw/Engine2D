@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.border.LineBorder;
 
+import main.java.com.booksaw.Engine2D.input.KeyboardManager;
+import main.java.com.booksaw.Engine2D.logging.LogType;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.editor.Constants;
 
 /**
@@ -45,12 +48,11 @@ public abstract class Panel {
 
 		Panel active = this;
 		if (component == null) {
-			try {
-				throw new Exception();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			Logger.Log(LogType.WARNING, "Could not add listeners, a provided component was null");
+			return;
 		}
+
+		component.addKeyListener(KeyboardManager.keyboardManager);
 
 		do {
 			if (component instanceof JTree) {
