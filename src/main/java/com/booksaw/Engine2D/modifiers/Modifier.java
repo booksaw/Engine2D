@@ -1,5 +1,12 @@
 package main.java.com.booksaw.Engine2D.modifiers;
 
+import java.awt.Color;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import main.java.com.booksaw.Engine2D.Utils;
+
 /**
  * This class is used to store all the required details about a modifier
  * 
@@ -14,6 +21,12 @@ public class Modifier {
 	public Modifier(String reference, Object value, String description) {
 		this.reference = reference;
 		this.value = value;
+		this.description = description;
+	}
+
+	public Modifier(String reference, String description, Element element) {
+		value = Utils.getTagString(reference, element);
+		this.reference = reference;
 		this.description = description;
 	}
 
@@ -66,6 +79,18 @@ public class Modifier {
 		return value.toString();
 	}
 
+	public Color getColorValue() {
+		if (value instanceof Color) {
+			return ((Color) value);
+		}
+
+		try {
+			return new Color(getIntValue());
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	public String getReference() {
 		return reference;
 	}
@@ -88,6 +113,10 @@ public class Modifier {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void Save(Element element, Document document) {
+		Utils.saveValue(reference, document, element, value.toString());
 	}
 
 }

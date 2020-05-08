@@ -25,23 +25,20 @@ public class Sprite extends ImageObject {
 		return reference;
 	}
 
-	public int player;
-	public double maxSpeedX = 2.5, maxSpeedY = -1, maxSpeed = -1;
 	private List<Movement> moveSet;
 
 	public Sprite(AnimationManager manager, GameManager gameManager, int player) {
 		super(manager, gameManager);
-		this.player = player;
 		moveSet = new ArrayList<>();
 	}
 
 	public Sprite(GameManager manager, Element details) {
 		super(manager, details);
 
-		player = Utils.getTagInteger("player", details);
-		maxSpeedX = Utils.getTagDouble("maxSpeedX", details);
-		maxSpeedY = Utils.getTagDouble("maxSpeedY", details);
-		maxSpeed = Utils.getTagDouble("maxSpeed", details);
+		addModifier(details, "player", "Player number (for determining controls)");
+		addModifier(details, "maxSpeedX", "Maximum horizonal speed");
+		addModifier(details, "maxSpeedY", "Maximum vertical speed");
+		addModifier(details, "maxSpeed", "Maximum speed");
 
 		moveSet = new ArrayList<>();
 		// looping through every animation
@@ -54,18 +51,13 @@ public class Sprite extends ImageObject {
 	@Override
 	public void save(Element element, Document document) {
 		super.save(element, document);
-		Utils.saveValue("player", document, element, player + "");
-		Utils.saveValue("maxSpeedX", document, element, maxSpeedX + "");
-		Utils.saveValue("maxSpeedY", document, element, maxSpeedY + "");
-		Utils.saveValue("maxSpeed", document, element, maxSpeed + "");
-
-		Utils.saveValue("maxMovement", document, element, moveSet.size() + "");
 		// looping through every animation
 		int i = 0;
 		for (Movement movement : moveSet) {
 			Utils.saveValue("movement_" + i, document, element, movement.getReference() + ";" + movement.getOutput());
 			i++;
 		}
+		Utils.saveValue("maxMovement", document, element, moveSet.size() + "");
 	}
 
 	@Override
@@ -120,6 +112,22 @@ public class Sprite extends ImageObject {
 	@Override
 	public String getReference() {
 		return reference;
+	}
+
+	public int getPlayer() {
+		return getModifier("player").getIntValue();
+	}
+
+	public double getMaxSpeedX() {
+		return getModifier("maxSpeedX").getDoubleValue();
+	}
+
+	public double getMaxSpeedY() {
+		return getModifier("maxSpeedY").getDoubleValue();
+	}
+
+	public double getMaxSpeed() {
+		return getModifier("maxSpeed").getDoubleValue();
 	}
 
 }

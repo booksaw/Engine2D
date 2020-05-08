@@ -36,7 +36,7 @@ public class JumpMovement extends Movement {
 
 	@Override
 	public void update(Vector velocity) {
-		if (KeyboardManager.keyboardManager.isActive("player." + sprite.player + ".up")) {
+		if (KeyboardManager.keyboardManager.isActive("player." + sprite.getPlayer() + ".up")) {
 			if (ticksJumping == -1) {
 				// player can jump
 				jump(velocity);
@@ -70,7 +70,7 @@ public class JumpMovement extends Movement {
 	 * Used when the sprite initially jumps
 	 */
 	public void jump(Vector velocity) {
-		velocity.applyVector(new Vector(0, accelerationJump), -1, sprite.maxSpeedY, sprite.maxSpeed, false);
+		velocity.applyVector(new Vector(0, accelerationJump), -1, sprite.getMaxSpeedY(), sprite.getMaxSpeed(), false);
 		ticksJumping = 0;
 	}
 

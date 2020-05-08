@@ -31,15 +31,15 @@ public class HorizontalMovement extends Movement {
 
 	@Override
 	public void update(Vector velocity) {
-		if (KeyboardManager.keyboardManager.isActive("player." + sprite.player + ".left")) {
-			velocity.applyVector(new Vector(-accelerationX, 0), sprite.maxSpeedX, -1, sprite.maxSpeed, false);
+		if (KeyboardManager.keyboardManager.isActive("player." + sprite.getPlayer() + ".left")) {
+			velocity.applyVector(new Vector(-accelerationX, 0), sprite.getMaxSpeedX(), -1, sprite.getMaxSpeed(), false);
 		} else if (velocity.x < 0) {
-			velocity.applyVector(new Vector(decelerationX, 0), -1, -1, sprite.maxSpeed, true);
+			velocity.applyVector(new Vector(decelerationX, 0), -1, -1, sprite.getMaxSpeed(), true);
 		}
-		if (KeyboardManager.keyboardManager.isActive("player." + sprite.player + ".right")) {
-			velocity.applyVector(new Vector(accelerationX, 0), sprite.maxSpeedX, -1, sprite.maxSpeed, false);
+		if (KeyboardManager.keyboardManager.isActive("player." + sprite.getPlayer() + ".right")) {
+			velocity.applyVector(new Vector(accelerationX, 0), sprite.getMaxSpeedX(), -1, sprite.getMaxSpeed(), false);
 		} else if (velocity.x > 0) {
-			velocity.applyVector(new Vector(-decelerationX, 0), -1, -1, sprite.maxSpeed, true);
+			velocity.applyVector(new Vector(-decelerationX, 0), -1, -1, sprite.getMaxSpeed(), true);
 		}
 	}
 

@@ -21,8 +21,8 @@ public class GravityMovement extends Movement {
 	@Override
 	public void update(Vector velocity) {
 		if (!sprite.getManager().level.isColliding(sprite.getShape(new Vector(0, -1)), sprite)) {
-			velocity.applyVector(new Vector(0, sprite.getManager().accelerationGravity), -1, sprite.maxSpeedY,
-					sprite.maxSpeed, false);
+			velocity.applyVector(new Vector(0, sprite.getManager().accelerationGravity), -1, sprite.getMaxSpeedY(),
+					sprite.getMaxSpeed(), false);
 		}
 	}
 

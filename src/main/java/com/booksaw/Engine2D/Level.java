@@ -134,7 +134,8 @@ public class Level {
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
 			Logger.Log(LogType.ERROR, "Could not create an instance of the class: " + theClass);
-			Logger.Log(e.toString());
+			Logger.Log(LogType.ERROR, e.toString());
+			Logger.Log(LogType.ERROR, e.getStackTrace() + "");
 		}
 	}
 
