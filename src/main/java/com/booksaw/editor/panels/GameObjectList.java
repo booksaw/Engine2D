@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
@@ -18,7 +20,7 @@ import main.java.com.booksaw.editor.Constants;
  * @author booksaw
  *
  */
-public class GameObjectList extends Panel {
+public class GameObjectList extends Panel implements TreeSelectionListener {
 
 	public GameObjectList(Panel parent) {
 		super(parent);
@@ -39,6 +41,7 @@ public class GameObjectList extends Panel {
 		tree.setCellRenderer(new CellRenderer());
 		tree.setBackground(Constants.componentBackground);
 		tree.setOpaque(false);
+		tree.addTreeSelectionListener(this);
 		tree.setForeground(Color.WHITE);
 		addListeners(tree);
 
@@ -86,6 +89,29 @@ public class GameObjectList extends Panel {
 
 			this.setText(value.toString());
 			return ret;
+		}
+	}
+
+	@Override
+	public void valueChanged(TreeSelectionEvent e) {
+		// used to select the rendered object
+		Object obj = (e.getOldLeadSelectionPath() != null) ? e.getOldLeadSelectionPath().getLastPathComponent() : null;
+		if (obj != null && obj instanceof DefaultMutableTreeNode) {
+			Object object = ((DefaultMutableTreeNode) obj).getUserObject();
+			if (object != null && object instanceof GameObject) {
+				((GameObject) object).isSelected = false;
+				GamePanel.selectedObject = (GameObject) null;
+			}
+		}
+
+		obj = (e.getNewLeadSelectionPath() != null) ? e.getNewLeadSelectionPath().getLastPathComponent() : null;
+		if (obj != null && obj instanceof DefaultMutableTreeNode) {
+			Object object = ((DefaultMutableTreeNode) obj).getUserObject();
+			if (object != null && object instanceof GameObject) {
+				((GameObject) object).isSelected = true;
+				GamePanel.selectedObject = (GameObject) object;
+				GamePanel.manager.pause(false);
+			}
 		}
 	}
 }
