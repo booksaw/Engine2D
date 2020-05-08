@@ -8,7 +8,10 @@ import org.w3c.dom.Element;
 import main.java.com.booksaw.Engine2D.Utils;
 
 /**
- * This class is used to store all the required details about a modifier
+ * This class is used to store all the required details about a modifier. This
+ * class has two main uses, firstly to load the default settings of the game
+ * (for example the resolution) and secondly to manage variables stored within
+ * gameObjects, this is useful so the editor can easily draw up
  * 
  * @author booksaw
  *
