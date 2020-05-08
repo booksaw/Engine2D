@@ -11,9 +11,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.text.Position;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.TreeModel;
 
-import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.objects.GameObject;
 import main.java.com.booksaw.editor.Constants;
 import main.java.com.booksaw.editor.SelectionManager;
