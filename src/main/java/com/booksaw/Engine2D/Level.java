@@ -273,6 +273,9 @@ public class Level {
 		for (GameObject object : objects) {
 			object.reset();
 		}
+		for (GameObject object : objects) {
+			object.checkCollisionOnReset();
+		}
 	}
 
 	public List<GameObject> getGameObjects() {

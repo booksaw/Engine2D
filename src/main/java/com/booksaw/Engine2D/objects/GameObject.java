@@ -223,6 +223,14 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	}
 
 	/**
+	 * Used to see if any pixel corrections are required
+	 */
+	public void checkCollisionOnReset() {
+		collisionBottom = manager.level.getColliding(getShape(new Vector(0, -1)), this);
+		collisionLeft = manager.level.getColliding(getShape(new Vector(-1, 0)), this);
+	}
+
+	/**
 	 * Only use when initally making the ID
 	 */
 	private void generateID() {
