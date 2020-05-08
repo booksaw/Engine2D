@@ -8,9 +8,10 @@ package main.java.com.booksaw.Engine2D.modifiers;
  */
 public class Modifier {
 
-	public String reference, value, description;
+	private String reference, description;
+	Object value;
 
-	public Modifier(String reference, String value, String description) {
+	public Modifier(String reference, Object value, String description) {
 		this.reference = reference;
 		this.value = value;
 		this.description = description;
@@ -28,7 +29,52 @@ public class Modifier {
 	 * @return the integer of the value
 	 */
 	public int getIntValue() {
-		return Integer.parseInt(value);
+		if (value instanceof Integer) {
+			return ((Integer) value);
+		}
+		return 0;
+	}
+
+	public double getDoubleValue() {
+		if (value instanceof Double) {
+			return ((Double) value);
+		}
+		return 0;
+	}
+
+	public boolean getBooleanValue() {
+		if (value instanceof Boolean) {
+			return ((Boolean) value);
+		}
+		return false;
+	}
+
+	public String getStringValue() {
+		return value.toString();
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	public Object getValue() {
+		return value;
+	}
+
+	public void setValue(Object value) {
+		this.value = value;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

@@ -98,7 +98,7 @@ public class ModifierManager {
 			loadModifiers();
 		}
 
-		modifiers.put(modifier.reference, modifier);
+		modifiers.put(modifier.getReference(), modifier);
 	}
 
 	public static void addModifier(String reference) {

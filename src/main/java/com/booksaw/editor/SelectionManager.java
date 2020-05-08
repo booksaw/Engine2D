@@ -5,6 +5,7 @@ import java.util.List;
 
 import main.java.com.booksaw.Engine2D.objects.GameObject;
 import main.java.com.booksaw.editor.panels.GameObjectList;
+import main.java.com.booksaw.editor.panels.ObjectModifierPanel;
 
 /**
  * This class is used to manage what objects are selected at the moment
@@ -41,6 +42,8 @@ public class SelectionManager {
 		if (updateTree) {
 			GameObjectList.gameObjectList.setObject(object);
 		}
+
+		ObjectModifierPanel.modifierPanel.update();
 	}
 
 	static public void clearSelection() {
@@ -49,6 +52,8 @@ public class SelectionManager {
 		}
 
 		selected = new ArrayList<>();
+
+		ObjectModifierPanel.modifierPanel.update();
 	}
 
 }

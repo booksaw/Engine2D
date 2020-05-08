@@ -31,7 +31,7 @@ public class Logger {
 	 */
 	static {
 
-		String info = ModifierManager.getModifier("engine2d.logging.minimumlogging").value;
+		String info = ModifierManager.getModifier("engine2d.logging.minimumlogging").getStringValue();
 		switch (info.toUpperCase()) {
 		case "INFO":
 			minimumToLog = LogType.INFO;
@@ -43,8 +43,8 @@ public class Logger {
 			minimumToLog = LogType.ERROR;
 		}
 
-		locate = Boolean.parseBoolean(ModifierManager.getModifier("engine2d.logging.locate").value);
-		boolean writeToFile = Boolean.parseBoolean(ModifierManager.getModifier("engine2d.logging.logtofile").value);
+		locate = ModifierManager.getModifier("engine2d.logging.locate").getBooleanValue();
+		boolean writeToFile = ModifierManager.getModifier("engine2d.logging.logtofile").getBooleanValue();
 		if (writeToFile) {
 			File file = new File("Engine2D" + File.separator + "log.log");
 			try {

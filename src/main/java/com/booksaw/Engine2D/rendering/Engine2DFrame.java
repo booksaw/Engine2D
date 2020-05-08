@@ -156,8 +156,8 @@ public class Engine2DFrame implements ComponentListener, WindowListener {
 
 		Logger.Log(LogType.INFO, "Program closing...");
 		Dimension d = gameFrame.getContentPane().getSize();
-		ModifierManager.getModifier("engine2d.frame.height").value = d.height + "";
-		ModifierManager.getModifier("engine2d.frame.width").value = d.width + "";
+		ModifierManager.getModifier("engine2d.frame.height").setValue(d.height);
+		ModifierManager.getModifier("engine2d.frame.width").setValue(d.width);
 		ModifierManager.saveModifiers();
 
 		// stopping the logger
