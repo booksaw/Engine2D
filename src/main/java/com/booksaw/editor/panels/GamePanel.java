@@ -18,6 +18,7 @@ import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.objects.GameObject;
+import main.java.com.booksaw.editor.SelectionManager;
 import main.java.com.booksaw.editor.mouse.MouseFunction;
 
 public class GamePanel extends Panel implements ComponentListener, MouseListener, MouseMotionListener {
@@ -50,7 +51,6 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 	}
 
 	public static List<GamePanel> panels = new ArrayList<>();
-	public static GameObject selectedObject = null;
 
 	public static GameManager manager;
 
@@ -121,14 +121,9 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 				// resetting the mouse function
 				MouseFunction.activeFunction = MouseFunction.GENERAL;
 			} else {
-				if (selectedObject != null) {
-
-					selectedObject.isSelected = false;
-				}
 				Logger.Log(LogType.INFO, "Object selected: " + o);
 
-				selectedObject = o;
-				selectedObject.isSelected = true;
+				SelectionManager.select(o);
 			}
 
 		} else if (MouseFunction.GENERAL == MouseFunction.activeFunction) {
@@ -141,14 +136,8 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 				// resetting the mouse function
 				MouseFunction.activeFunction = MouseFunction.GENERAL;
 			} else {
-				if (selectedObject != null) {
-
-					selectedObject.isSelected = false;
-				}
 				Logger.Log(LogType.INFO, "Object selected: " + o);
-
-				selectedObject = o;
-				selectedObject.isSelected = true;
+				SelectionManager.select(o);
 			}
 		}
 	}

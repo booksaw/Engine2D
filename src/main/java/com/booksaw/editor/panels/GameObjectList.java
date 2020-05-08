@@ -8,22 +8,30 @@ import javax.swing.JPanel;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.Position;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.TreeModel;
 
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.objects.GameObject;
 import main.java.com.booksaw.editor.Constants;
+import main.java.com.booksaw.editor.SelectionManager;
 
 /**
- * This class displays all available objects and manages the selection
+ * This class displays all available objects and manages the selection, only a
+ * single list can be included per editor
  * 
  * @author booksaw
  *
  */
 public class GameObjectList extends Panel implements TreeSelectionListener {
 
+	public static GameObjectList gameObjectList;
+
 	public GameObjectList(Panel parent) {
 		super(parent);
+		gameObjectList = this;
 	}
 
 	JTree tree;
@@ -47,6 +55,10 @@ public class GameObjectList extends Panel implements TreeSelectionListener {
 
 		panel.setLayout(new GridLayout());
 		panel.add(tree);
+	}
+
+	public void setObject(GameObject object) {
+		tree.setSelectionPath(tree.getNextMatch(object.toString(), 0, Position.Bias.Forward));
 	}
 
 	@Override
@@ -99,8 +111,7 @@ public class GameObjectList extends Panel implements TreeSelectionListener {
 		if (obj != null && obj instanceof DefaultMutableTreeNode) {
 			Object object = ((DefaultMutableTreeNode) obj).getUserObject();
 			if (object != null && object instanceof GameObject) {
-				((GameObject) object).isSelected = false;
-				GamePanel.selectedObject = (GameObject) null;
+				SelectionManager.clearSelection();
 			}
 		}
 
@@ -108,8 +119,8 @@ public class GameObjectList extends Panel implements TreeSelectionListener {
 		if (obj != null && obj instanceof DefaultMutableTreeNode) {
 			Object object = ((DefaultMutableTreeNode) obj).getUserObject();
 			if (object != null && object instanceof GameObject) {
-				((GameObject) object).isSelected = true;
-				GamePanel.selectedObject = (GameObject) object;
+				SelectionManager.clearSelection();
+				SelectionManager.select((GameObject) object, false);
 				GamePanel.manager.pause(false);
 			}
 		}
