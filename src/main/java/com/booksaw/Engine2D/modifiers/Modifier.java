@@ -32,21 +32,34 @@ public class Modifier {
 		if (value instanceof Integer) {
 			return ((Integer) value);
 		}
-		return 0;
+		try {
+			return Integer.parseInt(value.toString());
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public double getDoubleValue() {
 		if (value instanceof Double) {
 			return ((Double) value);
 		}
-		return 0;
+		try {
+			return Double.parseDouble(value.toString());
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public boolean getBooleanValue() {
 		if (value instanceof Boolean) {
 			return ((Boolean) value);
 		}
-		return false;
+
+		try {
+			return Boolean.parseBoolean(value.toString());
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	public String getStringValue() {
