@@ -131,6 +131,25 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 				selectedObject.isSelected = true;
 			}
 
+		} else if (MouseFunction.GENERAL == MouseFunction.activeFunction) {
+			Point p = e.getPoint();
+			p.x = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
+			p.y = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
+					+ manager.camera.x);
+			GameObject o = manager.level.getColliding(new Rectangle(p, new Dimension(1, 1)), null);
+			if (o == null) {
+				// resetting the mouse function
+				MouseFunction.activeFunction = MouseFunction.GENERAL;
+			} else {
+				if (selectedObject != null) {
+
+					selectedObject.isSelected = false;
+				}
+				Logger.Log(LogType.INFO, "Object selected: " + o);
+
+				selectedObject = o;
+				selectedObject.isSelected = true;
+			}
 		}
 	}
 

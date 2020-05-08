@@ -64,7 +64,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	}
 
-	public boolean isSelected = true;
+	public boolean isSelected = false;
 
 	// overriding method to call a more specific paint method
 	@Override
