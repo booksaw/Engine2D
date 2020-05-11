@@ -17,7 +17,9 @@ import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 import main.java.com.booksaw.Engine2D.modifiers.type.BooleanModifier;
+import main.java.com.booksaw.Engine2D.modifiers.type.DoubleModifier;
 import main.java.com.booksaw.Engine2D.modifiers.type.ModifierType;
+import main.java.com.booksaw.Engine2D.modifiers.type.ObjectIDModifier;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
@@ -76,20 +78,17 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	public GameObject(GameManager manager, Element details) {
 		this.manager = manager;
 		velocity = new Vector(0, 0);
-		x = addModifier(details, "x", "X location").getDoubleValue();
-		y = addModifier(details, "y", "Y location").getDoubleValue();
+		x = addModifier(details, "x", "X location", new DoubleModifier()).getDoubleValue();
+		y = addModifier(details, "y", "Y location", new DoubleModifier()).getDoubleValue();
 
-		addModifier(details, "width", "Width");
-		addModifier(details, "height", "Height");
-
-		height = getModifier("height").getDoubleValue();
-		width = getModifier("width").getDoubleValue();
+		width = addModifier(details, "width", "Width", new DoubleModifier()).getDoubleValue();
+		height = addModifier(details, "height", "Height", new DoubleModifier()).getDoubleValue();
 
 		addModifier(details, "movable", "Movable", new BooleanModifier());
-		addModifier(details, "mass", "Mass");
+		addModifier(details, "mass", "Mass", new DoubleModifier());
 		addModifier(details, "angle", "Angle");
 
-		addModifier(details, "id", "Name");
+		addModifier(details, "id", "Name", new ObjectIDModifier(manager, this));
 
 	}
 
