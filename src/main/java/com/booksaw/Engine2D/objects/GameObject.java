@@ -16,7 +16,8 @@ import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
-import main.java.com.booksaw.Engine2D.modifiers.ModifierType;
+import main.java.com.booksaw.Engine2D.modifiers.type.BooleanModifier;
+import main.java.com.booksaw.Engine2D.modifiers.type.ModifierType;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
@@ -84,7 +85,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		height = getModifier("height").getDoubleValue();
 		width = getModifier("width").getDoubleValue();
 
-		addModifier(details, "movable", "Movable", ModifierType.BOOLEAN);
+		addModifier(details, "movable", "Movable", new BooleanModifier());
 		addModifier(details, "mass", "Mass");
 		addModifier(details, "angle", "Angle");
 

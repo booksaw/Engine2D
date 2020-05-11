@@ -8,6 +8,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import main.java.com.booksaw.Engine2D.Utils;
+import main.java.com.booksaw.Engine2D.modifiers.type.ModifierType;
+import main.java.com.booksaw.Engine2D.modifiers.type.StringModifier;
 
 /**
  * This class is used to store all the required details about a modifier. This
@@ -22,7 +24,7 @@ public class Modifier {
 
 	private String reference, description;
 	Object value;
-	private ModifierType type = ModifierType.STRING;
+	private ModifierType type = new StringModifier();
 
 	public Modifier(String reference, Object value, String description) {
 		this.reference = reference;
@@ -139,7 +141,7 @@ public class Modifier {
 	 * @return the input component
 	 */
 	public JComponent getComponent(Object parent) {
-		JComponent component = type.modifierInterface.getInput(parent, this);
+		JComponent component = type.getInput(parent, this);
 		component.setName(reference);
 		return component;
 	}
@@ -150,7 +152,7 @@ public class Modifier {
 	 * @param component
 	 */
 	public void handleInput(JComponent component) {
-		type.modifierInterface.handleInput(this, component);
+		type.handleInput(this, component);
 	}
 
 }
