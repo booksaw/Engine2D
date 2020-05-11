@@ -2,6 +2,8 @@ package main.java.com.booksaw.Engine2D.modifiers;
 
 import java.awt.Color;
 
+import javax.swing.JComponent;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -20,6 +22,7 @@ public class Modifier {
 
 	private String reference, description;
 	Object value;
+	private ModifierType type = ModifierType.STRING;
 
 	public Modifier(String reference, Object value, String description) {
 		this.reference = reference;
@@ -120,6 +123,27 @@ public class Modifier {
 
 	public void Save(Element element, Document document) {
 		Utils.saveValue(reference, document, element, value.toString());
+	}
+
+	/**
+	 * Used to get the input component for this modifier
+	 * 
+	 * @param parent the parent (for any listeners)
+	 * @return the input component
+	 */
+	public JComponent getComponent(Object parent) {
+		JComponent component = type.modifierInterface.getInput(parent, this);
+		component.setName(reference);
+		return component;
+	}
+
+	/**
+	 * This is used to handle any updates to save the changed values
+	 * 
+	 * @param component
+	 */
+	public void handleInput(JComponent component) {
+		type.modifierInterface.handleInput(this, component);
 	}
 
 }

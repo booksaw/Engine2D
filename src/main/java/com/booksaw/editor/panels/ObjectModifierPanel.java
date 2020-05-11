@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -62,11 +61,11 @@ public class ObjectModifierPanel extends Panel implements KeyListener {
 			container.add(label);
 
 			// setting up the text area for entering information
-			JTextArea area = new JTextArea(modifier.getValue().getStringValue());
-			area.setName(modifier.getValue().getReference());
-			area.setBorder(new EmptyBorder(0, 3, 0, 3));
-			area.addKeyListener(this);
-			container.add(area);
+
+			JComponent component = modifier.getValue().getComponent(this);
+
+			component.addKeyListener(this);
+			container.add(component);
 			table.add(container);
 		}
 		JPanel wrapper = new JPanel(new GridLayout());
@@ -86,8 +85,9 @@ public class ObjectModifierPanel extends Panel implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		SelectionManager.getSelection().getModifier(((JComponent) e.getSource()).getName())
-				.setValue(((JTextArea) e.getSource()).getText());
+		Logger.Log(SelectionManager.getSelection().getModifier(e.getComponent().getName()) + "");
+		SelectionManager.getSelection().getModifier(e.getComponent().getName())
+				.handleInput((JComponent) (e.getComponent()));
 		SelectionManager.getSelection().reset();
 	}
 
