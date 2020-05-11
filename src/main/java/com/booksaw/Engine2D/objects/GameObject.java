@@ -249,6 +249,8 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	public void reset() {
 		x = getModifier("x").getDoubleValue();
 		y = getModifier("y").getDoubleValue();
+		width = getModifier("width").getDoubleValue();
+		height = getModifier("height").getDoubleValue();
 		velocity = new Vector(0, 0);
 	}
 
