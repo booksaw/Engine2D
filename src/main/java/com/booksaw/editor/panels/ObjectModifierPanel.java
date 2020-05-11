@@ -85,7 +85,6 @@ public class ObjectModifierPanel extends Panel implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		Logger.Log(SelectionManager.getSelection().getModifier(e.getComponent().getName()) + "");
 		SelectionManager.getSelection().getModifier(e.getComponent().getName())
 				.handleInput((JComponent) (e.getComponent()));
 		SelectionManager.getSelection().reset();
