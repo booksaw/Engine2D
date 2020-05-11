@@ -20,6 +20,7 @@ import main.java.com.booksaw.Engine2D.modifiers.type.BooleanModifier;
 import main.java.com.booksaw.Engine2D.modifiers.type.DoubleModifier;
 import main.java.com.booksaw.Engine2D.modifiers.type.ModifierType;
 import main.java.com.booksaw.Engine2D.modifiers.type.ObjectIDModifier;
+import main.java.com.booksaw.Engine2D.modifiers.type.RangedDoubleModifier;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
 /**
@@ -37,10 +38,6 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	public transient double x, y;
 	public transient double width, height;
 	private transient GameObject collisionBottom, collisionLeft;
-	/**
-	 * The angle that the object has been rotated, keep between 0 and 2 pi
-	 */
-	public double angle = 0;
 	protected Vector velocity;
 	protected GameManager manager;
 
@@ -86,7 +83,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 		addModifier(details, "movable", "Movable", new BooleanModifier());
 		addModifier(details, "mass", "Mass", new DoubleModifier());
-		addModifier(details, "angle", "Angle");
+		addModifier(details, "angle", "Angle", new RangedDoubleModifier(0, Math.PI * 2));
 
 		addModifier(details, "id", "Name", new ObjectIDModifier(manager, this));
 
@@ -122,8 +119,8 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 		int renderedWidth = (int) (width * manager.camera.scale);
 		int renderedHeight = (int) (height * manager.camera.scale);
-		final double sin = Math.abs(Math.sin(angle));
-		final double cos = Math.abs(Math.cos(angle));
+		final double sin = Math.abs(Math.sin(getAngle()));
+		final double cos = Math.abs(Math.cos(getAngle()));
 		final int w = (int) Math.floor(renderedWidth * cos + renderedHeight * sin);
 		final int h = (int) Math.floor(renderedHeight * cos + renderedWidth * sin);
 
@@ -202,21 +199,21 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	@Override
 	public Shape getShape() {
-		if (angle == 0) {
+		if (getAngle() == 0) {
 			return getCollisionBox();
 		}
 		AffineTransform tx = new AffineTransform();
-		tx.rotate(angle, x + width / 2, y + height / 2);
+		tx.rotate(getAngle(), x + width / 2, y + height / 2);
 		return tx.createTransformedShape(getCollisionBox());
 	}
 
 	@Override
 	public Shape getShape(Vector translation) {
-		if (angle == 0) {
+		if (getAngle() == 0) {
 			return getCollisionBox(translation);
 		}
 		AffineTransform tx = new AffineTransform();
-		tx.rotate(angle, x + width / 2, y + height / 2);
+		tx.rotate(getAngle(), x + width / 2, y + height / 2);
 		return tx.createTransformedShape(getCollisionBox(translation));
 	}
 
@@ -302,5 +299,9 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	public String getID() {
 		return getModifier("id").getStringValue();
+	}
+
+	public double getAngle() {
+		return getModifier("angle").getDoubleValue();
 	}
 }

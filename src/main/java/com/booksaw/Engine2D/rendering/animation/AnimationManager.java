@@ -108,16 +108,16 @@ public class AnimationManager {
 		Animation animation = getActiveAnimation();
 
 		// checking 90 degree increments as faster than rotating
-		if (object.angle == 0) {
+		if (object.getAngle() == 0) {
 			graphics.drawImage(animation.image, x, y - height, x + width, y, 0, (frameNumber * animation.frameHeight),
 					animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
-		} else if (object.angle == Math.PI / 2) {
+		} else if (object.getAngle() == Math.PI / 2) {
 			graphics.drawImage(animation.image, x + width, y - height, x, y, 0, (frameNumber * animation.frameHeight),
 					animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
-		} else if (object.angle == -Math.PI / 2) {
+		} else if (object.getAngle() == -Math.PI / 2) {
 			graphics.drawImage(animation.image, x, y, x + width, y - height, 0, (frameNumber * animation.frameHeight),
 					animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
-		} else if (object.angle == -Math.PI || object.angle == Math.PI) {
+		} else if (object.getAngle() == -Math.PI || object.getAngle() == Math.PI) {
 			graphics.drawImage(animation.image, x + width, y, x, y - height, 0, (frameNumber * animation.frameHeight),
 					animation.image.getWidth(), (frameNumber * animation.frameHeight) + animation.frameHeight, null);
 		} else {
@@ -137,14 +137,14 @@ public class AnimationManager {
 					result = Utils.scaleImage(result, scale);
 			}
 
-			final double sin = Math.abs(Math.sin(object.angle));
-			final double cos = Math.abs(Math.cos(object.angle));
+			final double sin = Math.abs(Math.sin(object.getAngle()));
+			final double cos = Math.abs(Math.cos(object.getAngle()));
 			final int w = (int) Math.floor(result.getWidth() * cos + result.getHeight() * sin);
 			final int h = (int) Math.floor(result.getHeight() * cos + result.getWidth() * sin);
 			BufferedImage rotatedImage = new BufferedImage(w, h, 6);
 			final AffineTransform at = new AffineTransform();
 			at.translate(w / 2, h / 2);
-			at.rotate(object.angle, 0, 0);
+			at.rotate(object.getAngle(), 0, 0);
 			at.translate(-result.getWidth() / 2, -result.getHeight() / 2);
 			final AffineTransformOp rotateOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 			rotatedImage = rotateOp.filter(result, rotatedImage);

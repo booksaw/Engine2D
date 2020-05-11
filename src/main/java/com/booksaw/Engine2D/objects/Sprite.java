@@ -8,6 +8,8 @@ import org.w3c.dom.Element;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.Utils;
+import main.java.com.booksaw.Engine2D.modifiers.type.DoubleModifier;
+import main.java.com.booksaw.Engine2D.modifiers.type.IntegerModifier;
 import main.java.com.booksaw.Engine2D.objects.movement.Movement;
 import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 
@@ -35,10 +37,10 @@ public class Sprite extends ImageObject {
 	public Sprite(GameManager manager, Element details) {
 		super(manager, details);
 
-		addModifier(details, "player", "Player number (for determining controls)");
-		addModifier(details, "maxSpeedX", "Maximum horizonal speed");
-		addModifier(details, "maxSpeedY", "Maximum vertical speed");
-		addModifier(details, "maxSpeed", "Maximum speed");
+		addModifier(details, "player", "Player number (for determining controls)", new IntegerModifier());
+		addModifier(details, "maxSpeedX", "Maximum horizonal speed", new DoubleModifier());
+		addModifier(details, "maxSpeedY", "Maximum vertical speed", new DoubleModifier());
+		addModifier(details, "maxSpeed", "Maximum speed", new DoubleModifier());
 
 		moveSet = new ArrayList<>();
 		// looping through every animation

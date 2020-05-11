@@ -15,12 +15,15 @@ import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 import main.java.com.booksaw.editor.Constants;
 import main.java.com.booksaw.editor.SelectionManager;
 
-public class ObjectModifierPanel extends Panel implements KeyListener, ActionListener {
+public class ObjectModifierPanel extends Panel implements KeyListener, ActionListener, ChangeListener {
 
 	public static ObjectModifierPanel modifierPanel;
 
@@ -93,6 +96,14 @@ public class ObjectModifierPanel extends Panel implements KeyListener, ActionLis
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		SelectionManager.getSelection().getModifier(((JComponent) e.getSource()).getName())
+				.handleInput((JComponent) (((JComponent) e.getSource())));
+		SelectionManager.getSelection().reset();
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		Logger.Log("running");
 		SelectionManager.getSelection().getModifier(((JComponent) e.getSource()).getName())
 				.handleInput((JComponent) (((JComponent) e.getSource())));
 		SelectionManager.getSelection().reset();
