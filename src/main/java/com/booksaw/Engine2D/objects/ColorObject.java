@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.Vector;
+import main.java.com.booksaw.Engine2D.modifiers.type.ColorModifier;
 
 /**
  * A class to create a rectangle of solid color
@@ -27,7 +28,7 @@ public class ColorObject extends GameObject {
 	public ColorObject(GameManager manager, Element details) {
 		super(manager, details);
 		getModifier("movable").setValue(false);
-		addModifier(details, "rgb", "Object Color");
+		addModifier(details, "rgb", "Object Color", new ColorModifier());
 
 	}
 
