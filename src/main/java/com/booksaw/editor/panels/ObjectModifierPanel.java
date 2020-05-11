@@ -3,8 +3,11 @@ package main.java.com.booksaw.editor.panels;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Map.Entry;
 
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -12,11 +15,12 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 import main.java.com.booksaw.editor.Constants;
 import main.java.com.booksaw.editor.SelectionManager;
 
-public class ObjectModifierPanel extends Panel {
+public class ObjectModifierPanel extends Panel implements KeyListener {
 
 	public static ObjectModifierPanel modifierPanel;
 
@@ -61,6 +65,7 @@ public class ObjectModifierPanel extends Panel {
 			JTextArea area = new JTextArea(modifier.getValue().getStringValue());
 			area.setName(modifier.getValue().getReference());
 			area.setBorder(new EmptyBorder(0, 3, 0, 3));
+			area.addKeyListener(this);
 			container.add(area);
 			table.add(container);
 		}
@@ -69,6 +74,21 @@ public class ObjectModifierPanel extends Panel {
 		wrapper.add(table);
 		panel.add(wrapper);
 		panel.setLayout(null);
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		SelectionManager.getSelection().getModifier(((JComponent) e.getSource()).getName())
+				.setValue(((JTextArea) e.getSource()).getText());
+		SelectionManager.getSelection().reset();
 	}
 
 }
