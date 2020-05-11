@@ -1,5 +1,7 @@
 package main.java.com.booksaw.Engine2D.modifiers.type;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 
@@ -13,6 +15,7 @@ public class BooleanModifier implements ModifierType {
 		JCheckBox box = new JCheckBox();
 		box.setSelected(modifier.getBooleanValue());
 		box.setBackground(Constants.componentBackground);
+		box.addActionListener((ActionListener) parent);
 		return box;
 	}
 

@@ -3,6 +3,8 @@ package main.java.com.booksaw.editor.panels;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Map.Entry;
@@ -18,7 +20,7 @@ import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 import main.java.com.booksaw.editor.Constants;
 import main.java.com.booksaw.editor.SelectionManager;
 
-public class ObjectModifierPanel extends Panel implements KeyListener {
+public class ObjectModifierPanel extends Panel implements KeyListener, ActionListener {
 
 	public static ObjectModifierPanel modifierPanel;
 
@@ -86,6 +88,13 @@ public class ObjectModifierPanel extends Panel implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		SelectionManager.getSelection().getModifier(e.getComponent().getName())
 				.handleInput((JComponent) (e.getComponent()));
+		SelectionManager.getSelection().reset();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		SelectionManager.getSelection().getModifier(((JComponent) e.getSource()).getName())
+				.handleInput((JComponent) (((JComponent) e.getSource())));
 		SelectionManager.getSelection().reset();
 	}
 
