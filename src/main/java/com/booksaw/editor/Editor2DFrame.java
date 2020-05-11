@@ -8,6 +8,7 @@ import java.awt.event.WindowListener;
 import java.io.File;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
@@ -28,11 +29,11 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 	public static void initFrame() {
 		Logger.Log(LogType.INFO, "Loading editor frame");
 		// ui manager
-//		try {
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//		} catch (Exception e) {
-//			Logger.Log(LogType.WARNING, "Could not load system UI, using Java inbuilt");
-//		}
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			Logger.Log(LogType.WARNING, "Could not load system UI, using Java inbuilt");
+		}
 		editorFrame = new JFrame();
 		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

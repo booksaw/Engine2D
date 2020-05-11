@@ -36,6 +36,13 @@ public class Modifier {
 		this.description = description;
 	}
 
+	public Modifier(String reference, String description, Element element, ModifierType type) {
+		value = Utils.getTagString(reference, element);
+		this.reference = reference;
+		this.description = description;
+		this.type = type;
+	}
+
 	// used when saving the modifiers
 	@Override
 	public String toString() {

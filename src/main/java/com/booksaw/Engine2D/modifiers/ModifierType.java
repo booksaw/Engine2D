@@ -1,13 +1,14 @@
 package main.java.com.booksaw.Engine2D.modifiers;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
+import main.java.com.booksaw.editor.Constants;
+
 public enum ModifierType {
-	/**
-	 * This is for string inputs
-	 */
+
 	STRING(new ModifierTypeInterface() {
 
 		@Override
@@ -20,6 +21,23 @@ public enum ModifierType {
 		@Override
 		public void handleInput(Modifier modifier, JComponent component) {
 			modifier.setValue(((JTextArea) component).getText());
+		}
+
+	}),
+
+	BOOLEAN(new ModifierTypeInterface() {
+
+		@Override
+		public JComponent getInput(Object parent, Modifier modifier) {
+			JCheckBox box = new JCheckBox();
+			box.setSelected(modifier.getBooleanValue());
+			box.setBackground(Constants.componentBackground);
+			return box;
+		}
+
+		@Override
+		public void handleInput(Modifier modifier, JComponent component) {
+			modifier.setValue(((JCheckBox) component).isSelected());
 		}
 
 	});
