@@ -143,7 +143,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			GameObject o = manager.level.getColliding(new Rectangle(p, new Dimension(1, 1)), null);
 			if (o == null) {
 				// resetting the mouse function
-				MouseFunction.activeFunction = MouseFunction.GENERAL;
+				SelectionManager.clearSelection();
 			} else {
 				Logger.Log(LogType.INFO, "Object selected: " + o);
 				SelectionManager.select(o);
