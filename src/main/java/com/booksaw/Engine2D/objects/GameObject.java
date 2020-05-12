@@ -320,4 +320,20 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	public void setStartY(double newY) {
 		getModifier("y").setValue(newY);
 	}
+
+	public double getStartWidth() {
+		return getModifier("width").getDoubleValue();
+	}
+
+	public void setStartWidth(double newWidth) {
+		getModifier("width").setValue(newWidth);
+	}
+
+	public double getStartHeight() {
+		return getModifier("height").getDoubleValue();
+	}
+
+	public void setStartHeight(double newHeight) {
+		getModifier("height").setValue(newHeight);
+	}
 }

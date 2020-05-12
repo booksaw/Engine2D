@@ -201,14 +201,25 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			return;
 		}
 
-		// calculating the distance it has been moved
-		for (GameObject o : SelectionManager.getSelected()) {
-			o.x = (o.getStartX() + (px - startx));
-			o.y = (o.getStartY() + (py - starty));
+		switch (panel.getCursor().getType()) {
+		case Cursor.MOVE_CURSOR:
+			// calculating the distance it has been moved
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.x = (o.getStartX() + (px - startx));
+				o.y = (o.getStartY() + (py - starty));
 
-			ObjectModifierPanel.modifierPanel.update();
+				ObjectModifierPanel.modifierPanel.update();
+			}
+			break;
+		case Cursor.NE_RESIZE_CURSOR:
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.width = (o.getStartWidth() + (px - startx));
+				o.height = (o.getStartHeight() + (py - starty));
+
+				ObjectModifierPanel.modifierPanel.update();
+			}
+			break;
 		}
-
 	}
 
 	@Override
