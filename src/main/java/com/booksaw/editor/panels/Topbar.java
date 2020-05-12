@@ -15,6 +15,7 @@ import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.editor.Constants;
+import main.java.com.booksaw.editor.SelectionManager;
 import main.java.com.booksaw.editor.mouse.MouseFunction;
 
 public class Topbar extends Panel implements ActionListener {
@@ -90,6 +91,7 @@ public class Topbar extends Panel implements ActionListener {
 			if (play.isEnabled()) {
 				play.setEnabled(false);
 				pause.setEnabled(true);
+				SelectionManager.clearSelection();
 				GamePanel.manager.resume();
 			}
 			break;
