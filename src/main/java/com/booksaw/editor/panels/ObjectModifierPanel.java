@@ -105,7 +105,6 @@ public class ObjectModifierPanel extends Panel implements KeyListener, ActionLis
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		Logger.Log("running");
 		SelectionManager.getSelection().getModifier(((JComponent) e.getSource()).getName())
 				.handleInput((JComponent) (((JComponent) e.getSource())));
 		SelectionManager.getSelection().reset();
