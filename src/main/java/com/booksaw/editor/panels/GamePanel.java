@@ -196,7 +196,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		double px = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
 		double py = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
 				+ manager.camera.x);
-		if (panel.getCursor().getType() != Cursor.MOVE_CURSOR) {
+		if (panel.getCursor().getType() == defaultCursor.getType()) {
 			panel.getParent().dispatchEvent(e);
 			return;
 		}
@@ -218,8 +218,8 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		p.x = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
 		p.y = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
 				+ manager.camera.x);
-
-		GameObject o = manager.level.getColliding(new Rectangle(p, new Dimension(1, 1)), null);
+		Rectangle cursor = new Rectangle(p, new Dimension(1, 1));
+		GameObject o = manager.level.getColliding(cursor, null);
 
 		if (o == null || !o.isSelected) {
 			panel.setCursor(defaultCursor);
@@ -227,7 +227,22 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			return;
 		}
 
-		panel.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+		// moving the cursor to the locaiton inside the object
+		cursor.x = (int) (cursor.x - o.x);
+		cursor.y = (int) (cursor.y - o.y);
+
+		// finding what the cursor should look like
+		if (cursor.x < GameObject.circleR * 2 && cursor.y < GameObject.circleR * 2) {
+			panel.setCursor(new Cursor(Cursor.SW_RESIZE_CURSOR));
+		} else if (cursor.x < GameObject.circleR * 2 && cursor.y > o.height - GameObject.circleR * 2) {
+			panel.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
+		} else if (cursor.x > o.width - GameObject.circleR * 2 && cursor.y < GameObject.circleR * 2) {
+			panel.setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+		} else if (cursor.x > o.width - GameObject.circleR * 2 && cursor.y > o.height - GameObject.circleR * 2) {
+			panel.setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR));
+		} else {
+			panel.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+		}
 
 	}
 

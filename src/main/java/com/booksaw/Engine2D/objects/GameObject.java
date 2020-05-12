@@ -283,9 +283,9 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		return ID;
 	}
 
-	public void paintSelection(Graphics g, GameManager manager, int x, int y, int width, int height) {
+	public static final int circleR = 5;
 
-		final int circleR = 5;
+	public void paintSelection(Graphics g, GameManager manager, int x, int y, int width, int height) {
 
 		g.setColor(Color.WHITE);
 		g.drawRect(x, y - height, width, height);
