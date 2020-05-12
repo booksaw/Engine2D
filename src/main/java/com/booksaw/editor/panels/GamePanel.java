@@ -168,6 +168,8 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			for (GameObject o : SelectionManager.getSelected()) {
 				o.setStartX(o.x);
 				o.setStartY(o.y);
+				o.setStartWidth(o.width);
+				o.setStartHeight(o.height);
 				o.reset();
 				dragged = false;
 			}
@@ -191,7 +193,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		dragged = true;
+
 		Point p = e.getPoint();
 		double px = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
 		double py = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
@@ -199,6 +201,12 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		if (panel.getCursor().getType() == defaultCursor.getType()) {
 			panel.getParent().dispatchEvent(e);
 			return;
+		}
+
+		if (!dragged) {
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.reset();
+			}
 		}
 
 		switch (panel.getCursor().getType()) {
@@ -219,7 +227,33 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 				ObjectModifierPanel.modifierPanel.update();
 			}
 			break;
+		case Cursor.SW_RESIZE_CURSOR:
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.width = (o.getStartWidth() - (px - startx));
+				o.x = (o.getStartX() + (px - startx));
+
+				o.height = (o.getStartHeight() - (py - starty));
+				o.y = (o.getStartY() + (py - starty));
+			}
+			break;
+		case Cursor.NW_RESIZE_CURSOR:
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.width = (o.getStartWidth() - (px - startx));
+				o.x = (o.getStartX() + (px - startx));
+
+				o.height = (o.getStartHeight() + (py - starty));
+			}
+			break;
+		case Cursor.SE_RESIZE_CURSOR:
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.width = (o.getStartWidth() + (px - startx));
+
+				o.height = (o.getStartHeight() - (py - starty));
+				o.y = (o.getStartY() + (py - starty));
+			}
+			break;
 		}
+		dragged = true;
 	}
 
 	@Override
