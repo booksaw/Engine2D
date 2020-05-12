@@ -77,6 +77,8 @@ public class ObjectModifierPanel extends Panel implements KeyListener, ActionLis
 		wrapper.add(table);
 		panel.add(wrapper);
 		panel.setLayout(null);
+		panel.validate();
+		panel.repaint();
 	}
 
 	@Override

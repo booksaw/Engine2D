@@ -37,6 +37,7 @@ public class SelectionManager {
 	}
 
 	static public void select(GameObject object, boolean updateTree) {
+		clearSelection();
 		object.isSelected = true;
 		selected.add(object);
 		if (updateTree) {

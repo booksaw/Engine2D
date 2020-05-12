@@ -1,5 +1,6 @@
 package main.java.com.booksaw.editor.panels;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Point;
@@ -61,6 +62,8 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		manager.pause(false);
 	}
 
+	Cursor defaultCursor;
+
 	@Override
 	protected void createPanel(JPanel panel) {
 		// adding the new game manager
@@ -74,6 +77,8 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		panel.addMouseMotionListener(this);
 		// ensuring the frame is the correct size
 		panel.validate();
+
+		defaultCursor = panel.getCursor();
 
 		// storing the manager
 		Logger.Log(LogType.INFO, "Setting the rendering GameManager to " + manager);
@@ -142,15 +147,33 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		}
 	}
 
+	double startx, starty;
+	private boolean dragged = false;
+
 	@Override
 	public void mousePressed(MouseEvent e) {
 
 		panel.getParent().dispatchEvent(e);
+
+		Point start = e.getPoint();
+		startx = (int) (((start.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
+		starty = (int) (((manager.camera.height - (start.y + manager.camera.offsetY)) / manager.camera.scale)
+				+ manager.camera.x);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 
+		if (dragged) {
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.setStartX(o.x);
+				o.setStartY(o.y);
+				o.reset();
+				dragged = false;
+			}
+		}
+
+		ObjectModifierPanel.modifierPanel.update();
 		panel.getParent().dispatchEvent(e);
 	}
 
@@ -168,14 +191,44 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		dragged = true;
+		Point p = e.getPoint();
+		double px = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
+		double py = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
+				+ manager.camera.x);
+		if (panel.getCursor().getType() != Cursor.MOVE_CURSOR) {
+			panel.getParent().dispatchEvent(e);
+			return;
+		}
 
-		panel.getParent().dispatchEvent(e);
+		// calculating the distance it has been moved
+		for (GameObject o : SelectionManager.getSelected()) {
+			o.x = (o.getStartX() + (px - startx));
+			o.y = (o.getStartY() + (py - starty));
+
+			ObjectModifierPanel.modifierPanel.update();
+		}
+
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 
-		panel.getParent().dispatchEvent(e);
+		Point p = e.getPoint();
+		p.x = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
+		p.y = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
+				+ manager.camera.x);
+
+		GameObject o = manager.level.getColliding(new Rectangle(p, new Dimension(1, 1)), null);
+
+		if (o == null || !o.isSelected) {
+			panel.setCursor(defaultCursor);
+			panel.getParent().dispatchEvent(e);
+			return;
+		}
+
+		panel.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+
 	}
 
 }
