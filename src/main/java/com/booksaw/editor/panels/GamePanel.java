@@ -24,6 +24,10 @@ import main.java.com.booksaw.editor.mouse.MouseFunction;
 
 public class GamePanel extends Panel implements ComponentListener, MouseListener, MouseMotionListener {
 
+	public static boolean grid = false;
+
+	private static final int gridWidth = 10;
+
 	/**
 	 * Used to check if the panels are ready
 	 * 
@@ -274,6 +278,15 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 				o.x = (o.getStartX() + (px - startx));
 			}
 			break;
+		}
+
+		if (grid) {
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.width -= (o.width - gridWidth) % gridWidth;
+				o.height -= (o.height - gridWidth) % gridWidth;
+				o.x -= (o.x - gridWidth) % gridWidth;
+				o.y -= (o.y - gridWidth) % gridWidth;
+			}
 		}
 
 		dragged = true;

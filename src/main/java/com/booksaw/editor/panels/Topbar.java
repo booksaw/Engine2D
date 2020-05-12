@@ -24,7 +24,8 @@ public class Topbar extends Panel implements ActionListener {
 		super(parent);
 	}
 
-	JButton play, pause, stop;
+	JButton play, pause, stop, grid;
+	ImageIcon gridEnabled, gridDisabled;
 
 	@Override
 	protected void createPanel(JPanel panel) {
@@ -74,9 +75,26 @@ public class Topbar extends Panel implements ActionListener {
 		stop.setActionCommand("stop");
 		stop.addActionListener(this);
 
+		gridEnabled = new ImageIcon(Utils.loadTransparentImage(new File("Engine2D" + File.separator + "grid.png")));
+		gridDisabled = new ImageIcon(
+				Utils.loadTransparentImage(new File("Engine2D" + File.separator + "grid-disabled.png")));
+
+		grid = new JButton(gridEnabled);
+		grid.setMaximumSize(new Dimension(25, 20));
+		grid.setBorder(new EmptyBorder(2, 5, 2, 2));
+		grid.setBackground(Constants.mainBackground);
+		grid.setContentAreaFilled(false);
+		grid.setFocusable(false);
+		grid.setBorderPainted(false);
+		grid.setForeground(Constants.mainBackground);
+		grid.setActionCommand("grid");
+		grid.setIcon((GamePanel.grid) ? gridEnabled : gridDisabled);
+		grid.addActionListener(this);
+
 		panel.add(play);
 		panel.add(pause);
 		panel.add(stop);
+		panel.add(grid);
 	}
 
 	@Override
@@ -111,6 +129,10 @@ public class Topbar extends Panel implements ActionListener {
 				GamePanel.manager.pause();
 				GamePanel.manager.level.reset();
 			}
+			break;
+		case "grid":
+			GamePanel.grid = (GamePanel.grid) ? false : true;
+			grid.setIcon((GamePanel.grid) ? gridEnabled : gridDisabled);
 			break;
 		default:
 			Logger.Log(LogType.ERROR, "An action command was not understood: " + e.getActionCommand());
