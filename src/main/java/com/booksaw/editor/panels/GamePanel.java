@@ -252,7 +252,30 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 				o.y = (o.getStartY() + (py - starty));
 			}
 			break;
+		case Cursor.N_RESIZE_CURSOR:
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.height = (o.getStartHeight() + (py - starty));
+			}
+			break;
+		case Cursor.S_RESIZE_CURSOR:
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.height = (o.getStartHeight() - (py - starty));
+				o.y = (o.getStartY() + (py - starty));
+			}
+			break;
+		case Cursor.E_RESIZE_CURSOR:
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.width = (o.getStartWidth() + (px - startx));
+			}
+			break;
+		case Cursor.W_RESIZE_CURSOR:
+			for (GameObject o : SelectionManager.getSelected()) {
+				o.width = (o.getStartWidth() - (px - startx));
+				o.x = (o.getStartX() + (px - startx));
+			}
+			break;
 		}
+
 		dragged = true;
 	}
 
@@ -285,6 +308,14 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			panel.setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
 		} else if (cursor.x > o.width - GameObject.circleR * 2 && cursor.y > o.height - GameObject.circleR * 2) {
 			panel.setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR));
+		} else if (cursor.x < GameObject.circleR * 2) {
+			panel.setCursor(new Cursor(Cursor.W_RESIZE_CURSOR));
+		} else if (cursor.x > o.width - GameObject.circleR * 2) {
+			panel.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
+		} else if (cursor.y < GameObject.circleR * 2) {
+			panel.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
+		} else if (cursor.y > o.height - GameObject.circleR * 2) {
+			panel.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
 		} else {
 			panel.setCursor(new Cursor(Cursor.MOVE_CURSOR));
 		}
