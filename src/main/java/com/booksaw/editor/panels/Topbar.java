@@ -90,6 +90,7 @@ public class Topbar extends Panel implements ActionListener {
 		grid.setActionCommand("grid");
 		grid.setIcon((GamePanel.grid) ? gridEnabled : gridDisabled);
 		grid.addActionListener(this);
+		grid.setToolTipText("Lock to grid");
 
 		panel.add(play);
 		panel.add(pause);
