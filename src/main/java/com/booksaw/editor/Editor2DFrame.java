@@ -10,6 +10,7 @@ import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import main.java.com.booksaw.Engine2D.CONFIG;
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
@@ -25,6 +26,7 @@ import main.java.com.booksaw.editor.window.Window;
 public class Editor2DFrame implements ComponentListener, WindowListener {
 
 	private static JFrame editorFrame;
+	public static EditorClock clock;
 
 	public static void initFrame() {
 		Logger.Log(LogType.INFO, "Loading editor frame");
@@ -53,6 +55,9 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 		// used to detect when the frame is resized
 		editorFrame.addComponentListener(new Editor2DFrame());
 		editorFrame.addWindowListener(new Editor2DFrame());
+		clock = new EditorClock(CONFIG.tickLength);
+		clock.setActive(true);
+
 	}
 
 	/**

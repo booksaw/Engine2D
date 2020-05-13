@@ -19,6 +19,7 @@ import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.objects.GameObject;
+import main.java.com.booksaw.editor.CameraController;
 import main.java.com.booksaw.editor.SelectionManager;
 import main.java.com.booksaw.editor.mouse.MouseFunction;
 
@@ -56,12 +57,14 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 	}
 
 	public static List<GamePanel> panels = new ArrayList<>();
+	private CameraController controller;
 
 	public static GameManager manager;
 
 	public GamePanel(GameManager manager, Panel parent) {
 		super(parent);
 		GamePanel.manager = manager;
+		controller = new CameraController(manager);
 		panels.add(this);
 		manager.pause(false);
 	}
@@ -96,6 +99,8 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 	public void setGameManager() {
 		panel.removeAll();
 		panel.add(manager.getRenderManager());
+		controller.remove();
+		controller = new CameraController(manager);
 	}
 
 	@Override

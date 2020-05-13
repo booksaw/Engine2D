@@ -1,5 +1,6 @@
 package main.java.com.booksaw.Engine2D;
 
+import java.awt.Dimension;
 import java.awt.Shape;
 import java.io.File;
 import java.io.IOException;
@@ -113,8 +114,10 @@ public class Level {
 		} catch (SAXException | ParserConfigurationException | IOException e1) {
 			Logger.Log(LogType.ERROR, "Could not load level file " + data);
 		}
-		saveLevel();
+		levelDimensions = new Dimension(1000, 1000);
 	}
+
+	private Dimension levelDimensions;
 
 	/**
 	 * Used to create an object from the provided node
@@ -315,6 +318,14 @@ public class Level {
 			}
 		}
 		return null;
+	}
+
+	public Dimension getLevelDimensions() {
+		return levelDimensions;
+	}
+
+	public void setLevelDimensions(Dimension levelDimensions) {
+		this.levelDimensions = levelDimensions;
 	}
 
 }

@@ -172,4 +172,8 @@ public abstract class GameManager {
 		updatables.remove(update);
 	}
 
+	public boolean isUpdating() {
+		return updateClock.isActive();
+	}
+
 }
