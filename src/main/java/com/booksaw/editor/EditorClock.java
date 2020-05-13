@@ -12,7 +12,7 @@ import main.java.com.booksaw.editor.panels.GamePanel;
  * Used for any components which need updating when the level is not updating
  * (for example moving the editor camera)
  * 
- * @author bookasw
+ * @author booksaw
  *
  */
 public class EditorClock extends Clock {
