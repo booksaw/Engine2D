@@ -32,6 +32,11 @@ public class ColorObject extends GameObject {
 
 	}
 
+	public ColorObject(GameManager manager) {
+		super(manager);
+		addModifier("rgb", "Object Color", Color.BLACK, new ColorModifier());
+	}
+
 	@Override
 	public void paint(Graphics graphics, GameManager manager, int x, int y, int width, int height) {
 		graphics.setColor(getColor());

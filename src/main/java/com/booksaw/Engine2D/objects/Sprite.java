@@ -50,6 +50,15 @@ public class Sprite extends ImageObject {
 
 	}
 
+	public Sprite(GameManager manager) {
+		super(manager);
+		addModifier("player", "Player number (for determining controls)", 1, new IntegerModifier());
+		addModifier("maxSpeedX", "Maximum horizontal speed", "-1", new DoubleModifier());
+		addModifier("maxSpeedY", "Maximum vertical speed", "-1", new DoubleModifier());
+		addModifier("maxSpeed", "Maximum speed", "-1", new DoubleModifier());
+		moveSet = new ArrayList<>();
+	}
+
 	@Override
 	public void save(Element element, Document document) {
 		super.save(element, document);

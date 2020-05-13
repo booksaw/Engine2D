@@ -42,6 +42,10 @@ public class Level {
 	 */
 	private static HashMap<String, Class<?>> gameObjectTypes;
 
+	public static HashMap<String, Class<?>> getGameObjectTypes() {
+		return gameObjectTypes;
+	}
+
 	/**
 	 * Adding all default game objects
 	 */
@@ -213,7 +217,10 @@ public class Level {
 	public void addObject(GameObject object) {
 		objects.add(object);
 		if (active) {
-			manager.addUpdatable((Updateable) object);
+			if (object instanceof Updateable) {
+				manager.addUpdatable((Updateable) object);
+			}
+			manager.getRenderManager().addComponent(object, true);
 		}
 	}
 
@@ -303,10 +310,7 @@ public class Level {
 	 */
 	public GameObject getObject(String ID, GameObject ignore) {
 		for (GameObject object : objects) {
-			if (object == ignore) {
-				continue;
-			}
-			if (object != ignore && object.toString().equals("ID")) {
+			if (object != ignore && object.toString().equals(ID)) {
 				return object;
 			}
 		}

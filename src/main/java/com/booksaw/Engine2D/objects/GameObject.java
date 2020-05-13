@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -15,6 +17,7 @@ import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 import main.java.com.booksaw.Engine2D.modifiers.type.BooleanModifier;
 import main.java.com.booksaw.Engine2D.modifiers.type.DoubleModifier;
@@ -42,9 +45,19 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	protected GameManager manager;
 
 	public GameObject(GameManager manager) {
-		// TODO improved initialisation
 		velocity = new Vector(0, 0);
 		this.manager = manager;
+
+		addModifier("id", "Name", "", new ObjectIDModifier(manager, this));
+		generateID();
+		// setting default values
+		x = addModifier("x", "X location", 0, new DoubleModifier()).getDoubleValue();
+		y = addModifier("y", "Y locaiton", 0, new DoubleModifier()).getDoubleValue();
+		width = addModifier("width", "Width", 100, new DoubleModifier()).getDoubleValue();
+		height = addModifier("height", "Height", 100, new DoubleModifier()).getDoubleValue();
+		addModifier("movable", "Movable", true, new BooleanModifier());
+		addModifier("mass", "Mass", 10, new DoubleModifier());
+		addModifier("angle", "Angle", 0, new RangedDoubleModifier(0, Math.PI * 2));
 	}
 
 	public Modifier addModifier(Element details, String reference, String description) {
@@ -55,6 +68,12 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	public Modifier addModifier(Element details, String reference, String description, ModifierType type) {
 		Modifier modifier = new Modifier(reference, description, details, type);
+		modifiers.put(reference, modifier);
+		return modifier;
+	}
+
+	public Modifier addModifier(String reference, String description, Object value, ModifierType type) {
+		Modifier modifier = new Modifier(reference, value, description, type);
 		modifiers.put(reference, modifier);
 		return modifier;
 	}
@@ -265,8 +284,10 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		String ID = "";
 		int i = 0;
 		do {
-			if (manager.level.getObject(getReference() + i, this) == null)
+			Logger.Log(getReference() + i + " = " + manager.level.getObject(getReference() + i, this));
+			if (manager.level.getObject(getReference() + i, this) == null) {
 				ID = getReference() + i;
+			}
 			i++;
 		} while (ID == null || ID.equals(""));
 
@@ -335,5 +356,14 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	public void setStartHeight(double newHeight) {
 		getModifier("height").setValue(newHeight);
+	}
+
+	/**
+	 * This is used to get the logo image for the editor
+	 * 
+	 * @return
+	 */
+	public BufferedImage getImage() {
+		return Utils.loadTransparentImage(new File("Engine2D" + File.separator + "gameObject.png"));
 	}
 }

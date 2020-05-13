@@ -1,5 +1,6 @@
 package main.java.com.booksaw.Engine2D.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -38,6 +39,10 @@ public class ImageObject extends GameObject implements Updateable {
 
 	}
 
+	public ImageObject(GameManager manager) {
+		super(manager);
+	}
+
 	public ImageObject(AnimationManager manager, GameManager gameManager) {
 		super(gameManager);
 		this.animationManager = manager;
@@ -46,6 +51,11 @@ public class ImageObject extends GameObject implements Updateable {
 
 	@Override
 	public void paint(Graphics graphics, GameManager manager, int x, int y, int width, int height) {
+		if (animationManager == null) {
+			graphics.setColor(Color.PINK);
+			graphics.fillRect(x, y - height, width, height);
+			return;
+		}
 		animationManager.paint(this, graphics, x, y, width, height);
 	}
 

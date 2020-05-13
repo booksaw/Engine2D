@@ -36,13 +36,20 @@ public class GameObjectList extends Panel implements TreeSelectionListener {
 
 	@Override
 	protected void createPanel(JPanel panel) {
+
+		panel.setBackground(Constants.componentBackground);
+		panel.setLayout(new GridLayout());
+		update();
+	}
+
+	public void update() {
+		panel.removeAll();
 		border = false;
 		DefaultMutableTreeNode objects = new DefaultMutableTreeNode("Objects");
 
 		for (GameObject object : GamePanel.manager.level.getGameObjects()) {
 			objects.add(new DefaultMutableTreeNode(object));
 		}
-		panel.setBackground(Constants.componentBackground);
 		tree = new JTree(objects);
 		tree.setCellRenderer(new CellRenderer());
 		tree.setBackground(Constants.componentBackground);
@@ -50,9 +57,9 @@ public class GameObjectList extends Panel implements TreeSelectionListener {
 		tree.addTreeSelectionListener(this);
 		tree.setForeground(Color.WHITE);
 		addListeners(tree);
-
-		panel.setLayout(new GridLayout());
 		panel.add(tree);
+		panel.validate();
+
 	}
 
 	public void setObject(GameObject object) {

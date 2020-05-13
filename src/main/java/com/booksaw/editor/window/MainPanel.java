@@ -5,12 +5,12 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import main.java.com.booksaw.editor.Constants;
-import main.java.com.booksaw.editor.panels.BlankPanel;
 import main.java.com.booksaw.editor.panels.GameObjectList;
+import main.java.com.booksaw.editor.panels.GameObjectSelectorPanel;
 import main.java.com.booksaw.editor.panels.GamePanel;
 import main.java.com.booksaw.editor.panels.ObjectModifierPanel;
-import main.java.com.booksaw.editor.panels.TabbedPane;
 import main.java.com.booksaw.editor.panels.Subdivision;
+import main.java.com.booksaw.editor.panels.TabbedPane;
 import main.java.com.booksaw.editor.panels.Topbar;
 import main.java.test.com.booksaw.platformer2D.PlatformGameManager;
 
@@ -34,7 +34,8 @@ public class MainPanel implements Window {
 		tabbedPane.addPanel(new GameObjectList(null), "Objects");
 		tabbedPane.addPanel(new ObjectModifierPanel(null), "Modifiers");
 
-		Subdivision gamePanelDivision = new Subdivision(gamePanel, new BlankPanel(null), false, true, null);
+		Subdivision gamePanelDivision = new Subdivision(gamePanel, new GameObjectSelectorPanel(null), false, true,
+				null);
 
 		Subdivision mainArea = new Subdivision(gamePanelDivision, tabbedPane, true, true, null);
 

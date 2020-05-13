@@ -45,6 +45,11 @@ public class Modifier {
 		this.type = type;
 	}
 
+	public Modifier(String reference, Object value, String description, ModifierType type) {
+		this(reference, value, description);
+		this.type = type;
+	}
+
 	// used when saving the modifiers
 	@Override
 	public String toString() {

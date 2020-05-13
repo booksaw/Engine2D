@@ -41,7 +41,6 @@ public class Utils {
 		} catch (IOException e) {
 			// if there is an error while loading
 			Logger.Log(LogType.ERROR, "Could not load image file (" + file.getPath() + ")");
-			e.printStackTrace();
 			return null;
 		}
 	}
