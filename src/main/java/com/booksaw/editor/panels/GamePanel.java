@@ -284,12 +284,29 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			for (GameObject o : SelectionManager.getSelected()) {
 				o.width -= (o.width - gridWidth) % gridWidth;
 				o.height -= (o.height - gridWidth) % gridWidth;
+				if (o.width < gridWidth) {
+					o.width = gridWidth;
+				}
+				if (o.height < gridWidth) {
+					o.height = gridWidth;
+				}
 				o.x -= (o.x - gridWidth) % gridWidth;
 				o.y -= (o.y - gridWidth) % gridWidth;
+			}
+		} else {
+			// ensuring width is not negative
+			for (GameObject o : SelectionManager.getSelected()) {
+				if (o.width <= 0) {
+					o.width = 1;
+				}
+				if (o.height <= 0) {
+					o.height = 1;
+				}
 			}
 		}
 
 		dragged = true;
+
 	}
 
 	@Override
