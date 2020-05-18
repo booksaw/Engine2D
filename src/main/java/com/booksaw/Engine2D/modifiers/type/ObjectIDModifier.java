@@ -7,6 +7,13 @@ import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 import main.java.com.booksaw.Engine2D.objects.GameObject;
 
+/**
+ * This class is used for selecting ID modifiers in the editor, it ensires the
+ * id of the object is unique
+ * 
+ * @author booksaw
+ *
+ */
 public class ObjectIDModifier extends StringModifier {
 
 	private transient GameManager manager;

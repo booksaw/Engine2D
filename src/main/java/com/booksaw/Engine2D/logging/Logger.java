@@ -24,7 +24,11 @@ public class Logger {
 	 * its caller location)
 	 */
 	public static boolean locate = false;
-	static PrintStream stream;
+
+	/**
+	 * This is where messages are being printed to
+	 */
+	private static PrintStream stream;
 
 	/**
 	 * block is used to load the default settings from file

@@ -13,7 +13,14 @@ import javax.swing.Timer;
  */
 public abstract class Clock implements ActionListener {
 
+	/**
+	 * The timer which is being used to call the action
+	 */
 	private Timer timer;
+
+	/**
+	 * Stores if the timer is currently active
+	 */
 	private boolean active = false;
 
 	/**

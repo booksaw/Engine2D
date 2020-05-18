@@ -43,6 +43,10 @@ public class Level {
 	 */
 	private static HashMap<String, Class<?>> gameObjectTypes;
 
+	/**
+	 * @return a HashMap of all possible game object types (registered sub classes
+	 *         of gameObject)
+	 */
 	public static HashMap<String, Class<?>> getGameObjectTypes() {
 		return gameObjectTypes;
 	}
@@ -81,8 +85,19 @@ public class Level {
 	 */
 	private GameManager manager;
 
+	/**
+	 * Used to store a list of all objects in this level
+	 */
 	private List<GameObject> objects;
+
+	/**
+	 * Stores if the level is currently active or not
+	 */
 	private boolean active = false;
+
+	/**
+	 * The XML file in which all the data is stored
+	 */
 	private File data;
 
 	/**
@@ -117,6 +132,10 @@ public class Level {
 		levelDimensions = new Dimension(1000, 1000);
 	}
 
+	/**
+	 * The level dimensions (objects should not leave these dimensions unless for
+	 * good reason)
+	 */
 	private Dimension levelDimensions;
 
 	/**

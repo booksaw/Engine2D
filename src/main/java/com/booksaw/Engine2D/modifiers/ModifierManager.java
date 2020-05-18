@@ -58,7 +58,7 @@ public class ModifierManager {
 	}
 
 	/**
-	 * Used to save the modifiers
+	 * Used to save the modifiers, used to save in custom format not xml
 	 */
 	public static void saveModifiers() {
 		File f = new File("Engine2D" + File.separator + "modifiers");
@@ -85,6 +85,12 @@ public class ModifierManager {
 
 	}
 
+	/**
+	 * Used to get a specific modifier (cannot be used to get object modifiers)
+	 * 
+	 * @param reference the internal reference of the modifier
+	 * @return the modifier with that reference
+	 */
 	public static Modifier getModifier(String reference) {
 		if (modifiers == null) {
 			loadModifiers();
@@ -93,6 +99,12 @@ public class ModifierManager {
 
 	}
 
+	/**
+	 * Used to add a modifier to the modifier list (do not add object specific
+	 * modifiers)
+	 * 
+	 * @param modifier the new modifier to add to the list
+	 */
 	public static void addModifier(Modifier modifier) {
 		if (modifiers == null) {
 			loadModifiers();

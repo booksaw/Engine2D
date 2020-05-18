@@ -10,6 +10,12 @@ import javax.swing.JComponent;
 
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 
+/**
+ * This class is used to give users a way to select a color as a modifier
+ * 
+ * @author booksaw
+ *
+ */
 public class ColorModifier implements ModifierType, ActionListener {
 
 	private transient Modifier modifier;

@@ -75,11 +75,17 @@ public abstract class Movement {
 	}
 
 	/**
+	 * This is used to store the sprite which is being used in the movement
+	 */
+	protected Sprite sprite;
+
+	/**
 	 * Used to load the information required for this class
 	 * 
 	 * @param information
 	 */
 	public Movement(Sprite sprite, String information) {
+		this.sprite = sprite;
 	}
 
 	/**

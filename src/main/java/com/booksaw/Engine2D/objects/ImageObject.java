@@ -22,14 +22,31 @@ import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
  */
 public class ImageObject extends GameObject implements Updateable {
 
+	/**
+	 * The unique reference for this object type
+	 */
 	protected static String reference = "imageObject";
 
+	/**
+	 * Used to get the unique reference in a static way
+	 * 
+	 * @return the unique reference for this class
+	 */
 	public static String getStaticReference() {
 		return reference;
 	}
 
+	/**
+	 * The animation manager which controls the image rendering
+	 */
 	protected AnimationManager animationManager;
 
+	/**
+	 * Used to load a imageObject from file
+	 * 
+	 * @param manager the game manager which is creating the imageObject
+	 * @param details the reference to the details about this gameObject
+	 */
 	public ImageObject(GameManager gameManager, Element details) {
 		super(gameManager, details);
 
@@ -39,14 +56,13 @@ public class ImageObject extends GameObject implements Updateable {
 
 	}
 
+	/**
+	 * Used to create a new image object with default settings
+	 * 
+	 * @param manager the game manager which is creating the colorObject
+	 */
 	public ImageObject(GameManager manager) {
 		super(manager);
-	}
-
-	public ImageObject(AnimationManager manager, GameManager gameManager) {
-		super(gameManager);
-		this.animationManager = manager;
-		gameManager.addUpdatable(this);
 	}
 
 	@Override

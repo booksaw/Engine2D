@@ -6,6 +6,12 @@ import javax.swing.border.EmptyBorder;
 
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 
+/**
+ * This class is used for selecting double modifiers in the editor
+ * 
+ * @author booksaw
+ *
+ */
 public class DoubleModifier implements ModifierType {
 
 	@Override

@@ -1,4 +1,4 @@
-package main.java.com.booksaw.Engine2D.objects;
+package main.java.com.booksaw.Engine2D.camera;
 
 import java.awt.Rectangle;
 
@@ -69,6 +69,10 @@ public class Camera {
 
 	}
 
+	/**
+	 * This is used to get the Rectangle associated with the camera, useful for checking if an object is on the screen
+	 * @return the hitbox of the camera
+	 */
 	public Rectangle getRectangle() {
 		return new Rectangle((int) x, (int) y, (int) preferredWidth, (int) preferredWidth);
 	}

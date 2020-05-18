@@ -14,7 +14,7 @@ import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 
 /**
- * Used to create an invidiaual animation, a simple class to store data about
+ * Used to create an individual animation, a simple class to store data about
  * the animation
  * 
  * @author booksaw

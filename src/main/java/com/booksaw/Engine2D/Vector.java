@@ -20,6 +20,12 @@ public class Vector {
 		y = 0;
 	}
 
+	/**
+	 * Used to create a new vector with the specified information
+	 * 
+	 * @param x the x value of the vector
+	 * @param y the y value of the vector
+	 */
 	public Vector(double x, double y) {
 		this.x = x;
 		this.y = y;
@@ -118,18 +124,30 @@ public class Vector {
 		y = 0;
 	}
 
+	/**
+	 * @return the x value of the vector
+	 */
 	public double getX() {
 		return x;
 	}
 
+	/**
+	 * @param x the new x value of the vector
+	 */
 	public void setX(double x) {
 		this.x = x;
 	}
 
+	/**
+	 * @return the y value of the vector
+	 */
 	public double getY() {
 		return y;
 	}
 
+	/**
+	 * @param y the new y value of the vector
+	 */
 	public void setY(double y) {
 		this.y = y;
 	}

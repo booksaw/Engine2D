@@ -8,6 +8,12 @@ import javax.swing.JComponent;
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 import main.java.com.booksaw.editor.Constants;
 
+/**
+ * This class is used for selecting boolean modifiers in the editor
+ * 
+ * @author booksaw
+ *
+ */
 public class BooleanModifier implements ModifierType {
 
 	@Override

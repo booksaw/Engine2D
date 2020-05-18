@@ -13,13 +13,17 @@ import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 
 /**
- * this is used to track which keys are pressed at any given point
+ * this is used to track which keys are pressed at any given point, Only a
+ * single instance of this object should be created across the program
  * 
  * @author booksaw
  *
  */
 public class KeyboardManager implements KeyListener {
 
+	/**
+	 * To make the active keyboard manager accessiable across the entire program
+	 */
 	public static KeyboardManager keyboardManager;
 
 	/**

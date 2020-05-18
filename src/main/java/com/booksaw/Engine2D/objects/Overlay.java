@@ -14,7 +14,7 @@ import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
  */
 public abstract class Overlay extends RenderedComponent {
 
-	/*
+	/**
 	 * The location of the component from the top left of the screen.
 	 */
 	int x, y;
@@ -25,6 +25,14 @@ public abstract class Overlay extends RenderedComponent {
 				(int) (y * manager.camera.scale) + manager.camera.offsetY);
 	}
 
+	/**
+	 * This is used to paint the overlay
+	 * 
+	 * @param graphics the graphics to paint to
+	 * @param manager  the manager which created the overlay
+	 * @param x        the scaled x location of the overlay
+	 * @param y        the scaled y location of the overlay
+	 */
 	public abstract void paint(Graphics graphics, GameManager manager, int x, int y);
 
 }

@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.com.booksaw.Engine2D.camera.Camera;
 import main.java.com.booksaw.Engine2D.gameUpdates.UpdateClock;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
 import main.java.com.booksaw.Engine2D.modifiers.ModifierManager;
-import main.java.com.booksaw.Engine2D.objects.Camera;
 import main.java.com.booksaw.Engine2D.rendering.Engine2DFrame;
 import main.java.com.booksaw.Engine2D.rendering.RenderClock;
 import main.java.com.booksaw.Engine2D.rendering.RenderManager;
@@ -60,6 +60,9 @@ public abstract class GameManager {
 	 */
 	public Level level;
 
+	/**
+	 * The standard acceleration due to gravity throughout the level
+	 */
 	public double accelerationGravity;
 
 	/**
@@ -164,14 +167,28 @@ public abstract class GameManager {
 		}
 	}
 
+	/**
+	 * Used to add an updatable to the list of all updatables in this gameManager
+	 * 
+	 * @param update the updatable to add
+	 */
 	public void addUpdatable(Updateable update) {
 		updatables.add(update);
 	}
 
+	/**
+	 * Used to remove an updatabale from the list of all updatables in this
+	 * gameManager
+	 * 
+	 * @param update the updatabale to remove
+	 */
 	public void removeUpdatable(Updateable update) {
 		updatables.remove(update);
 	}
 
+	/**
+	 * @return if the game is currently being updated
+	 */
 	public boolean isUpdating() {
 		return updateClock.isActive();
 	}

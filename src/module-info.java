@@ -9,6 +9,7 @@ module Engine2D {
 	exports main.java.com.booksaw.Engine2D.collision;
 	exports main.java.com.booksaw.Engine2D.modifiers;
 	exports main.java.com.booksaw.Engine2D.modifiers.type;
+	exports main.java.com.booksaw.Engine2D.camera;
 
 	requires transitive java.desktop;
 }

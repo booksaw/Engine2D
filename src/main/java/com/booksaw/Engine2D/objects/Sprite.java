@@ -11,7 +11,6 @@ import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.modifiers.type.DoubleModifier;
 import main.java.com.booksaw.Engine2D.modifiers.type.IntegerModifier;
 import main.java.com.booksaw.Engine2D.objects.movement.Movement;
-import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
 
 /**
  * Class for moving objects
@@ -21,19 +20,31 @@ import main.java.com.booksaw.Engine2D.rendering.animation.AnimationManager;
  */
 public class Sprite extends ImageObject {
 
+	/**
+	 * The unique reference for this object type
+	 */
 	protected static String reference = "sprite";
 
+	/**
+	 * Used to get the unique reference in a static way
+	 * 
+	 * @return the unique reference for this class
+	 */
 	public static String getStaticReference() {
 		return reference;
 	}
 
+	/**
+	 * A list of all the movement types to be applied to this sprite
+	 */
 	private List<Movement> moveSet;
 
-	public Sprite(AnimationManager manager, GameManager gameManager, int player) {
-		super(manager, gameManager);
-		moveSet = new ArrayList<>();
-	}
-
+	/**
+	 * Used to load a sprite from file
+	 * 
+	 * @param manager the game manager which is creating the sprite
+	 * @param details the reference to the details about this gameObject
+	 */
 	public Sprite(GameManager manager, Element details) {
 		super(manager, details);
 
@@ -50,6 +61,11 @@ public class Sprite extends ImageObject {
 
 	}
 
+	/**
+	 * Used to create a new sprite with default settings
+	 * 
+	 * @param manager the game manager which is creating the sprite
+	 */
 	public Sprite(GameManager manager) {
 		super(manager);
 		addModifier("player", "Player number (for determining controls)", 1, new IntegerModifier());
@@ -125,18 +141,32 @@ public class Sprite extends ImageObject {
 		return reference;
 	}
 
+	/**
+	 * This is used to check which player controls tihs sprite is using
+	 * 
+	 * @return which player the sprite is
+	 */
 	public int getPlayer() {
 		return getModifier("player").getIntValue();
 	}
 
+	/**
+	 * @return The maximum speed in the x direction
+	 */
 	public double getMaxSpeedX() {
 		return getModifier("maxSpeedX").getDoubleValue();
 	}
 
+	/**
+	 * @return the maximum speed in the y direction
+	 */
 	public double getMaxSpeedY() {
 		return getModifier("maxSpeedY").getDoubleValue();
 	}
 
+	/**
+	 * @return the maximum modulus speed
+	 */
 	public double getMaxSpeed() {
 		return getModifier("maxSpeed").getDoubleValue();
 	}

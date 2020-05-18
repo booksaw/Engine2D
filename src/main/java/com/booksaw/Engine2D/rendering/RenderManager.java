@@ -21,6 +21,9 @@ public class RenderManager extends JPanel {
 
 	private static final long serialVersionUID = 5739247288558689630L;
 
+	/**
+	 * The game manager which is controlling this render manager
+	 */
 	private GameManager manager;
 
 	/**

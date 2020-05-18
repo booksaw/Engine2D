@@ -36,14 +36,44 @@ import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
  */
 public abstract class GameObject extends RenderedComponent implements Hitbox {
 
+	/**
+	 * This is used to store a list of modifiers, any value which needs storing to
+	 * file should be put in here instead of in a varaible
+	 */
 	private HashMap<String, Modifier> modifiers = new HashMap<>();
 
+	/**
+	 * The current x and y location of the object
+	 */
 	public transient double x, y;
+
+	/**
+	 * The current width and height of the object
+	 */
 	public transient double width, height;
+
+	/**
+	 * Used to store the object that is colliding below and to the left, this is
+	 * used to fix any rounding problems when scaling in the rendering process
+	 */
 	private transient GameObject collisionBottom, collisionLeft;
+
+	/**
+	 * The velocity of the object, unit is pixels per tick
+	 */
 	protected Vector velocity;
+
+	/**
+	 * The game manager which created this object
+	 */
 	protected GameManager manager;
 
+	/**
+	 * Used to create a default object at 0,0, this is used when a new object is
+	 * created
+	 * 
+	 * @param manager the game manager which is creating the object
+	 */
 	public GameObject(GameManager manager) {
 		velocity = new Vector(0, 0);
 		this.manager = manager;
@@ -60,37 +90,12 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		addModifier("angle", "Angle", 0, new RangedDoubleModifier(0, Math.PI * 2));
 	}
 
-	public Modifier addModifier(Element details, String reference, String description) {
-		Modifier modifier = new Modifier(reference, description, details);
-		modifiers.put(reference, modifier);
-		return modifier;
-	}
-
-	public Modifier addModifier(Element details, String reference, String description, ModifierType type) {
-		Modifier modifier = new Modifier(reference, description, details, type);
-		modifiers.put(reference, modifier);
-		return modifier;
-	}
-
-	public Modifier addModifier(String reference, String description, Object value, ModifierType type) {
-		Modifier modifier = new Modifier(reference, value, description, type);
-		modifiers.put(reference, modifier);
-		return modifier;
-	}
-
-	public Modifier getModifier(String reference) {
-		return modifiers.get(reference);
-	}
-
 	/**
-	 * Used to get all modifiers for this object
+	 * This constructor is used when loading a gameObject frame file
 	 * 
-	 * @return a list of all modifiers
+	 * @param manager the gameManager which is creating the object
+	 * @param details the details about the object (the XML element)
 	 */
-	public HashMap<String, Modifier> getModifiers() {
-		return modifiers;
-	}
-
 	public GameObject(GameManager manager, Element details) {
 		this.manager = manager;
 		velocity = new Vector(0, 0);
@@ -108,6 +113,73 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	}
 
+	/**
+	 * This is used to add a new modifier to the list of modifiers
+	 * 
+	 * @param details     where the value of this modifier is saved
+	 * @param reference   the internal reference of the modifier
+	 * @param description the description of the modifier
+	 * @return the modifier, once it has been created
+	 */
+	public Modifier addModifier(Element details, String reference, String description) {
+		Modifier modifier = new Modifier(reference, description, details);
+		modifiers.put(reference, modifier);
+		return modifier;
+	}
+
+	/**
+	 * preferred method of doing it, This is used to add a new modifier to the list
+	 * of modifiers
+	 * 
+	 * @param details     where the value of this modifier is saved
+	 * @param reference   the internal reference of the modifier
+	 * @param description the description of the modifier
+	 * @param type        the type of the modifier, this is used when displaying the
+	 *                    modifier in the editor
+	 * @return the modifier, once it has been created
+	 */
+	public Modifier addModifier(Element details, String reference, String description, ModifierType type) {
+		Modifier modifier = new Modifier(reference, description, details, type);
+		modifiers.put(reference, modifier);
+		return modifier;
+	}
+
+	/**
+	 * This is used to add a modifier to the list which is not saved to file
+	 * 
+	 * @param reference   the internal reference of the modifier
+	 * @param description the description of the modifier
+	 * @param value       the initial value of the modifier
+	 * @param type        the type of the modifier, this is used when displaying the
+	 *                    modifier in the editor
+	 * @return
+	 */
+	public Modifier addModifier(String reference, String description, Object value, ModifierType type) {
+		Modifier modifier = new Modifier(reference, value, description, type);
+		modifiers.put(reference, modifier);
+		return modifier;
+	}
+
+	/**
+	 * @param reference the internal reference of the modifier
+	 * @return the modifier with that reference
+	 */
+	public Modifier getModifier(String reference) {
+		return modifiers.get(reference);
+	}
+
+	/**
+	 * Used to get all modifiers for this object
+	 * 
+	 * @return a list of all modifiers
+	 */
+	public HashMap<String, Modifier> getModifiers() {
+		return modifiers;
+	}
+
+	/**
+	 * Used to store if the object is selected
+	 */
 	public boolean isSelected = false;
 
 	// overriding method to call a more specific paint method
@@ -236,12 +308,26 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		return tx.createTransformedShape(getCollisionBox(translation));
 	}
 
+	/**
+	 * @return The game manager which created this gameObject
+	 */
 	public GameManager getManager() {
 		return manager;
 	}
 
+	/**
+	 * @return The collision box of the shape in its current location
+	 */
 	public abstract Shape getCollisionBox();
 
+	/**
+	 * Used to get the collision box of a hypothesised change (used to check
+	 * collision of the change before the change is carried out)
+	 * 
+	 * @param translation The translation that the object may take (add transation.x
+	 *                    onto x, transation.y onto y)
+	 * @return the collision box of the shape in the proposed location
+	 */
 	public abstract Shape getCollisionBox(Vector translation);
 
 	/**
@@ -259,8 +345,17 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	}
 
+	/**
+	 * Used to get the unique reference of this gameObject type
+	 * 
+	 * @return
+	 */
 	public abstract String getReference();
 
+	/**
+	 * Used to reset the object to its initial location and modifiers, this is done
+	 * by loading the modifiers into variables
+	 */
 	public void reset() {
 		x = getModifier("x").getDoubleValue();
 		y = getModifier("y").getDoubleValue();
@@ -278,7 +373,7 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 	}
 
 	/**
-	 * Only use when initally making the ID
+	 * Only use when initially making the ID
 	 */
 	private void generateID() {
 		String ID = "";
@@ -304,8 +399,22 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		return ID;
 	}
 
+	/**
+	 * The radius of the selection circles (in the cornders of the selection
+	 */
 	public static final int circleR = 5;
 
+	/**
+	 * Used to display the text box style movement controls around the objects
+	 * hitbox
+	 * 
+	 * @param g       the graphics to draw to
+	 * @param manager the
+	 * @param x       the scaled x value
+	 * @param y       the scaled y value
+	 * @param width   the width of the box
+	 * @param height  the height of the box
+	 */
 	public void paintSelection(Graphics g, GameManager manager, int x, int y, int width, int height) {
 
 		g.setColor(Color.WHITE);
@@ -318,50 +427,78 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 
 	}
 
+	/**
+	 * @return the ID of this gameObject
+	 */
 	public String getID() {
 		return getModifier("id").getStringValue();
 	}
 
+	/**
+	 * @return The angle of the game object
+	 */
 	public double getAngle() {
 		return getModifier("angle").getDoubleValue();
 	}
 
+	/**
+	 * @return the start x location of this object
+	 */
 	public double getStartX() {
 		return getModifier("x").getDoubleValue();
 	}
 
+	/**
+	 * @param newX the new start x location of this object
+	 */
 	public void setStartX(double newX) {
 		getModifier("x").setValue(newX);
 	}
 
+	/**
+	 * @return the start y location of this object
+	 */
 	public double getStartY() {
 		return getModifier("y").getDoubleValue();
 	}
 
+	/**
+	 * @param newY the new start y location of this object
+	 */
 	public void setStartY(double newY) {
 		getModifier("y").setValue(newY);
 	}
 
+	/**
+	 * @return The start width of this object
+	 */
 	public double getStartWidth() {
 		return getModifier("width").getDoubleValue();
 	}
 
+	/**
+	 * @param newWidth the new start width of this object
+	 */
 	public void setStartWidth(double newWidth) {
 		getModifier("width").setValue(newWidth);
 	}
 
+	/**
+	 * @return the start height of this object
+	 */
 	public double getStartHeight() {
 		return getModifier("height").getDoubleValue();
 	}
 
+	/**
+	 * @param newHeight the new start height of this object
+	 */
 	public void setStartHeight(double newHeight) {
 		getModifier("height").setValue(newHeight);
 	}
 
 	/**
-	 * This is used to get the logo image for the editor
-	 * 
-	 * @return
+	 * @return the logo image for the editor
 	 */
 	public BufferedImage getImage() {
 		return Utils.loadTransparentImage(new File("Engine2D" + File.separator + "gameObject.png"));

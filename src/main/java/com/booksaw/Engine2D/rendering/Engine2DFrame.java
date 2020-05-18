@@ -17,7 +17,7 @@ import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.modifiers.ModifierManager;
 
 /**
- * This is used to manage the
+ * This is used to manage the main frame within the game
  * 
  * @author booksaw
  *

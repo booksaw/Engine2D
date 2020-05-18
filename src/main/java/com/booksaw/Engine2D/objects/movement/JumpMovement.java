@@ -4,15 +4,28 @@ import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.objects.Sprite;
 
+/**
+ * This class allows sprites which include this movement to have player
+ * controlled jump
+ * 
+ * @author booksaw
+ *
+ */
 public class JumpMovement extends Movement {
 
+	/**
+	 * The reference for this movement type
+	 */
 	protected static String reference = "jump";
 
+	/**
+	 * Used to get the unique reference for this movement type in a static way
+	 * 
+	 * @return the unique reference for this movement
+	 */
 	public static String getStaticReference() {
 		return reference;
 	}
-
-	private Sprite sprite;
 
 	/**
 	 * Used to track the status of jumping -1 means the player can jump. -2 means
@@ -21,12 +34,27 @@ public class JumpMovement extends Movement {
 	 */
 	private transient int ticksJumping = -1;
 
+	/**
+	 * The maximum number of ticks that the player can have gravity disabled (to
+	 * make jumping feel more responsive, while the player holds down the jump key,
+	 * gravity is disabled)
+	 */
 	private int maxJumpTicks = 100;
+
+	/**
+	 * The initial acceleration of the jump, this is only applied a single time per
+	 * jump
+	 */
 	private double accelerationJump;
 
+	/**
+	 * Used to load the jump information from file
+	 * 
+	 * @param sprite      the sprite which this movement is being applied to
+	 * @param information the information ['maxJumpTicks,accelerationJump']
+	 */
 	public JumpMovement(Sprite sprite, String information) {
 		super(sprite, information);
-		this.sprite = sprite;
 		String[] split = information.split(",");
 
 		maxJumpTicks = Integer.parseInt(split[0]);
@@ -34,6 +62,9 @@ public class JumpMovement extends Movement {
 
 	}
 
+	/**
+	 * Used to apply the jump movement
+	 */
 	@Override
 	public void update(Vector velocity) {
 		if (KeyboardManager.keyboardManager.isActive("player." + sprite.getPlayer() + ".up")) {

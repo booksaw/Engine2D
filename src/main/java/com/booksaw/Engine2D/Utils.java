@@ -86,6 +86,13 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Used to get stored boolean values from XML nodes
+	 * 
+	 * @param tag     the tag to get the value of
+	 * @param element the element which includes the tag
+	 * @return the boolean value of the node
+	 */
 	public static boolean getTagBoolean(String tag, Element element) {
 		try {
 			return Boolean.parseBoolean(getTagString(tag, element));
@@ -94,6 +101,13 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Used to get stored double values from XML nodes
+	 * 
+	 * @param tag     the tag to get the value of
+	 * @param element the element which includes the tag
+	 * @return the double value of the node
+	 */
 	public static double getTagDouble(String tag, Element element) {
 		try {
 			return Double.parseDouble(getTagString(tag, element));
@@ -102,6 +116,13 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Used to get stored integer values from XML nodes
+	 * 
+	 * @param tag     the tag to get the value of
+	 * @param element the element which includes the tag
+	 * @return the integer value of the node
+	 */
 	public static int getTagInteger(String tag, Element element) {
 		try {
 			return Integer.parseInt(getTagString(tag, element));
@@ -110,6 +131,15 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Used to save a value to an XML file
+	 * 
+	 * @param reference the reference to the location to save the value (this is the
+	 *                  path from the provided element)
+	 * @param document  the document to save the value to
+	 * @param element   the element of the document to save it to
+	 * @param value     the value that the reference should be set to
+	 */
 	public static void saveValue(String reference, Document document, Element element, String value) {
 		Element ele = document.createElement(reference);
 		ele.appendChild(document.createTextNode(value));

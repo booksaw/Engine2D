@@ -19,12 +19,26 @@ import main.java.com.booksaw.Engine2D.modifiers.type.ColorModifier;
  */
 public class ColorObject extends GameObject {
 
+	/**
+	 * The unique reference for this object type
+	 */
 	protected static String reference = "colorObject";
 
+	/**
+	 * Used to get the unique reference in a static way
+	 * 
+	 * @return the unique reference for this class
+	 */
 	public static String getStaticReference() {
 		return reference;
 	}
 
+	/**
+	 * Used to load a colorObject from file
+	 * 
+	 * @param manager the game manager which is creating the colorObject
+	 * @param details the reference to the details about this gameObject
+	 */
 	public ColorObject(GameManager manager, Element details) {
 		super(manager, details);
 		getModifier("movable").setValue(false);
@@ -32,6 +46,11 @@ public class ColorObject extends GameObject {
 
 	}
 
+	/**
+	 * Used to create a new color object with default settings
+	 * 
+	 * @param manager the game manager which is creating the colorObject
+	 */
 	public ColorObject(GameManager manager) {
 		super(manager);
 		addModifier("rgb", "Object Color", Color.BLACK, new ColorModifier());
@@ -58,6 +77,9 @@ public class ColorObject extends GameObject {
 		return reference;
 	}
 
+	/**
+	 * @return the color of the object (loaded from the modifier)
+	 */
 	private Color getColor() {
 		return getModifier("rgb").getColorValue();
 	}

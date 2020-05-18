@@ -48,6 +48,11 @@ public class AnimationManager {
 	 */
 	private boolean updateSpecificAnimation = true;
 
+	/**
+	 * Used to store all animations for the sprite which is using this animation
+	 * manager, each animation is stored along with a unique identifier for quick
+	 * access
+	 */
 	private HashMap<String, Animation> animations;
 
 	/**
@@ -246,6 +251,9 @@ public class AnimationManager {
 		updateSpecificAnimation = false;
 	}
 
+	/**
+	 * Used to resume the animation after pausing it
+	 */
 	public void resume() {
 		updateSpecificAnimation = (animations.get(activeAnimation).frameCount == 1
 				|| animations.get(activeAnimation).timeGap < 1) ? false : updateAnimation;
@@ -281,16 +289,24 @@ public class AnimationManager {
 		animations.remove(reference);
 	}
 
-	// basic getters and setters
+	/**
+	 * @param frameNumber the new frame number which the animation is on
+	 */
 	public void setFrameNumber(int frameNumber) {
 		this.frameNumber = frameNumber;
 		ticksOnAnimation = 0;
 	}
 
+	/**
+	 * @return if the animation is active or has been paused
+	 */
 	public boolean isUpdatingAnimation() {
 		return updateAnimation;
 	}
 
+	/**
+	 * @param updateAnimation if the animation should be updating
+	 */
 	public void setUpdatingAnimation(boolean updateAnimation) {
 		this.updateAnimation = updateAnimation;
 
@@ -299,22 +315,38 @@ public class AnimationManager {
 				|| animations.get(activeAnimation).timeGap < 1) ? false : updateAnimation;
 	}
 
+	/**
+	 * @return A list of all animations contained within this animation manager
+	 */
 	public HashMap<String, Animation> getAnimations() {
 		return animations;
 	}
 
+	/**
+	 * @param animations the new list of animations to be contained within this
+	 *                   animation manager
+	 */
 	public void setAnimations(HashMap<String, Animation> animations) {
 		this.animations = animations;
 	}
 
+	/**
+	 * @return the reference of the currently rendering animation
+	 */
 	public String getActiveAnimationReference() {
 		return activeAnimation;
 	}
 
+	/**
+	 * @return the animation which is currently rendering (as an Animation class)
+	 */
 	public Animation getActiveAnimation() {
 		return animations.get(activeAnimation);
 	}
 
+	/**
+	 * @return What frame of the animation the animation is currently on
+	 */
 	public int getFrameNumber() {
 		return frameNumber;
 	}

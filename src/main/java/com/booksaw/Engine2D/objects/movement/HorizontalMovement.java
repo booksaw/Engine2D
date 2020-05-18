@@ -5,30 +5,52 @@ import main.java.com.booksaw.Engine2D.input.KeyboardManager;
 import main.java.com.booksaw.Engine2D.objects.Sprite;
 
 /**
- * Used for user controlled horizontal movement (accelerationX,decelerationX)
+ * Used for user controlled horizontal movement (accelerationX, decelerationX)
  * 
  * @author booksaw
  *
  */
 public class HorizontalMovement extends Movement {
 
+	/**
+	 * The reference for this movement type
+	 */
 	protected static String reference = "horizontal";
 
+	/**
+	 * Used to get the unique reference for this movement type in a static way
+	 * 
+	 * @return the unique reference for this movement
+	 */
 	public static String getStaticReference() {
 		return reference;
 	}
 
+	/**
+	 * Constants to affect the speed of acceleraation
+	 * <p>
+	 * Acceleration is done in pixels per tick, check CONFIG to see the length of a
+	 * tick
+	 * </p>
+	 */
 	private double accelerationX, decelerationX;
-	Sprite sprite;
 
+	/**
+	 * Used to load the movement information from file
+	 * 
+	 * @param sprite      the sprite to which this movement applies to
+	 * @param information the information about this movement ['accelerationX,decelerationX']
+	 */
 	public HorizontalMovement(Sprite sprite, String information) {
 		super(sprite, information);
 		String[] split = information.split(",");
 		accelerationX = Double.parseDouble(split[0]);
 		decelerationX = Double.parseDouble(split[1]);
-		this.sprite = sprite;
 	}
 
+	/**
+	 * Used to apply the horizontal motion to the user
+	 */
 	@Override
 	public void update(Vector velocity) {
 		if (KeyboardManager.keyboardManager.isActive("player." + sprite.getPlayer() + ".left")) {
