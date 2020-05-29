@@ -420,4 +420,19 @@ public class Level implements Updateable {
 		}
 	}
 
+	public File getFile() {
+		return data;
+	}
+
+	/**
+	 * This method is used to change the file which stores the level data, this will
+	 * save the current level when the file is changed
+	 * 
+	 * @param data the new file to store information to
+	 */
+	public void setLevelFile(File data) {
+		this.data = data;
+		saveLevel();
+	}
+
 }

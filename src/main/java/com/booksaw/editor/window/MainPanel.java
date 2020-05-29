@@ -4,13 +4,18 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileFilter;
 
+import main.java.com.booksaw.Engine2D.logging.LogType;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.editor.Constants;
 import main.java.com.booksaw.editor.panels.GameObjectList;
 import main.java.com.booksaw.editor.panels.GameObjectSelectorPanel;
@@ -30,10 +35,13 @@ import main.java.test.com.booksaw.platformer2D.PlatformGameManager;
  */
 public class MainPanel implements Window, ActionListener {
 
+	JFrame frame;
+
 	@Override
 	public JPanel getPanel(JFrame frame) {
-		setupMenu(frame);
+		this.frame = frame;
 
+		setupMenu(frame);
 		JPanel panel = new JPanel(new GridLayout());
 
 		panel.setBackground(Constants.mainBackground);
@@ -86,6 +94,42 @@ public class MainPanel implements Window, ActionListener {
 			GamePanel.manager.level.saveLevel();
 			break;
 		case "saveas":
+			JFileChooser chooser = new JFileChooser(GamePanel.manager.level.getFile());
+			chooser.setFileFilter(new FileFilter() {
+
+				@Override
+				public String getDescription() {
+					return "XML files";
+				}
+
+				@Override
+				public boolean accept(File f) {
+					return f.getAbsolutePath().endsWith(".xml");
+				}
+			});
+			int result = chooser.showSaveDialog(frame);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = chooser.getSelectedFile();
+
+				if (!selectedFile.getAbsolutePath().endsWith(".xml")) {
+					System.out.println("running addition");
+					System.out.println(selectedFile.getAbsolutePath());
+					selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
+					System.out.println(selectedFile.getAbsolutePath());
+				}
+
+				if (!selectedFile.exists()) {
+					try {
+						selectedFile.createNewFile();
+
+					} catch (Exception ex) {
+						Logger.Log(LogType.ERROR,
+								"Could not create the new file to store the level to " + selectedFile);
+					}
+				}
+
+				GamePanel.manager.level.setLevelFile(selectedFile);
+			}
 			break;
 		}
 	}
