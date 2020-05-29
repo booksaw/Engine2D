@@ -22,7 +22,7 @@ import main.java.com.booksaw.editor.panels.GamePanel;
  * @author booksaw
  *
  */
-public abstract class GameManager {
+public class GameManager {
 
 	/**
 	 * This is used to track if this is the game which is being currently rendered
@@ -68,11 +68,12 @@ public abstract class GameManager {
 	/**
 	 * Used to setup the program, do not override in sub programs, but instead use
 	 * the initScreen method to carry out any set up
+	 * 
+	 * @param level the file which stores the initial level information
 	 */
-	public GameManager() {
+	public GameManager(File level) {
 
-		// TODO fix
-		level = new Level(this, new File("level1.xml"));
+		this.level = new Level(this, level);
 
 		rendering = false;
 		renderClock = new RenderClock(this);
@@ -93,7 +94,8 @@ public abstract class GameManager {
 	 * This method is run when the game manager is initially created, and should be
 	 * used to setup the level as seen appropriate
 	 */
-	public abstract void initScreen();
+	public void initScreen() {
+	}
 
 	/**
 	 * Checks if this game is rendering

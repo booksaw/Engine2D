@@ -1,5 +1,6 @@
 package main.java.com.booksaw.editor.window;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
+import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.Level;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
@@ -25,7 +27,6 @@ import main.java.com.booksaw.editor.panels.ObjectModifierPanel;
 import main.java.com.booksaw.editor.panels.Subdivision;
 import main.java.com.booksaw.editor.panels.TabbedPane;
 import main.java.com.booksaw.editor.panels.Topbar;
-import main.java.test.com.booksaw.platformer2D.PlatformGameManager;
 
 /**
  * This is the main display frame, this is used to manage most the rendering for
@@ -36,7 +37,12 @@ import main.java.test.com.booksaw.platformer2D.PlatformGameManager;
  */
 public class MainPanel implements Window, ActionListener {
 
-	JFrame frame;
+	private JFrame frame;
+	private GameManager manager;
+
+	public MainPanel(GameManager manager) {
+		this.manager = manager;
+	}
 
 	@Override
 	public JPanel getPanel(JFrame frame) {
@@ -47,7 +53,7 @@ public class MainPanel implements Window, ActionListener {
 
 		panel.setBackground(Constants.mainBackground);
 		// setting up the game panel
-		GamePanel gamePanel = new GamePanel(new PlatformGameManager(), null);
+		GamePanel gamePanel = new GamePanel(manager, null);
 		// setting up the tabbed pane
 		TabbedPane tabbedPane = new TabbedPane(null);
 		tabbedPane.addPanel(new GameObjectList(null), "Objects");
@@ -165,6 +171,11 @@ public class MainPanel implements Window, ActionListener {
 	public void newLevel() {
 		GamePanel.manager.setLevel(new Level(GamePanel.manager));
 		GamePanel.validateAll();
+	}
+
+	@Override
+	public Dimension getStartingSize() {
+		return new Dimension(1280, 720);
 	}
 
 }

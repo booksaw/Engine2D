@@ -126,8 +126,15 @@ public class Level implements Updateable {
 	 * @param data    the data associated with the level
 	 */
 	public Level(GameManager manager, File data) {
-		this.data = data;
+		// if the level file does not exist, create a new level
+
 		this.manager = manager;
+		if (data == null) {
+			Logger.Log(LogType.INFO, "Provided level file is not valid, creating a new level...");
+			createNewLevel();
+			return;
+		}
+		this.data = data;
 		objects = new ArrayList<>();
 		Logger.Log(LogType.INFO, "Loading Level");
 
@@ -176,6 +183,14 @@ public class Level implements Updateable {
 	public Level(GameManager manager) {
 		this.manager = manager;
 
+		createNewLevel();
+	}
+
+	/**
+	 * This should only be used within the constructors, used to setup the level
+	 * like a new one
+	 */
+	private void createNewLevel() {
 		this.data = null;
 		objects = new ArrayList<>();
 		Logger.Log(LogType.INFO, "Creating Level");

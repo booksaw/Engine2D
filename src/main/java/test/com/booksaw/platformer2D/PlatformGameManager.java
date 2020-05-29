@@ -1,8 +1,14 @@
 package main.java.test.com.booksaw.platformer2D;
 
+import java.io.File;
+
 import main.java.com.booksaw.Engine2D.GameManager;
 
 public class PlatformGameManager extends GameManager {
+
+	public PlatformGameManager(File level) {
+		super(level);
+	}
 
 	@Override
 	public void initScreen() {
