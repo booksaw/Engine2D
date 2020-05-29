@@ -3,7 +3,6 @@ package main.java.com.booksaw.editor;
 import main.java.com.booksaw.Engine2D.GameManager;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
 import main.java.com.booksaw.Engine2D.input.KeyboardManager;
-import main.java.com.booksaw.Engine2D.logging.Logger;
 
 /**
  * This class is used to control the camera when the level editor is being
@@ -18,7 +17,6 @@ public class CameraController implements Updateable {
 	private final int speed = 5;
 
 	public CameraController(GameManager manager) {
-		Logger.Log("Adding");
 		Editor2DFrame.clock.addUpdatable(this);
 		this.manager = manager;
 	}

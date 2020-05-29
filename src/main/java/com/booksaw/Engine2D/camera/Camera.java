@@ -70,7 +70,9 @@ public class Camera {
 	}
 
 	/**
-	 * This is used to get the Rectangle associated with the camera, useful for checking if an object is on the screen
+	 * This is used to get the Rectangle associated with the camera, useful for
+	 * checking if an object is on the screen
+	 * 
 	 * @return the hitbox of the camera
 	 */
 	public Rectangle getRectangle() {

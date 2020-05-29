@@ -9,6 +9,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,6 +26,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import main.java.com.booksaw.Engine2D.camera.CameraMovement;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.exception.ClassTypeMismatchException;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
@@ -36,7 +38,7 @@ import main.java.com.booksaw.Engine2D.objects.ImageObject;
 import main.java.com.booksaw.Engine2D.objects.Sprite;
 import main.java.com.booksaw.Engine2D.rendering.RenderedComponent;
 
-public class Level {
+public class Level implements Updateable {
 
 	/**
 	 * Used so all game objects can be tracked
@@ -75,6 +77,7 @@ public class Level {
 
 		if (GameObject.class.isAssignableFrom(gameObjectClass)) {
 			gameObjectTypes.put(reference, gameObjectClass);
+			return;
 		}
 		throw new ClassTypeMismatchException(GameObject.class);
 	}
@@ -89,6 +92,16 @@ public class Level {
 	 * Used to store a list of all objects in this level
 	 */
 	private List<GameObject> objects;
+
+	/**
+	 * Used to store a list of all the camera movements for this level
+	 */
+	private HashMap<Integer, CameraMovement> cameraMovements;
+
+	/**
+	 * Used to store which camera movement is currently being used
+	 */
+	private CameraMovement activeCameraMovement;
 
 	/**
 	 * Stores if the level is currently active or not
@@ -126,6 +139,21 @@ public class Level {
 				createObjectFromData(nodeList.item(i));
 
 			}
+
+			nodeList = doc.getElementsByTagName("cameraMove");
+			Logger.Log(LogType.INFO, "Loading " + nodeList.getLength() + " cameraMove.");
+			cameraMovements = new HashMap<>();
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				CameraMovement movement = CameraMovement.createObjectFromData(manager, nodeList.item(i));
+				if (movement != null) {
+					addCameraMovement(movement);
+				}
+			}
+
+			Node node = doc.getElementById("settings");
+			Logger.Log(LogType.INFO, "Loading " + nodeList.getLength() + " cameraMove.");
+			activeCameraMovement = getCameraMovement(Utils.getTagInteger("activeCameraMovement", (Element) node));
+
 		} catch (SAXException | ParserConfigurationException | IOException e1) {
 			Logger.Log(LogType.ERROR, "Could not load level file " + data);
 		}
@@ -212,6 +240,8 @@ public class Level {
 				manager.addUpdatable((Updateable) object);
 			}
 		}
+		manager.addUpdatable(this);
+
 		// sorting the list
 		manager.renderManager.sortComponents();
 		active = true;
@@ -228,6 +258,8 @@ public class Level {
 				manager.removeUpdatable((Updateable) object);
 			}
 		}
+		manager.removeUpdatable(this);
+
 		// sorting the list
 		manager.renderManager.sortComponents();
 		active = false;
@@ -276,6 +308,18 @@ public class Level {
 				level.appendChild(objectEle);
 
 			}
+
+			for (Entry<Integer, CameraMovement> movement : cameraMovements.entrySet()) {
+				Element movementEle = document.createElement("cameraMove");
+				movement.getValue().save(movementEle, document);
+				level.appendChild(movementEle);
+
+			}
+
+			Element settings = document.createElement("settings");
+			Utils.saveValue("activeCameraMovement", document, settings, activeCameraMovement.getID() + "");
+			level.appendChild(settings);
+
 			// create the xml file
 			// transform the DOM Object to an XML File
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -345,6 +389,21 @@ public class Level {
 
 	public void setLevelDimensions(Dimension levelDimensions) {
 		this.levelDimensions = levelDimensions;
+	}
+
+	public void addCameraMovement(CameraMovement movement) {
+		cameraMovements.put(movement.getID(), movement);
+	}
+
+	public CameraMovement getCameraMovement(int id) {
+		return cameraMovements.get(id);
+	}
+
+	@Override
+	public void update(int time) {
+		if (activeCameraMovement != null) {
+			activeCameraMovement.update(time);
+		}
 	}
 
 }

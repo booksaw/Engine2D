@@ -95,7 +95,7 @@ public class RenderManager extends JPanel {
 		g.fillRect(manager.camera.offsetX, manager.camera.offsetY, (int) manager.camera.width,
 				(int) manager.camera.height);
 
-		for (RenderedComponent component : components) {
+		for (RenderedComponent component : new ArrayList<RenderedComponent>(components)) {
 			component.paint(g, manager);
 		}
 		// adding black bars to cover up the offset (adding 5 for any slight rounding
