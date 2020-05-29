@@ -43,6 +43,7 @@ public abstract class CameraMovement implements Updateable {
 	static {
 		movementTypes = new HashMap<>();
 		addMovement("auto", AutoCamera.class);
+		addMovement("static", StaticCamera.class);
 	}
 
 	/**
