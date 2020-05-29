@@ -92,10 +92,13 @@ public abstract class CameraMovement implements Updateable {
 
 	public void save(Element movementEle, Document document) {
 		Utils.saveValue("id", document, movementEle, id + "");
+		Utils.saveValue("type", document, movementEle, getType());
 
 		saveValues(movementEle, document);
 	}
 
 	public abstract void saveValues(Element movementEle, Document document);
+
+	public abstract String getType();
 
 }

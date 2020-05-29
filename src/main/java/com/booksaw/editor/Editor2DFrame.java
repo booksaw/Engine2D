@@ -77,7 +77,7 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 	}
 
 	public static void setWindow(Window window) {
-		editorFrame.setContentPane(window.getPanel());
+		editorFrame.setContentPane(window.getPanel(editorFrame));
 		editorFrame.validate();
 	}
 

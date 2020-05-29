@@ -36,4 +36,9 @@ public class AutoCamera extends CameraMovement {
 
 	}
 
+	@Override
+		public String getType() {
+			return "auto";
+		}
+	
 }

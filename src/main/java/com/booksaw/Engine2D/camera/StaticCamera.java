@@ -25,4 +25,9 @@ public class StaticCamera extends CameraMovement {
 	public void saveValues(Element movementEle, Document document) {
 	}
 
+	@Override
+	public String getType() {
+		return "static";
+	}
+
 }

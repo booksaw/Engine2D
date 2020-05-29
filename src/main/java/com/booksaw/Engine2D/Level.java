@@ -104,6 +104,11 @@ public class Level implements Updateable {
 	private CameraMovement activeCameraMovement;
 
 	/**
+	 * Used to store the initial camera movement for the level
+	 */
+	private int startingCameraMovement;
+
+	/**
 	 * Stores if the level is currently active or not
 	 */
 	private boolean active = false;
@@ -150,14 +155,22 @@ public class Level implements Updateable {
 				}
 			}
 
-			Node node = doc.getElementById("settings");
-			Logger.Log(LogType.INFO, "Loading " + nodeList.getLength() + " cameraMove.");
-			activeCameraMovement = getCameraMovement(Utils.getTagInteger("activeCameraMovement", (Element) node));
+			nodeList = doc.getElementsByTagName("settings");
+			Logger.Log(LogType.INFO, "Loading " + nodeList.getLength() + " settings.");
+			for (int i = 0; i < nodeList.getLength(); i++) {
+				loadSettings(nodeList.item(i));
+			}
 
 		} catch (SAXException | ParserConfigurationException | IOException e1) {
 			Logger.Log(LogType.ERROR, "Could not load level file " + data);
 		}
 		levelDimensions = new Dimension(1000, 1000);
+	}
+
+	private void loadSettings(Node node) {
+		startingCameraMovement = Utils.getTagInteger("activeCameraMovement", (Element) node);
+		activeCameraMovement = getCameraMovement(startingCameraMovement);
+
 	}
 
 	/**
@@ -344,6 +357,7 @@ public class Level implements Updateable {
 	 * Moves each object back to the starting position
 	 */
 	public void reset() {
+		activeCameraMovement = getCameraMovement(startingCameraMovement);
 		for (GameObject object : objects) {
 			object.reset();
 		}
