@@ -94,43 +94,50 @@ public class MainPanel implements Window, ActionListener {
 			GamePanel.manager.level.saveLevel();
 			break;
 		case "saveas":
-			JFileChooser chooser = new JFileChooser(GamePanel.manager.level.getFile());
-			chooser.setFileFilter(new FileFilter() {
-
-				@Override
-				public String getDescription() {
-					return "XML files";
-				}
-
-				@Override
-				public boolean accept(File f) {
-					return f.getAbsolutePath().endsWith(".xml");
-				}
-			});
-			int result = chooser.showSaveDialog(frame);
-			if (result == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = chooser.getSelectedFile();
-
-				if (!selectedFile.getAbsolutePath().endsWith(".xml")) {
-					System.out.println("running addition");
-					System.out.println(selectedFile.getAbsolutePath());
-					selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
-					System.out.println(selectedFile.getAbsolutePath());
-				}
-
-				if (!selectedFile.exists()) {
-					try {
-						selectedFile.createNewFile();
-
-					} catch (Exception ex) {
-						Logger.Log(LogType.ERROR,
-								"Could not create the new file to store the level to " + selectedFile);
-					}
-				}
-
-				GamePanel.manager.level.setLevelFile(selectedFile);
-			}
+			saveAs();
 			break;
+		}
+	}
+
+	/**
+	 * This is used to save the file as, it has been seperated into a seperate
+	 * method for improved code readability
+	 */
+	public void saveAs() {
+		JFileChooser chooser = new JFileChooser(GamePanel.manager.level.getFile());
+		chooser.setFileFilter(new FileFilter() {
+
+			@Override
+			public String getDescription() {
+				return "XML files";
+			}
+
+			@Override
+			public boolean accept(File f) {
+				return f.getAbsolutePath().endsWith(".xml");
+			}
+		});
+		int result = chooser.showSaveDialog(frame);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = chooser.getSelectedFile();
+
+			if (!selectedFile.getAbsolutePath().endsWith(".xml")) {
+				System.out.println("running addition");
+				System.out.println(selectedFile.getAbsolutePath());
+				selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
+				System.out.println(selectedFile.getAbsolutePath());
+			}
+
+			if (!selectedFile.exists()) {
+				try {
+					selectedFile.createNewFile();
+
+				} catch (Exception ex) {
+					Logger.Log(LogType.ERROR, "Could not create the new file to store the level to " + selectedFile);
+				}
+			}
+
+			GamePanel.manager.level.setLevelFile(selectedFile);
 		}
 	}
 
