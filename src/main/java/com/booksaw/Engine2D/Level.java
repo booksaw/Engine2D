@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import main.java.com.booksaw.Engine2D.camera.CameraMovement;
+import main.java.com.booksaw.Engine2D.camera.StaticCamera;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.exception.ClassTypeMismatchException;
 import main.java.com.booksaw.Engine2D.gameUpdates.Updateable;
@@ -167,10 +168,39 @@ public class Level implements Updateable {
 		levelDimensions = new Dimension(1000, 1000);
 	}
 
+	/**
+	 * This is used to create a new level
+	 * 
+	 * @param manager the game manager which will run the level
+	 */
+	public Level(GameManager manager) {
+		this.manager = manager;
+
+		this.data = null;
+		objects = new ArrayList<>();
+		Logger.Log(LogType.INFO, "Creating Level");
+
+		cameraMovements = new HashMap<>();
+		addCameraMovement(new StaticCamera(manager, 0));
+
+		loadDefaultSettings();
+
+		levelDimensions = new Dimension(1000, 1000);
+	}
+
 	private void loadSettings(Node node) {
 		startingCameraMovement = Utils.getTagInteger("activeCameraMovement", (Element) node);
 		activeCameraMovement = getCameraMovement(startingCameraMovement);
 
+	}
+
+	/**
+	 * This method is used when a new level is created to load the default values
+	 * into settings
+	 */
+	private void loadDefaultSettings() {
+		startingCameraMovement = 0;
+		activeCameraMovement = getCameraMovement(startingCameraMovement);
 	}
 
 	/**
@@ -433,6 +463,16 @@ public class Level implements Updateable {
 	public void setLevelFile(File data) {
 		this.data = data;
 		saveLevel();
+	}
+
+	/**
+	 * Used to check if there is a storage file for this level, if there is not, you
+	 * should set the level file (see MainPanel.saveAs)
+	 * 
+	 * @return if there is a file to save data to
+	 */
+	public boolean hasFile() {
+		return (data != null);
 	}
 
 }

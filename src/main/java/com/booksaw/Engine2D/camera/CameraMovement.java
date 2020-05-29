@@ -75,7 +75,7 @@ public abstract class CameraMovement implements Updateable {
 	}
 
 	protected GameManager manager;
-	private int id;
+	protected int id;
 
 	public CameraMovement(GameManager manager, Element info) {
 		id = Utils.getTagInteger("id", info);

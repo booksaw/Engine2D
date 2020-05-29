@@ -47,6 +47,12 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		}
 	}
 
+	public static void validateAll() {
+		for (GamePanel panel : panels) {
+			panel.panel.revalidate();
+		}
+	}
+
 	public static void setActiveRender(GameManager manager) {
 		GamePanel.manager = manager;
 

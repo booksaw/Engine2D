@@ -193,4 +193,23 @@ public abstract class GameManager {
 		return updateClock.isActive();
 	}
 
+	/**
+	 * This method is used to set the level that the game manager is displaying
+	 * 
+	 * @param level
+	 */
+	public void setLevel(Level level) {
+
+		this.level = level;
+		level.activateLevel();
+
+		renderManager = new RenderManager(this);
+
+		initScreen();
+
+		if (isRendering()) {
+			setRendering(true);
+		}
+	}
+
 }

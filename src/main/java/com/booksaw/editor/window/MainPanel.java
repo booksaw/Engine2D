@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
+import main.java.com.booksaw.Engine2D.Level;
 import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.editor.Constants;
@@ -83,6 +84,11 @@ public class MainPanel implements Window, ActionListener {
 		saveas.addActionListener(this);
 		menu.add(saveas);
 
+		JMenuItem newLevel = new JMenuItem("New Level");
+		newLevel.setActionCommand("new");
+		newLevel.addActionListener(this);
+		menu.add(newLevel);
+
 		frame.setJMenuBar(bar);
 	}
 
@@ -91,20 +97,34 @@ public class MainPanel implements Window, ActionListener {
 
 		switch (e.getActionCommand()) {
 		case "save":
-			GamePanel.manager.level.saveLevel();
+			if (GamePanel.manager.level.hasFile()) {
+				GamePanel.manager.level.saveLevel();
+			} else {
+				saveAs();
+			}
+
 			break;
 		case "saveas":
 			saveAs();
+			break;
+		case "new":
+			newLevel();
 			break;
 		}
 	}
 
 	/**
-	 * This is used to save the file as, it has been seperated into a seperate
+	 * This is used to save the file as, it has been separated into a separate
 	 * method for improved code readability
 	 */
 	public void saveAs() {
-		JFileChooser chooser = new JFileChooser(GamePanel.manager.level.getFile());
+
+		JFileChooser chooser;
+		if (GamePanel.manager.level.hasFile()) {
+			chooser = new JFileChooser(GamePanel.manager.level.getFile());
+		} else {
+			chooser = new JFileChooser(new File(System.getProperty("user.dir")));
+		}
 		chooser.setFileFilter(new FileFilter() {
 
 			@Override
@@ -122,10 +142,7 @@ public class MainPanel implements Window, ActionListener {
 			File selectedFile = chooser.getSelectedFile();
 
 			if (!selectedFile.getAbsolutePath().endsWith(".xml")) {
-				System.out.println("running addition");
-				System.out.println(selectedFile.getAbsolutePath());
 				selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
-				System.out.println(selectedFile.getAbsolutePath());
 			}
 
 			if (!selectedFile.exists()) {
@@ -139,6 +156,15 @@ public class MainPanel implements Window, ActionListener {
 
 			GamePanel.manager.level.setLevelFile(selectedFile);
 		}
+	}
+
+	/**
+	 * This is used to save the file as, it has been separated into a separate
+	 * method for improved code readability
+	 */
+	public void newLevel() {
+		GamePanel.manager.setLevel(new Level(GamePanel.manager));
+		GamePanel.validateAll();
 	}
 
 }
