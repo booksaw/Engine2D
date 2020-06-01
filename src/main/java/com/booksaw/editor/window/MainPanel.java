@@ -95,6 +95,12 @@ public class MainPanel implements Window, ActionListener {
 		newLevel.addActionListener(this);
 		menu.add(newLevel);
 
+		JMenuItem loadLevel = new JMenuItem("Load Level");
+		loadLevel.setActionCommand("load");
+		loadLevel.addActionListener(this);
+		menu.add(loadLevel);
+
+
 		frame.setJMenuBar(bar);
 	}
 
@@ -116,6 +122,9 @@ public class MainPanel implements Window, ActionListener {
 		case "new":
 			newLevel();
 			break;
+		case "load":
+			LaunchWindow.load(frame);
+			break; 
 		}
 	}
 

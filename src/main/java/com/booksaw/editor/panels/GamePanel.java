@@ -336,7 +336,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			return;
 		}
 
-		// moving the cursor to the locaiton inside the object
+		// moving the cursor to the location inside the object
 		cursor.x = (int) (cursor.x - o.x);
 		cursor.y = (int) (cursor.y - o.y);
 

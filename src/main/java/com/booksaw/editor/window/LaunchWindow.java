@@ -1,6 +1,7 @@
 package main.java.com.booksaw.editor.window;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -77,7 +78,7 @@ public class LaunchWindow implements Window, ActionListener {
 			Editor2DFrame.setWindow(new MainPanel(new GameManager(null)));
 			break;
 		case "load":
-			load();
+			load(frame);
 			return;
 		case "wiki":
 			Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
@@ -100,8 +101,10 @@ public class LaunchWindow implements Window, ActionListener {
 	/**
 	 * This is used to save the file as, it has been separated into a separate
 	 * method for improved code readability
+	 * 
+	 * @param frame the parent component for the file chooser
 	 */
-	public void load() {
+	public static void load(Component frame) {
 
 		JFileChooser chooser = new JFileChooser(new File(System.getProperty("user.dir")));
 		chooser.setFileFilter(new FileFilter() {
