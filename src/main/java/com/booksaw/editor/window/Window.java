@@ -9,5 +9,13 @@ public interface Window {
 
 	public JPanel getPanel(JFrame frame);
 
+	/**
+	 * @return the starting size of the JFrame
+	 */
 	public Dimension getStartingSize();
+
+	/**
+	 * @return if the window should be able to be resized
+	 */
+	public boolean canResize();
 }

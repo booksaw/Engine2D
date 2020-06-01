@@ -1,17 +1,24 @@
 package main.java.com.booksaw.editor.window;
 
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
 import main.java.com.booksaw.Engine2D.GameManager;
+import main.java.com.booksaw.Engine2D.logging.LogType;
+import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.editor.Constants;
 import main.java.com.booksaw.editor.Editor2DFrame;
 
@@ -22,18 +29,38 @@ public class LaunchWindow implements Window, ActionListener {
 	@Override
 	public JPanel getPanel(JFrame frame) {
 		this.frame = frame;
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel(null);
 		panel.setBackground(Constants.mainBackground);
+
+		JLabel icon = new JLabel(new ImageIcon(Constants.fullIcon));
+		icon.setBounds(350, 50, 300, 300);
+		panel.add(icon);
 
 		JButton loadLevel = new JButton("Load project");
 		loadLevel.addActionListener(this);
 		loadLevel.setActionCommand("load");
+		loadLevel.setBounds(10, 100, 165, 25);
+
+		loadLevel.setBackground(Color.white);
 		panel.add(loadLevel);
 
 		JButton newLevel = new JButton("New project");
 		newLevel.addActionListener(this);
 		newLevel.setActionCommand("new");
+		newLevel.setBounds(10, 150, 165, 25);
 		panel.add(newLevel);
+
+		JButton wiki = new JButton("Wiki");
+		wiki.addActionListener(this);
+		wiki.setActionCommand("wiki");
+		wiki.setBounds(10, 200, 165, 25);
+		panel.add(wiki);
+
+		JButton exit = new JButton("Quit");
+		exit.addActionListener(this);
+		exit.setActionCommand("quit");
+		exit.setBounds(10, 250, 165, 25);
+		panel.add(exit);
 
 		return panel;
 	}
@@ -52,6 +79,21 @@ public class LaunchWindow implements Window, ActionListener {
 		case "load":
 			load();
 			return;
+		case "wiki":
+			Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+			if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+				try {
+					URL url = new URL("https://github.com/booksaw/Engine2D/wiki");
+					desktop.browse(url.toURI());
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			break;
+		case "quit":
+			Logger.Log(LogType.INFO, "System closing...");
+			System.exit(0);
+			break;
 		}
 	}
 
@@ -80,6 +122,11 @@ public class LaunchWindow implements Window, ActionListener {
 			File selectedFile = chooser.getSelectedFile();
 			Editor2DFrame.setWindow(new MainPanel(new GameManager(selectedFile)));
 		}
+	}
+
+	@Override
+	public boolean canResize() {
+		return true;
 	}
 
 }

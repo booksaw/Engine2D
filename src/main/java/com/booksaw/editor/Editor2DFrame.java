@@ -38,6 +38,7 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 		}
 		editorFrame = new JFrame();
 		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		editorFrame.setIconImage(Constants.smallIcon);
 
 		// setting the name of the frame to the determined one
 		editorFrame.setTitle("Engine2D");
@@ -45,7 +46,7 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 		editorFrame.setLocationRelativeTo(null);
 		editorFrame.addKeyListener(new KeyboardManager());
 		editorFrame.setMinimumSize(new Dimension(300, 300));
-		KeyboardManager.keyboardManager.load(new File("platformer2D" + File.separator + "keymappings"));
+		KeyboardManager.keyboardManager.load(new File(CONFIG.assetPath + File.separator + "keymappings"));
 
 		// adding listeners
 		MouseListener listener = new MouseListener();
@@ -78,6 +79,7 @@ public class Editor2DFrame implements ComponentListener, WindowListener {
 
 	public static void setWindow(Window window) {
 		editorFrame.setSize(window.getStartingSize());
+		editorFrame.setResizable(window.canResize());
 		editorFrame.setLocationRelativeTo(null);
 		editorFrame.setContentPane(window.getPanel(editorFrame));
 		editorFrame.validate();

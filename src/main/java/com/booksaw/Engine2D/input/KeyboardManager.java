@@ -148,6 +148,7 @@ public class KeyboardManager implements KeyListener {
 	 * @param file the file in which the key mappings are stored in
 	 */
 	public void load(File file) {
+		
 		// checking if the file exists
 		if (!file.exists()) {
 			Logger.Log(LogType.ERROR, "Tried to save KeyMappings but the file provided did not exist");

@@ -24,5 +24,5 @@ public class CONFIG {
 	/**
 	 * A path to all assets of the program
 	 */
-	public static String assetPath = "platformer2D" + File.separator;
+	public static String assetPath = "assets" + File.separator;
 }

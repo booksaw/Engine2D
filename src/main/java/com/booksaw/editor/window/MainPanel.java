@@ -178,4 +178,9 @@ public class MainPanel implements Window, ActionListener {
 		return new Dimension(1280, 720);
 	}
 
+	@Override
+	public boolean canResize() {
+		return true;
+	}
+
 }
