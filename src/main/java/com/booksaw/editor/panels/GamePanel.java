@@ -135,7 +135,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			Point p = e.getPoint();
 			p.x = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
 			p.y = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
-					+ manager.camera.x);
+					+ manager.camera.y);
 			GameObject o = manager.level.getColliding(new Rectangle(p, new Dimension(1, 1)), null);
 			if (o == null) {
 				// resetting the mouse function
@@ -150,7 +150,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 			Point p = e.getPoint();
 			p.x = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
 			p.y = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
-					+ manager.camera.x);
+					+ manager.camera.y);
 			GameObject o = manager.level.getColliding(new Rectangle(p, new Dimension(1, 1)), null);
 			if (o == null) {
 				// resetting the mouse function
@@ -173,7 +173,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		Point start = e.getPoint();
 		startx = (int) (((start.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
 		starty = (int) (((manager.camera.height - (start.y + manager.camera.offsetY)) / manager.camera.scale)
-				+ manager.camera.x);
+				+ manager.camera.y);
 	}
 
 	@Override
@@ -212,7 +212,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		Point p = e.getPoint();
 		double px = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
 		double py = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
-				+ manager.camera.x);
+				+ manager.camera.y);
 		if (panel.getCursor().getType() == defaultCursor.getType()) {
 			panel.getParent().dispatchEvent(e);
 			return;
@@ -326,7 +326,7 @@ public class GamePanel extends Panel implements ComponentListener, MouseListener
 		Point p = e.getPoint();
 		p.x = (int) (((p.x - manager.camera.offsetX) / manager.camera.scale) + manager.camera.x);
 		p.y = (int) (((manager.camera.height - (p.y + manager.camera.offsetY)) / manager.camera.scale)
-				+ manager.camera.x);
+				+ manager.camera.y);
 		Rectangle cursor = new Rectangle(p, new Dimension(1, 1));
 		GameObject o = manager.level.getColliding(cursor, null);
 
