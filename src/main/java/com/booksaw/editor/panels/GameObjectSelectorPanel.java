@@ -22,6 +22,7 @@ import main.java.com.booksaw.Engine2D.logging.LogType;
 import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.objects.GameObject;
 import main.java.com.booksaw.editor.Constants;
+import main.java.com.booksaw.editor.SelectionManager;
 
 public class GameObjectSelectorPanel extends Panel implements MouseListener {
 
@@ -78,6 +79,7 @@ public class GameObjectSelectorPanel extends Panel implements MouseListener {
 		String name = ((JPanel) e.getSource()).getName();
 		GameObject object = createObject(name, GamePanel.manager);
 		GamePanel.manager.level.addObject(object);
+		SelectionManager.select(object);
 
 		GameObjectList.gameObjectList.update();
 	}
@@ -111,6 +113,8 @@ public class GameObjectSelectorPanel extends Panel implements MouseListener {
 		try {
 			Constructor<?> construct = theClass.getDeclaredConstructor(new Class[] { GameManager.class });
 			GameObject object = (GameObject) construct.newInstance(manager);
+			object.setStartX(GamePanel.manager.camera.x);
+			object.reset();
 			return object;
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {

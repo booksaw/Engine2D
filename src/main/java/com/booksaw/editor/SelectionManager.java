@@ -32,10 +32,19 @@ public class SelectionManager {
 		return selected;
 	}
 
+	/**
+	 * This is used to select a single object (this will by default update the object list tree)
+	 * @param object the object to select
+	 */
 	static public void select(GameObject object) {
 		select(object, true);
 	}
 
+	/**
+	 * This is used to select a single object
+	 * @param object the object to select
+	 * @param updateTree if the object list tree should be updated 
+	 */
 	static public void select(GameObject object, boolean updateTree) {
 		clearSelection();
 		object.isSelected = true;

@@ -17,7 +17,6 @@ import main.java.com.booksaw.Engine2D.Utils;
 import main.java.com.booksaw.Engine2D.Vector;
 import main.java.com.booksaw.Engine2D.collision.CollisionManager;
 import main.java.com.booksaw.Engine2D.collision.Hitbox;
-import main.java.com.booksaw.Engine2D.logging.Logger;
 import main.java.com.booksaw.Engine2D.modifiers.Modifier;
 import main.java.com.booksaw.Engine2D.modifiers.type.BooleanModifier;
 import main.java.com.booksaw.Engine2D.modifiers.type.DoubleModifier;
@@ -379,7 +378,6 @@ public abstract class GameObject extends RenderedComponent implements Hitbox {
 		String ID = "";
 		int i = 0;
 		do {
-			Logger.Log(getReference() + i + " = " + manager.level.getObject(getReference() + i, this));
 			if (manager.level.getObject(getReference() + i, this) == null) {
 				ID = getReference() + i;
 			}
