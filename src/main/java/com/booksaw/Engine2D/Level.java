@@ -172,7 +172,6 @@ public class Level implements Updateable {
 		} catch (SAXException | ParserConfigurationException | IOException e1) {
 			Logger.Log(LogType.ERROR, "Could not load level file " + data);
 		}
-		levelDimensions = new Dimension(1000, 1000);
 	}
 
 	/**
@@ -200,13 +199,13 @@ public class Level implements Updateable {
 
 		loadDefaultSettings();
 
-		levelDimensions = new Dimension(1000, 1000);
 	}
 
 	private void loadSettings(Node node) {
 		startingCameraMovement = Utils.getTagInteger("activeCameraMovement", (Element) node);
 		activeCameraMovement = getCameraMovement(startingCameraMovement);
-
+		levelDimensions = new Dimension(Utils.getTagInteger("levelWidth", (Element) node),
+				Utils.getTagInteger("levelHeight", (Element) node));
 	}
 
 	/**
@@ -216,6 +215,8 @@ public class Level implements Updateable {
 	private void loadDefaultSettings() {
 		startingCameraMovement = 0;
 		activeCameraMovement = getCameraMovement(startingCameraMovement);
+		// TODO
+		levelDimensions = new Dimension(1000, 1000);
 	}
 
 	/**
@@ -376,6 +377,8 @@ public class Level implements Updateable {
 
 			Element settings = document.createElement("settings");
 			Utils.saveValue("activeCameraMovement", document, settings, activeCameraMovement.getID() + "");
+			Utils.saveValue("levelWidth", document, settings, levelDimensions.width + "");
+			Utils.saveValue("levelHeight", document, settings, levelDimensions.height + "");
 			level.appendChild(settings);
 
 			// create the xml file

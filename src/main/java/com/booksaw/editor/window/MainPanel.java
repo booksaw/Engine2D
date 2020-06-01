@@ -100,7 +100,6 @@ public class MainPanel implements Window, ActionListener {
 		loadLevel.addActionListener(this);
 		menu.add(loadLevel);
 
-
 		frame.setJMenuBar(bar);
 	}
 
@@ -124,7 +123,7 @@ public class MainPanel implements Window, ActionListener {
 			break;
 		case "load":
 			LaunchWindow.load(frame);
-			break; 
+			break;
 		}
 	}
 
