@@ -72,12 +72,13 @@ public class GameObjectSelectorPanel extends Panel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// not associated with this class
-		if (!(e.getSource() instanceof JPanel)) {
+		if (!(e.getSource() instanceof JPanel) || e.getSource() == getPanel()) {
 			return;
 		}
 
 		String name = ((JPanel) e.getSource()).getName();
 		GameObject object = createObject(name, GamePanel.manager);
+
 		GamePanel.manager.level.addObject(object);
 		SelectionManager.select(object);
 
@@ -117,8 +118,9 @@ public class GameObjectSelectorPanel extends Panel implements MouseListener {
 			object.reset();
 			return object;
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException e) {
-			Logger.Log(LogType.ERROR, "Could not create an instance of the class: " + theClass);
+				| NoSuchMethodException | SecurityException | NullPointerException e) {
+			Logger.Log(LogType.ERROR,
+					"Could not create an instance of the class: " + theClass + " with the reference " + reference);
 			Logger.Log(LogType.ERROR, e.toString());
 			Logger.Log(LogType.ERROR, e.getStackTrace() + "");
 			return null;
